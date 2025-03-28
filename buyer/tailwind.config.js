@@ -11,13 +11,19 @@ export const theme = {
       "foundation-orange": "#E65800",
       ...colors,
       defaultOrange: "#14199C",
+      defaultBlue: "#14199C",
       defaultOrangeHover: "#b74600",
       secondaryOrange: "#FFF1E9",
       primaryBorder: "#DED9DD",
       secondaryTextColor: "#585858",
     },
-    fontFamily: {
-      "work-sans": ["var(--font-work-sans)"],
+    screens: {
+      xs: "320px",
+      sm: "425px",
+      md: "768px",
+      lg: "992px",
+      xl: "1150px",
+      "2xl": "1536px",
     },
   },
 };

@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 
 import { useRouter } from "next/navigation";
 
-export default function HomeCarousel() {
+export default function HeroSection() {
   const router = useRouter();
 
   const handleGotoSellerDashboard = () => {

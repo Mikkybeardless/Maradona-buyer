@@ -64,14 +64,14 @@ export default function Footer() {
             <p className="font-semibold text-white text-start text-lg md:text-xl mb-2">
               Subscribe to our Newsletter
             </p>
-            <div className="flex bg-white p-1 h-[60px]">
+            <div className="flex rounded-lg bg-white p-1 h-[60px]">
               <input
                 className="outline-none w-full sm:w-[70%] bg-white border-none p-3 rounded text-sm md:text-base"
                 type="email"
                 placeholder="Email"
               />
-              <button className="rounded-lg px-10 sm:px-16 py-1 sm:py-1 text-white text-sm md:text-base bg-defaultOrange hover:bg-defaultOrangeHover">
-                Subscribe now
+              <button className="rounded-lg px-10 sm:px-16 py-1 sm:py-1 text-white text-sm md:text-base hover:bg-defaultOrange bg-[#E65800]">
+                Subscribe
               </button>
             </div>
           </div>

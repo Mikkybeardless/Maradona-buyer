@@ -1,27 +1,31 @@
-import { Navbar } from '@/app/_components/navbar/navbar';
-import { ArrowDown2, SearchNormal1 } from 'iconsax-react';
-import Image from 'next/image';
-import logo from '@/app/_assets/images/logo.png';
+import CategorySideBar from "@/app/_components/CategoriesSideBar";
+import NavSection from "@/app/_components/home/NavSection";
 
 export default function Layout({ children }) {
-	return (
-		<section>
-			<div className=''>
-				<Navbar />
-				<section id='top' className='flex items-center justify-between mb-7 mx-auto w-10/12 max-w-[75rem] bg-white'>
-					<Image src={logo} width={164} height={65} alt='logo' className='' />
-					<div className='flex items-center px-5 py-3 rounded-lg gap-3 border border-[#DED9DD]'>
-						<p>Categories</p>
-						<ArrowDown2 size={20} />
-					</div>
-					<div className='w-[40rem] flex gap-3 items-center px-4 py-3 bg-white border border-[#DED9DD] rounded-lg'>
-						<SearchNormal1 size={24} />
-						<input type='search' className='w-full outline-none text-sm' placeholder='Property type, location, price range' />
-					</div>
-					<button className='bg-foundation-orange text-white rounded-lg px-4 py-3'>Become a seller</button>
-				</section>
-				{children}
-			</div>
-		</section>
-	);
+  return (
+    <section className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
+      <NavSection />
+      {/* Main content area */}
+      <div className="flex justify-between w-full h-full px-4 md:px-[8%] py-4 gap-4">
+        <div className=" mt-[5.5rem] basis-[25%]">
+          <CategorySideBar />
+        </div>
+        <div>
+          <div className="flex justify-between items-center p-4 my-4">
+            <div className="flex gap-4">
+              <p>Sort By</p>
+              <p>Recommended</p>
+              <p>Any Time</p>
+            </div>
+            <div className="flex gap-4">
+              <span>1-100 of 1000</span>
+              <span>logo1</span>
+              <span>logo2</span>
+            </div>
+          </div>
+          <main className="basis-[75%]">{children}</main>
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -11,6 +11,7 @@ import Testimonial from "@/app/_components/home/Testimonial";
 import Footer from "@/app/_components/footer/Footer";
 import NavSection from "@/app/_components/home/NavSection";
 import { repeatedComponents } from "@/app/_components/common/repeatComp";
+import Link from "next/link";
 
 const reviews = [
   {
@@ -53,7 +54,7 @@ export default function Home() {
           <HeroSection />
         </div>
         {/* service */}
-        <div className="px-4 sm:px-8 lg:px-[8%]">
+        <section id="services" className="px-4 sm:px-8 lg:px-[8%]">
           {/* Service Section */}
           <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-24 my-10 items-center">
             {/* Left Side */}
@@ -129,13 +130,19 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* feature cat */}
         <div className="mt-20">
-          <h1 className="text-[32px] font-semibold  text-[#040421]">
-            Featured Categories
-          </h1>
+          <div className="flex items-center justify-between px-4 sm:px-8 lg:px-[8%]">
+            <h1 className="text-[32px] font-semibold  text-[#040421]">
+              Featured Categories
+            </h1>
+
+            <Link className="hover:text-defaultBlue" href="/categories">
+              View all
+            </Link>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
             {repeatedComponents(20, CarCard)}
           </div>

@@ -1,5 +1,8 @@
 import CategorySideBar from "@/app/_components/CategoriesSideBar";
 import NavSection from "@/app/_components/home/NavSection";
+import LanguageIcon from "@mui/icons-material/Language";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import SwapVertSharpIcon from "@mui/icons-material/SwapVertSharp";
 
 export default function Layout({ children }) {
   return (
@@ -13,13 +16,21 @@ export default function Layout({ children }) {
         <div>
           <div className="flex justify-between items-center p-4 my-4">
             <div className="flex gap-4">
-              <p>Sort By</p>
-              <p>Recommended</p>
-              <p>Any Time</p>
+              <p>Sort By: </p>
+              <p className="cursor-pointer hover:text-defaultBlue">
+                <SwapVertSharpIcon
+                  sx={{ fontSize: "22px", color: "#E65800" }}
+                />
+                Recommended
+              </p>
+              <p className="cursor-pointer hover:text-defaultBlue">
+                <AccessTimeIcon sx={{ fontSize: "22px", color: "#E65800" }} />{" "}
+                Any Time
+              </p>
             </div>
             <div className="flex gap-4">
               <span>1-100 of 1000</span>
-              <span>logo1</span>
+              <LanguageIcon sx={{ fontSize: "22px", color: "#E65800" }} />
               <span>logo2</span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { RadioCard } from "./common/radio";
+import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 
 const categories = [
   { name: "Vehicle", image: "/images/vehicle.svg" },
@@ -68,7 +69,7 @@ export default function CategorySideBar() {
           <span className="text-[#040421] text-xl">Price ₦</span>{" "}
           <ArrowForwardIosIcon sx={{ fontSize: "14px", color: "#5C4D58" }} />
         </div>
-        <div className="flex justify-between mb-4 ">
+        <div className="flex justify-between items-center mb-4 ">
           <div className="border border-gray-300 rounded-md px-4 py-2">
             <input
               type="text"
@@ -76,7 +77,7 @@ export default function CategorySideBar() {
               placeholder="Min"
             />
           </div>
-          -
+          <HorizontalRuleIcon sx={{ fontSize: "14px", color: "#5C4D58" }} />
           <div className="border border-gray-300 rounded-md px-4 py-2">
             <input
               type="text"

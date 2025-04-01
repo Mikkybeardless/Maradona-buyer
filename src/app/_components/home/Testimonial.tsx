@@ -2,7 +2,10 @@ import Carousel from "./Carousel";
 
 export default function Testimonial() {
   return (
-    <div className="bg-white relative w-full mt-4 flex  sm:px-6 lg:px-8">
+    <section
+      id="testimonials"
+      className="bg-white relative w-full mt-4 flex  sm:px-6 lg:px-8"
+    >
       <div className="w-full flex  flex-col items-start py-16 px-4 sm:px-6 lg:px-8">
         <h2 className="text-[#040421] text-[32px] font-bold ">Testimonials</h2>
         <p className="mb-2">Here’s what our top clients have to say about us</p>
@@ -25,6 +28,6 @@ export default function Testimonial() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

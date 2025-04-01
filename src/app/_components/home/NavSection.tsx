@@ -31,17 +31,17 @@ export default function NavSection() {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex gap-4 lg:gap-6">
-            <a
-              href="#home"
+            <Link
+              href="/"
               className="hover:text-defaultOrange text-xs sm:text-sm"
             >
               Home
-            </a>
+            </Link>
             <a
-              href="#about"
+              href="#services"
               className="hover:text-defaultOrange text-xs sm:text-sm"
             >
-              About
+              Our Services
             </a>
             <a
               href="#testimonials"
@@ -108,11 +108,11 @@ export default function NavSection() {
             <img className="h-[40px] w-auto" src={`home/logo.svg`} alt="Logo" />
 
             {/* Mobile Navigation Links */}
-            <a href="#home" className="hover:text-defaultOrange text-sm">
+            <Link href="/" className="hover:text-defaultOrange text-sm">
               Home
-            </a>
-            <a href="#about" className="hover:text-defaultOrange text-sm">
-              About
+            </Link>
+            <a href="#services" className="hover:text-defaultOrange text-sm">
+              Our Services
             </a>
             <a
               href="#testimonials"

@@ -15,6 +15,9 @@ export const theme = {
       defaultOrangeHover: "#b74600",
       secondaryOrange: "#FFF1E9",
       primaryBorder: "#DED9DD",
+      primaryOrange: "#E65800",
+      secondaryOrange: "#FD6100",
+      darkBlue: "#040421",
       secondaryTextColor: "#585858",
     },
     screens: {

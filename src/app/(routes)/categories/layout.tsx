@@ -6,7 +6,7 @@ import SwapVertSharpIcon from "@mui/icons-material/SwapVertSharp";
 
 export default function Layout({ children }) {
   return (
-    <section className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
+    <section className="">
       <NavSection />
       {/* Main content area */}
       <div className="flex justify-between w-full h-full px-4 md:px-[8%] py-4 gap-4">

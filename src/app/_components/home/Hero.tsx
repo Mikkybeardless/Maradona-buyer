@@ -54,7 +54,7 @@ export default function HeroSection() {
             }}
             onClick={handleGotoSellerDashboard}
           >
-            Become a Buyer
+            Become a Seller
           </Button>
         </div>
 

@@ -91,10 +91,10 @@ export default Carousel;
 const CarouselContent = () => {
   return (
     <div className="relative w-full flex flex-col max-w-4xl space-y-3 px-12 py-8">
-      <h1 className="text-[16px] font-bold">
+      <h1 className="text-[16px] text-white font-bold">
         This platform is God sent I must say
       </h1>
-      <p className="text-[14px] style-normal">
+      <p className="text-[14px] text-white style-normal">
         Been thinking of buying a car for a while but for insufficient funds, I
         couldn’t. I saw online on Instagram that I can get a car on car loan
         through Cars45. I clicked on the link and was redirected to fill out a
@@ -109,15 +109,15 @@ const CarouselContent = () => {
             src="home/carousel-image.png"
             alt="Testimonial Carousel Image"
           />
-          <h3>Rosemary Sunday</h3>
+          <h3 className="text-white">Rosemary Sunday</h3>
         </div>
 
         <div className="flex ml-7 items-center gap-2">
           <img src="home/testimonial-icon.svg" alt="Location Icon" />
-          <p>Federal Capital Territory</p>
+          <p className="text-white">Federal Capital Territory</p>
         </div>
 
-        <p className="ml-7">22 Jun, 2022</p>
+        <p className="ml-7 text-white">22 Jun, 2022</p>
       </div>
     </div>
   );

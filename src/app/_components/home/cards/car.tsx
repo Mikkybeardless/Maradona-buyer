@@ -12,7 +12,7 @@ export const CarCard = () => {
         {/* img */}
         <div className="flex justify-center">
           <img
-            src={`home/carshop.png`}
+            src={`/home/carshop.png`}
             alt="dummycars"
             className="w-[90%] h-auto object-contain"
           />

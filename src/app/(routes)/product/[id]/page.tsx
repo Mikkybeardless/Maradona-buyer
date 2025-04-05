@@ -12,6 +12,10 @@ import StopCircleIcon from "@mui/icons-material/StopCircle";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import { CiHeart } from "react-icons/ci";
 import Link from "next/link";
+import { FaAward } from "react-icons/fa6";
+import { LuRefreshCw } from "react-icons/lu";
+import { TbTruckDelivery } from "react-icons/tb";
+import { SiVisa } from "react-icons/si";
 
 export default async function ProductDetail({
   params,
@@ -47,7 +51,7 @@ export default async function ProductDetail({
     { name: "Returns", desc: "Seller does not accept returns. See details" },
   ];
   return (
-    <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
+    <div className="w-full product-details h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
       <NavSection />
       {/* Product */}
       <p>Product Id: {id}</p>
@@ -140,7 +144,12 @@ export default async function ProductDetail({
                     <p>DistressSales Money Back Guarantee</p>
                     <p>
                       Get the item you ordered or your money back.
-                      <span>Learn more</span>
+                      <Link
+                        className="text-xs ml-2 underline text-darkBlue"
+                        href={`/`}
+                      >
+                        Learn more
+                      </Link>
                     </p>
                   </div>
                 </div>
@@ -157,14 +166,7 @@ export default async function ProductDetail({
               ))}
               <div className="flex gap-4">
                 <h3 className="font-semibold">Payment:</h3>
-                <Image
-                  src="/categories/Visa.png"
-                  width={40}
-                  height={20}
-                  className="object-contain"
-                  alt="Visa image"
-                />
-                {/* <span>Icons</span> */}
+                <SiVisa className=" text-3xl text-blue-900 p-1 shadow-md " />
               </div>
               <div>
                 <div className="flex justify-between">
@@ -177,7 +179,12 @@ export default async function ProductDetail({
                     <p>DistressSales Money Back Guarantee</p>
                     <p>
                       Get the item you ordered or your money back.
-                      <span>Learn more</span>
+                      <Link
+                        className="text-xs ml-2 underline text-darkBlue"
+                        href={`/`}
+                      >
+                        Learn more
+                      </Link>
                     </p>
                   </div>
                 </div>
@@ -189,23 +196,23 @@ export default async function ProductDetail({
 
           <div className="flex gap-8">
             <div className="flex items-center gap-4">
-              <span>Icon</span>
+              <TbTruckDelivery size={25} color="#111" />
               <div>
-                <p className="text-lg font-semibold">Nation wide Delivery</p>
+                <h3 className="text-lg font-semibold">Nation wide Delivery</h3>
                 <p>Shop the best distress items just for you.</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span>Icon</span>
+              <LuRefreshCw size={25} color="#111" />
               <div>
-                <p className="text-lg font-semibold">Free return Policy</p>
+                <h3 className="text-lg font-semibold">Free return Policy</h3>
                 <p>Shop the best distress items just for you.</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span>Icon</span>
+              <FaAward size={25} color="#111" />
               <div>
-                <p className="text-lg font-semibold">1 year Warranty</p>
+                <h3 className="text-lg font-semibold">1 year Warranty</h3>
                 <p>Shop the best distress items just for you.</p>
               </div>
             </div>

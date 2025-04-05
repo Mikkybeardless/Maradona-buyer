@@ -2,6 +2,7 @@ import Image from "next/image";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { RadioCard } from "./common/radio";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
+import { InputEl } from "./common/input";
 
 const categories = [
   { name: "Vehicle", image: "/images/vehicle.svg" },
@@ -32,8 +33,8 @@ export default function CategorySideBar() {
     <div className="flex flex-col gap-4 w-full text-[#585858]">
       {/* category div */}
       <div className="w-full bg-white shadow-md  rounded-lg ">
-        <div className="bg-[#14199C] text-white text-center rounded-t-lg p-2 ">
-          <h1 className="text-lg  font-bold">Categories</h1>
+        <div className="bg-[#14199C]  text-center rounded-t-lg p-2 ">
+          <h1 className="text-lg text-white font-bold">Categories</h1>
         </div>
         <div className="py-2 flex flex-col gap-1">
           {categories.map((category) => (
@@ -70,38 +71,26 @@ export default function CategorySideBar() {
           <ArrowForwardIosIcon sx={{ fontSize: "14px", color: "#5C4D58" }} />
         </div>
         <div className="flex justify-between items-center mb-4 ">
-          <div className="border border-gray-300 rounded-md px-4 py-2">
-            <input
-              type="text"
-              className="w-full outline-none"
-              placeholder="Min"
-            />
-          </div>
+          <InputEl id="min" placeholder="Min" />
           <HorizontalRuleIcon sx={{ fontSize: "14px", color: "#5C4D58" }} />
-          <div className="border border-gray-300 rounded-md px-4 py-2">
-            <input
-              type="text"
-              className="w-full outline-none "
-              placeholder="Max"
-            />
-          </div>
+          <InputEl id="max" placeholder="Max" />
         </div>
 
-        <RadioCard data={priceRange} />
+        <RadioCard data={priceRange} groupName="priceRange" />
       </div>
       <div className="w-full  bg-white shadow-md p-4 rounded-lg ">
         <div className="flex justify-between mb-4">
           <span className="text-[#040421] text-xl">Discount</span>{" "}
           <ArrowForwardIosIcon sx={{ fontSize: "14px", color: "#5C4D58" }} />
         </div>
-        <RadioCard data={discounts} />
+        <RadioCard data={discounts} groupName="discounts" />
       </div>
       <div className="w-full  bg-white shadow-md p-4 rounded-lg ">
         <div className="flex justify-between mb-4">
           <span className="text-[#040421] text-xl">Listing Type</span>{" "}
           <ArrowForwardIosIcon sx={{ fontSize: "14px", color: "#5C4D58" }} />
         </div>
-        <RadioCard data={listingTypes} />
+        <RadioCard data={listingTypes} groupName="listingTypes" />
       </div>
     </div>
   );

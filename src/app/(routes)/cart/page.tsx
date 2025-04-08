@@ -14,7 +14,7 @@ export default function Page() {
         </div>
 
         <div className="flex w-full md:w-[30%] h-[60%]">
-          <OrderSummary />
+          <OrderSummary isLink={true} />
         </div>
       </section>
       <section>

@@ -22,14 +22,18 @@ export function InputEl({
   return (
     <div className={`${name ? "flex flex-col gap-1" : ""}`}>
       {name && <label htmlFor={id}>{name}</label>}
-      <div className={`flex items-center gap-2 ${className}`}>
+      <div
+        className={` ${
+          (icon || imgSrc) && "flex items-center gap-2"
+        }  ${className}`}
+      >
         <input
           id={id}
           {...rest}
           placeholder={placeholder}
           className="w-full outline-none bg-transparent"
         />
-        {icon}
+        {icon && icon}
         {imgSrc && (
           <div className="relative w-11 h-6">
             <Image

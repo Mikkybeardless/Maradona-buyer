@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { CardDetailsModal } from "../modals/cardDetails";
-import { SavedAddressModal } from "../modals/savedAddress";
+import Link from "next/link";
 interface OrderSummaryProps {
-  btnType?: "button" | "submit" | "reset";
+  isLink?: boolean;
   onClick?: () => void;
   btnText?: string;
 }
 
 const OrderSummary = ({
   btnText = "Check out",
-  btnType = "button",
+  isLink = false,
   onClick,
 }: OrderSummaryProps) => {
   return (
@@ -67,12 +67,19 @@ const OrderSummary = ({
         <span className="text-primaryOrange">₦10,000,000</span>
       </p>
 
-      {/* <CardDetailsModal
-        btnText={btnText}
-        btnColor="hover:border-primaryOrange bg-primaryOrange hover:bg-inherit text-white hover:text-primaryOrange"
-      /> */}
-      {/* <AddressModal /> */}
-      <SavedAddressModal />
+      {isLink ? (
+        <Link
+          className=" w-full border flex justify-center items-center rounded-lg px-2 py-2 border-primaryOrange  hover:bg-inherit bg-primaryOrange hover:text-primaryOrange text-white"
+          href="/cart/checkout"
+        >
+          Check out
+        </Link>
+      ) : (
+        <CardDetailsModal
+          btnText={btnText}
+          btnColor="hover:border-primaryOrange bg-primaryOrange hover:bg-inherit text-white hover:text-primaryOrange"
+        />
+      )}
     </div>
   );
 };

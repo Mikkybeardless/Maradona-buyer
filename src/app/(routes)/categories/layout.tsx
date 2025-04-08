@@ -3,6 +3,7 @@ import NavSection from "@/app/_components/home/NavSection";
 import LanguageIcon from "@mui/icons-material/Language";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SwapVertSharpIcon from "@mui/icons-material/SwapVertSharp";
+import { AuctionCard } from "@/app/_components/cards/auction";
 
 export default function Layout({ children }) {
   return (
@@ -28,11 +29,12 @@ export default function Layout({ children }) {
                 Any Time
               </p>
             </div>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <span>1-100 of 1000</span>
               <LanguageIcon sx={{ fontSize: "22px", color: "#E65800" }} />
               <span>logo2</span>
-            </div>
+            </div> */}
+            <AuctionCard />
           </div>
           <main className="basis-[75%]">{children}</main>
         </div>

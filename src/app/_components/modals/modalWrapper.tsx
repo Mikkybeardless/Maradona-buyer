@@ -5,9 +5,15 @@ import { useEffect } from "react";
 interface ModalProps {
   children: React.ReactNode;
   isOpen: boolean;
+  modalWidth?: string;
   setIsOpen: (isOpen: boolean) => void;
 }
-const ModalWrapper = ({ children, isOpen, setIsOpen }: ModalProps) => {
+const ModalWrapper = ({
+  children,
+  isOpen,
+  setIsOpen,
+  modalWidth = "max-w-lg",
+}: ModalProps) => {
   // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,7 +44,9 @@ const ModalWrapper = ({ children, isOpen, setIsOpen }: ModalProps) => {
       role="dialog"
       aria-modal="true"
     >
-      <div className="bg-white relative rounded-xl shadow-xl p-6 max-w-lg mx-auto">
+      <div
+        className={`bg-white relative rounded-xl shadow-xl p-6 ${modalWidth} mx-auto`}
+      >
         {children}
       </div>
     </div>

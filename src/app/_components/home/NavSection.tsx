@@ -63,7 +63,9 @@ export default function NavSection() {
           <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
           <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
           <FaRegBell className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          <GrCart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          <Link href="/cart">
+            <GrCart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          </Link>
 
           {/* Desktop Login/Register Buttons (Hidden on small screens) */}
           <div className="hidden md:flex gap-3 lg:gap-4">

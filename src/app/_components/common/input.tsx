@@ -12,7 +12,7 @@ interface InputElProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export function InputEl({
   placeholder,
-  className = "border border-gray-300 rounded-md px-4 py-2",
+  className = "border border-gray-300 rounded-md px-4 py-2 bg-white",
   id,
   name,
   icon,
@@ -24,14 +24,14 @@ export function InputEl({
       {name && <label htmlFor={id}>{name}</label>}
       <div
         className={` ${
-          (icon || imgSrc) && "flex items-center gap-2"
+          (icon || imgSrc) && "flex items-center gap-2 "
         }  ${className}`}
       >
         <input
           id={id}
           {...rest}
           placeholder={placeholder}
-          className="w-full outline-none bg-transparent"
+          className="w-full outline-none bg-transparent placeholder:text-gray-500"
         />
         {icon && icon}
         {imgSrc && (

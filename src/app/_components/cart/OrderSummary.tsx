@@ -13,7 +13,7 @@ const OrderSummary = ({
   onClick,
 }: OrderSummaryProps) => {
   return (
-    <div className="flex w-full h-full p-6 bg-white shadow-md flex-col gap-4">
+    <div className="flex w-full h-full p-6 rounded-xl bg-white shadow-md flex-col gap-4">
       <div className="flex justify-between">
         <h2 className="text-lg font-bold">Order Summary</h2>
         <span className="text-xs text-[#585858]">2 items</span>

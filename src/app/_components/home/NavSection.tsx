@@ -61,8 +61,12 @@ export default function NavSection() {
         {/* Right side - Icons & Buttons */}
         <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-6 items-center">
           <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          <FaRegBell className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          <Link href="/saved">
+            <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          </Link>
+          <Link href="/notification">
+            <FaRegBell className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          </Link>
           <Link href="/cart">
             <GrCart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
           </Link>
@@ -162,7 +166,7 @@ export default function NavSection() {
       <header className="flex items-center  gap-x-56 mt-5 bg-white px-[8%] py-2">
         <img
           className="h-[60px] w-auto hidden md:flex"
-          src={`home/logo.svg`}
+          src={`/home/logo.svg`}
           alt="Logo"
         />
 

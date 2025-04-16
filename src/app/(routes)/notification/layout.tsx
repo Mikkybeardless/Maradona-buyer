@@ -3,7 +3,8 @@ import { NavBar } from "@/app/_components/NavBar";
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
+      {/* <NavBar /> */}
       <NavBar />
       <div className="ml-5 md:ml-20 mt-5">
         <Breadcrumb />

@@ -94,8 +94,7 @@ export default function Page() {
     }
   };
   return (
-    <section className="p-4 md:pr-10 md:pl-14 md:py-10">
-      <div>BreadCrum</div>
+    <section className="p-4 md:pr-10 md:pl-14 md:py-4">
       <div className="flex items-center gap-2 mb-5">
         <BeenhereRoundedIcon className="text-primaryOrange" />{" "}
         <h1 className="font-bold text-2xl">Secure Contact</h1>
@@ -115,7 +114,7 @@ export default function Page() {
                 />
                 <CountryDropdown
                   // placeholder="Country/Region"
-                  className="py-2 text-gray-500 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white w-full"
+                  className="py-2  px-4 rounded-lg border border-[#DED9DD] outline-none bg-white w-full"
                   value={country}
                   onChange={handleCountryChange}
                 />
@@ -141,7 +140,7 @@ export default function Page() {
 
                 <div className="flex justify-between gap-4">
                   <RegionDropdown
-                    className="p-2 px-4 text-gray-500  rounded-lg border border-[#DED9DD] outline-none bg-white"
+                    className="p-2 px-4 placeholder:text-gray-500  rounded-lg border border-[#DED9DD] outline-none bg-white"
                     country={country}
                     value={region}
                     onChange={handleRegionChange}

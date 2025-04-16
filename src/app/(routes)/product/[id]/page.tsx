@@ -1,6 +1,5 @@
 import { repeatedComponents } from "@/app/_components/common/repeatComp";
 import { CarCard } from "@/app/_components/home/cards/car";
-import NavSection from "@/app/_components/home/NavSection";
 import Image from "next/image";
 // import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
@@ -51,16 +50,14 @@ export default async function ProductDetail({
     { name: "Returns", desc: "Seller does not accept returns. See details" },
   ];
   return (
-    <div className="w-full product-details h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
-      <NavSection />
-      {/* Product */}
+    <div>
       <p>Product Id: {id}</p>
-      <main className=" px-[4%]">
-        <section className="flex flex-col gap-5 px-[8%]">
+      <main className=" px-[4%] space-y-4 md:space-y-0">
+        <section className="flex flex-col gap-5 md:px-[8%] space-y-4 md:space-y-0">
           {/* image and cta */}
           <div className="flex flex-col md:flex-row  md:justify-between gap-4">
             {/* left */}
-            <div className="relative basis-[50%] h-[300px] rounded-md overflow-hidden shadow-sm ">
+            <div className="relative w-full md:basis-[50%] h-[300px] rounded-md overflow-hidden shadow-sm ">
               <Image
                 src="/categories/car.png"
                 alt="product image"
@@ -70,7 +67,7 @@ export default async function ProductDetail({
             </div>
 
             {/* right */}
-            <div className="pr-5 pl-20 basis-[50%] space-y-2">
+            <div className=" md:p-3 md:pr-5 md:pl-20 w-full md:basis-[50%] space-y-2">
               <div className="flex items-center relative justify-between gap-2 ">
                 <h2 className="font-bold text-lg mb-2">
                   Toyota Camry LE (2024)
@@ -120,9 +117,9 @@ export default async function ProductDetail({
           {/* description */}
           <div className="flex flex-col md:flex-row  md:justify-between gap-4">
             {/* left */}
-            <div className="flex flex-col basis-[50%] gap-4 w-full">
-              <h3 className="px-4 py-2 w-full bg-defaultBlue text-white rounded-md ">
-                Description
+            <div className="flex flex-col  md:basis-[50%] gap-4 w-full">
+              <h3 className="px-4 py-2 w-full bg-defaultBlue text-lg rounded-md ">
+                <span className="text-white">Description</span>
               </h3>
               <div className="px-5 py-3 space-y-2 bg-white">
                 {descs.map((desc) => (
@@ -157,7 +154,7 @@ export default async function ProductDetail({
             </div>
 
             {/* right */}
-            <div className="flex flex-col gap-4 w-full pr-5 pl-20 basis-[50%] space-y-2">
+            <div className="flex flex-col gap-4 w-full md:pr-5 md:pl-20 md:basis-[50%] space-y-2">
               {shipping.map((item) => (
                 <div key={item.name} className="flex gap-4">
                   <h3 className="font-semibold">{item.name}:</h3>
@@ -194,7 +191,7 @@ export default async function ProductDetail({
 
           <hr className="bg-slate-500" />
 
-          <div className="flex gap-8">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-8">
             <div className="flex items-center gap-4">
               <TbTruckDelivery size={25} color="#111" />
               <div>
@@ -220,13 +217,13 @@ export default async function ProductDetail({
         </section>
 
         {/* About seller */}
-        <section className="bg-white px-12 py-12 my-10">
+        <section className="bg-white space-y-3 md:space-y-0 px-4 md:px-12 md:py-12 py-4 my-10">
           <h2 className="font-bold mb-8 text-2xl">About Seller</h2>
 
-          <div className="flex justify-between">
+          <div className="flex flex-col justify-center md:flex-row md:justify-between">
             {/* image */}
             <div className="mb-6">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center md:justify-start gap-4">
                 <div className="w-32 h-32 relative">
                   <Image
                     src="/categories/seller.png"
@@ -252,7 +249,7 @@ export default async function ProductDetail({
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex md:flex-col gap-2">
               <button className="rounded-md px-3 py-2 text-white hover:text-defaultBlue hover:bg-[#EAE6E9] hover:border-defaultBlue border bg-defaultBlue">
                 Contact
               </button>
@@ -263,8 +260,9 @@ export default async function ProductDetail({
             </div>
           </div>
 
-          <div className="flex gap-20 justify-between relative">
-            <div className=" w-[50%]">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-20 md:justify-between relative">
+            {/* left side */}
+            <div className="w-full  md:w-[50%]">
               <h3 className="font-semibold text-lg">Detailed seller ratings</h3>
               <p className="mb-4">Average for the last 12 hours</p>
               <div className="space-y-4">
@@ -290,7 +288,9 @@ export default async function ProductDetail({
                 </div>
               </div>
             </div>
-            <div className=" w-[50%]">
+
+            {/* right side */}
+            <div className=" w-full  md:w-[50%]">
               <div className="flex justify-end">
                 <Link
                   href={`/product/seller/${id}`}
@@ -308,11 +308,21 @@ export default async function ProductDetail({
                   <span>(5,079)</span>
                 </h4>
                 <div className="flex gap-4 justify-between items-center mb-5">
-                  <div className="flex gap-3">
-                    <StopCircleIcon className="text-secondaryOrange" />
-                    <span>K****K (90)</span>
-                    <FiberManualRecordIcon className="text-green-600 text-[5px]" />
-                    <span>2 months ago</span>
+                  <div className="flex items-center gap-2">
+                    <span>
+                      <StopCircleIcon
+                        sx={{ fontSize: "14px" }}
+                        className="text-secondaryOrange mr-1"
+                      />
+                      K****K (90)
+                    </span>
+                    <span>
+                      <FiberManualRecordIcon
+                        sx={{ fontSize: "14px" }}
+                        className="text-green-600 mr-1"
+                      />
+                      2 months ago
+                    </span>
                   </div>
                   <p>Verified purchase</p>
                 </div>
@@ -342,9 +352,9 @@ export default async function ProductDetail({
           </div>
         </section>
         <section>
-          <h2 className="mb-4 text-3xl font-bold">Similar Item</h2>
+          <h2 className="mb-4 md:text-2xl font-bold">Similar Item</h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {repeatedComponents(20, CarCard)}
           </div>
         </section>

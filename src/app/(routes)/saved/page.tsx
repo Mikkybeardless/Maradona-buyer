@@ -5,11 +5,10 @@ import { CarCard } from "@/app/_components/home/cards/car";
 
 export default function Page() {
   return (
-    <div className="p-4 md:p-10 ">
-      <p className="mb-5">Bread Crum</p>
+    <div className="p-4 md:p-10 space-y-5">
       <main>
-        <div className="md:px-[9rem]">
-          <div className="space-y-5 bg-[#FAFAFA] p-5 rounded-lg shadow-md ">
+        <div className="md:px-[9rem] ">
+          <div className="space-y-5 bg-[#FAFAFA] p-5 rounded-lg shadow-md md:pb-8 ">
             <div className="flex justify-between">
               <h1 className="text-2xl font-bold">My saved Items</h1>
               <button className="text-secondaryTextColor ">Clear all</button>

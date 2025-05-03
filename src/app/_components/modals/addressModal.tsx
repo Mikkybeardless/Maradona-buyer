@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import ModalWrapper from "./modalWrapper";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { InputEl } from "../common/input";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
+import { useState } from 'react';
+import ModalWrapper from './modalWrapper';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { InputEl } from '../common/input';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 interface AddressDetails {
   email: string;
@@ -17,15 +17,15 @@ interface AddressDetails {
 
 export const AddressModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [country, setCountry] = useState("");
-  const [region, setRegion] = useState("");
+  const [country, setCountry] = useState('');
+  const [region, setRegion] = useState('');
   const [addressDetails, setAddressDetails] = useState<AddressDetails>({
-    email: "",
-    fName: "",
-    lName: "",
-    address: "",
-    city: "",
-    phone: "",
+    email: '',
+    fName: '',
+    lName: '',
+    address: '',
+    city: '',
+    phone: '',
   });
 
   // handle input change
@@ -42,7 +42,7 @@ export const AddressModal = () => {
     e.preventDefault();
     // Perform validation and any other logic here
 
-    console.log("Card Details:", addressDetails);
+    console.log('Card Details:', addressDetails);
     // Perform any further actions with the card details here
   };
 
@@ -78,7 +78,7 @@ export const AddressModal = () => {
           </button>
           <h2 className="text-2xl font-bold ">Edit Address</h2>
 
-          <form className="flex flex-col w-full gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col w-full gap-3">
             <div className="space-y-3">
               <InputEl
                 name="Email"
@@ -147,7 +147,10 @@ export const AddressModal = () => {
               <button className="hover:text-white text-defaultBlue border-defaultBlue hover:bg-defaultBlue px-3 py-2  border rounded-lg">
                 Cancel
               </button>
-              <button className="text-white bg-defaultBlue px-4 py-2 hover:bg-inherit hover:border-defaultBlue hover:text-defaultBlue border rounded-lg">
+              <button
+                type="submit"
+                className="text-white bg-defaultBlue px-4 py-2 hover:bg-inherit hover:border-defaultBlue hover:text-defaultBlue border rounded-lg"
+              >
                 Save
               </button>
             </div>

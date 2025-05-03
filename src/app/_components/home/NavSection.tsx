@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Button,
   Divider,
@@ -8,12 +8,12 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@mui/material";
-import Link from "next/link";
-import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { FaBars, FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
-import { GrCart } from "react-icons/gr";
+} from '@mui/material';
+import Link from 'next/link';
+import { useState } from 'react';
+import { CiSearch } from 'react-icons/ci';
+import { FaBars, FaRegBell, FaRegHeart, FaRegUser } from 'react-icons/fa6';
+import { GrCart } from 'react-icons/gr';
 
 export default function NavSection() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -60,7 +60,9 @@ export default function NavSection() {
 
         {/* Right side - Icons & Buttons */}
         <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-6 items-center">
-          <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          <Link href="/admin/profile">
+            <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          </Link>
           <Link href="/saved">
             <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
           </Link>
@@ -77,30 +79,32 @@ export default function NavSection() {
               <Button
                 variant="contained"
                 sx={{
-                  background: "#14199C",
-                  color: "#FFFFFF",
-                  fontSize: "12px",
+                  background: '#14199C',
+                  color: '#FFFFFF',
+                  fontSize: '12px',
                   fontWeight: 700,
-                  height: "35px",
-                  borderRadius: "6px",
+                  height: '35px',
+                  borderRadius: '6px',
                 }}
               >
                 Login
               </Button>
             </Link>
-            <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#14199C",
-                color: "#14199C",
-                fontSize: "12px",
-                fontWeight: 700,
-                height: "35px",
-                borderRadius: "6px",
-              }}
-            >
-              Dashboard
-            </Button>
+            <Link href="/admin/profile">
+              <Button
+                variant="outlined"
+                sx={{
+                  borderColor: '#14199C',
+                  color: '#14199C',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  height: '35px',
+                  borderRadius: '6px',
+                }}
+              >
+                Dashboard
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -134,31 +138,33 @@ export default function NavSection() {
             <Button
               variant="contained"
               sx={{
-                background: "#14199C",
-                color: "#FFFFFF",
-                fontSize: "14px",
+                background: '#14199C',
+                color: '#FFFFFF',
+                fontSize: '14px',
                 fontWeight: 700,
-                height: "38px",
-                borderRadius: "8px",
-                width: "100%",
+                height: '38px',
+                borderRadius: '8px',
+                width: '100%',
               }}
             >
               Login
             </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#14199C",
-                color: "#14199C",
-                fontSize: "14px",
-                fontWeight: 700,
-                height: "38px",
-                borderRadius: "8px",
-                width: "100%",
-              }}
-            >
-              Dashboard
-            </Button>
+            <Link href="/admin/profile">
+              <Button
+                variant="outlined"
+                sx={{
+                  borderColor: '#14199C',
+                  color: '#14199C',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  height: '38px',
+                  borderRadius: '8px',
+                  width: '100%',
+                }}
+              >
+                Dashboard
+              </Button>
+            </Link>
           </div>
         </Drawer>
       </nav>

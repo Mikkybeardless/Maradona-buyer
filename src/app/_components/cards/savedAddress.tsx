@@ -1,5 +1,4 @@
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import AdjustRoundedIcon from "@mui/icons-material/AdjustRounded";
+import AdjustRoundedIcon from '@mui/icons-material/AdjustRounded';
 interface SavedAddressProps {
   name: string;
   address: string;
@@ -14,7 +13,7 @@ const SavedAddressCard = ({
   address,
   id,
   selected = false,
-  groupName = "address",
+  groupName = 'address',
   onChange,
 }: SavedAddressProps) => {
   const handleClick = () => {
@@ -27,7 +26,7 @@ const SavedAddressCard = ({
     <label
       htmlFor={id}
       className={`flex justify-between items-center  p-4 rounded-md shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
-        selected ? "ring-1 ring-defaultBlue bg-blue-100" : ""
+        selected ? 'ring-1 ring-defaultBlue bg-blue-100' : ''
       }`}
       onClick={handleClick}
     >

@@ -1,23 +1,34 @@
-"use client";
+'use client';
 
-import React, { useState, useRef } from "react";
-import { Smile, Image, Send } from "lucide-react";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
+import React, { useState, useRef } from 'react';
+import { Smile, Image, Send } from 'lucide-react';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 
-const StreamlinedChatInput = ({ onSendMessage }) => {
-  const [message, setMessage] = useState("");
+interface Message {
+  type: 'text' | 'image';
+  content: string;
+  fileObject?: File;
+  timestamp: string;
+}
+
+interface StreamlinedChatInputProps {
+  onSendMessage: (message: Message) => void;
+}
+
+const StreamlinedChatInput = ({ onSendMessage }: StreamlinedChatInputProps) => {
+  const [message, setMessage] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleSendMessage = () => {
     if (message.trim()) {
       onSendMessage({
-        type: "text",
+        type: 'text',
         content: message,
         timestamp: new Date().toISOString(),
       });
-      setMessage("");
+      setMessage('');
     }
   };
 
@@ -25,12 +36,12 @@ const StreamlinedChatInput = ({ onSendMessage }) => {
     target: HTMLInputElement & { files: FileList };
   }
 
-  interface Message {
-    type: "text" | "image";
-    content: string;
-    fileObject?: File;
-    timestamp: string;
-  }
+  // interface Message {
+  //   type: "text" | "image";
+  //   content: string;
+  //   fileObject?: File;
+  //   timestamp: string;
+  // }
 
   const handleFileUpload = (event: FileUploadEvent) => {
     const file = event.target.files[0];
@@ -38,14 +49,14 @@ const StreamlinedChatInput = ({ onSendMessage }) => {
 
     // In a real app, you would handle file upload to your server here
     onSendMessage({
-      type: "image",
+      type: 'image',
       content: file.name,
       fileObject: file,
       timestamp: new Date().toISOString(),
     });
 
     // Reset file input
-    event.target.value = "";
+    event.target.value = '';
   };
 
   return (
@@ -68,7 +79,7 @@ const StreamlinedChatInput = ({ onSendMessage }) => {
             placeholder="Text message form MTN"
             className="flex-1 py-2 px-2 bg-transparent border-none focus:outline-none text-gray-700"
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 handleSendMessage();
               }
             }}
@@ -130,7 +141,7 @@ const StreamlinedChatInput = ({ onSendMessage }) => {
         {/* Send button (outside the input container) */}
         <button
           className={` p-4 rounded-full ${
-            message.trim() ? "bg-blue-500 text-white" : "bg-white text-gray-400"
+            message.trim() ? 'bg-blue-500 text-white' : 'bg-white text-gray-400'
           }`}
           onClick={handleSendMessage}
           disabled={!message.trim()}

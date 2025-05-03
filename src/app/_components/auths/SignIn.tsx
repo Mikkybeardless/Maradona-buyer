@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState } from 'react';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
   const router = useRouter();
 
   function goToHome() {
-    router.push("/");
+    router.push('/');
   }
 
   function handlePasswordShow() {
@@ -44,7 +44,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         <div className="w-full flex gap-x-2 items-center px-4 py-3 rounded-[8px] border-primaryBorder border-[1px] bg-white">
           <input
             className="outline-none w-[95%]"
-            type={!togglePasswordShow ? "password" : "text"}
+            type={!togglePasswordShow ? 'password' : 'text'}
             placeholder="Type"
           />
           {!togglePasswordShow ? (
@@ -89,7 +89,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         >
           <img
             className="w-[39px] h-[39px]"
-            src={"/home//google-icon.svg"}
+            src={'/home//google-icon.svg'}
             alt="google logo"
           />
           <span>Google</span>
@@ -100,7 +100,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         >
           <img
             className="w-[24px] h-[24px]"
-            src={"/home//facebook-logo.png"}
+            src={'/home//facebook-logo.png'}
             alt="facebook logo"
           />
           <span>Facebook</span>
@@ -108,7 +108,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
       </div>
 
       <p className="text-[#6D6D6D] text-center mt-5">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{' '}
         <span
           onClick={() => setSignUp(true)}
           className="hover:underline cursor-pointer font-medium text-black"

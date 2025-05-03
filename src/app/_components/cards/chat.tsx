@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 interface ChatContainerProps {
   messages: Array<{
     id: string;
-    text: string;
+    content: string;
     senderId: string;
     timestamp: string;
     avatar?: string;
@@ -21,7 +21,7 @@ export function ChatContainer({ messages, currentUserId }: ChatContainerProps) {
           <div
             key={message.id}
             className={`flex w-full mb-4 ${
-              isCurrentUser ? "justify-end" : "gap-3 justify-start"
+              isCurrentUser ? 'justify-end' : 'gap-3 justify-start'
             }`}
           >
             {message.avatar ? (
@@ -37,19 +37,19 @@ export function ChatContainer({ messages, currentUserId }: ChatContainerProps) {
             <div
               className={`max-w-[70%] p-4 px-8 rounded-[2rem] ${
                 isCurrentUser
-                  ? "bg-[#E4E7EC] text-black rounded-bl-sm"
-                  : "bg-gray-200 text-black rounded-br-sm"
+                  ? 'bg-[#E4E7EC] text-black rounded-bl-sm'
+                  : 'bg-gray-200 text-black rounded-br-sm'
               }`}
             >
-              <p>{message.text}</p>
+              <p>{message.content}</p>
               <p
                 className={`text-xs ${
-                  isCurrentUser ? "text-gray-500" : "text-gray-500"
+                  isCurrentUser ? 'text-gray-500' : 'text-gray-500'
                 } text-right mt-1`}
               >
                 {new Date(message.timestamp).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
+                  hour: '2-digit',
+                  minute: '2-digit',
                 })}
               </p>
             </div>

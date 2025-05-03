@@ -1,5 +1,5 @@
-import { Paper } from "@mui/material";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { Paper } from '@mui/material';
+import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 
 // Define the TableComponentProps interface
 interface TableComponentProps {
@@ -23,8 +23,8 @@ export default function MuiTableComponent({
 
   return (
     <div className="w-full overflow-x-auto">
-      <Paper className="w-full min-w-[600px] overflow-x-auto custom-scrollbar">
-        <div style={{ height: 400, width: "100%", overflowX: "auto" }}>
+      <Paper className="w-full overflow-x-auto custom-scrollbar">
+        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -33,7 +33,7 @@ export default function MuiTableComponent({
             }
             pageSizeOptions={[5, 10, 15, 20]}
             checkboxSelection={
-              typeof showCheckbox === "undefined" ? true : showCheckbox
+              typeof showCheckbox === 'undefined' ? true : showCheckbox
             }
             disableColumnFilter={true}
             disableColumnMenu={true}

@@ -1,12 +1,12 @@
-"use client";
-import { InputEl } from "@/app/_components/common/input";
-import React, { useEffect, useState } from "react";
-import OTPInput from "react-otp-input";
+'use client';
+import { InputEl } from '@/app/_components/common/input';
+import React, { useEffect, useState } from 'react';
+import OTPInput from 'react-otp-input';
 
 export default function Page() {
   const [phase, setPhase] = useState(1);
   // const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState('');
   const [time, setTime] = useState(60);
 
   useEffect(() => {
@@ -63,13 +63,13 @@ export default function Page() {
           />
 
           <p className="mt-5 text-sm">
-            {time === 60 ? "1:00" : `0:${String(time).padStart(2, "0")}`}
+            {time === 60 ? '1:00' : `0:${String(time).padStart(2, '0')}`}
           </p>
 
           <p className="text-secondaryTextColor text-sm text-center mt-5">
-            Didn't get a code?
+            Didn&apos;t get a code?
             <span className="font-medium cursor-pointer hover:underline">
-              {" "}
+              {' '}
               Resend
             </span>
           </p>

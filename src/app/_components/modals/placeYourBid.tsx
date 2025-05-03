@@ -1,19 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import ModalWrapper from "./modalWrapper";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { formatAmount } from "@/app/Utils/util";
-import { InputEl } from "../common/input";
+import { useState } from 'react';
+import ModalWrapper from './modalWrapper';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { formatAmount } from '@/app/Utils/util';
 
 export const PlayBidModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const bids = [
-    { amount: 20000, detail: "approx. US $13,180.00" },
-    { amount: 20000, detail: "approx. US $13,180.00" },
+    { amount: 20000, detail: 'approx. US $13,180.00' },
+    { amount: 20000, detail: 'approx. US $13,180.00' },
     ,
-    { amount: 20000, detail: "approx. US $13,180.00" },
+    { amount: 20000, detail: 'approx. US $13,180.00' },
   ];
 
   return (
@@ -45,7 +44,7 @@ export const PlayBidModal = () => {
           <h2 className="text-2xl font-bold ">Place your bid</h2>
           <p className="text-secondaryTextColor">+ ₦200,000 shipping</p>
           <p className="text-secondaryTextColor">
-            {" "}
+            {' '}
             (approx. NGN ₦20,000,000 + NGN ₦200,000 shipping = ₦22,000,000)
           </p>
           <p className="text-secondaryTextColor">
@@ -81,10 +80,10 @@ export const PlayBidModal = () => {
             </button>
           </div>
           <p className="text-secondaryTextColor mb-4">
-            <span className="font-semibold"> Current price:</span>{" "}
+            <span className="font-semibold"> Current price:</span>{' '}
             <span className="text-green-500 font-semibold">
               NGN ₦22,000,000
-            </span>{" "}
+            </span>{' '}
             (approx. US $14,617.94,)
           </p>
           <p className="text-secondaryTextColor text-xs">

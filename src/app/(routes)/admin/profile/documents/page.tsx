@@ -1,26 +1,38 @@
-"use client";
+'use client';
 
-import MuiTableComponent from "@/app/_components/buyers/TableComp";
-import { GridColDef } from "@mui/x-data-grid";
-import Image from "next/image";
-import { useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { CiSearch } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa6";
-import { IoCloudUploadOutline } from "react-icons/io5";
+import MuiTableComponent from '@/app/_components/buyers/TableComp';
+import { GridColDef } from '@mui/x-data-grid';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { CiSearch } from 'react-icons/ci';
+import { FaPlus } from 'react-icons/fa6';
+import { IoCloudUploadOutline } from 'react-icons/io5';
 
-const documentsRow = (): any[] => {
+type DocumentRow = {
+  id: number;
+  name: { item: string; src: string };
+  details: {
+    processed: string;
+    vendor: string;
+    date: string;
+    ref: string;
+  };
+  uploadedOn: Date;
+};
+
+const documentsRow = (): DocumentRow[] => {
   const loopArray = [1, 2, 3, 4, 5];
-  const returnArray: any[] = [];
+  const returnArray: DocumentRow[] = [];
   loopArray.forEach((num) => {
     returnArray.push({
       id: num,
-      name: { item: "image5.jpg", src: "/admin/PDF.png" },
+      name: { item: 'image5.jpg', src: '/admin/PDF.png' },
       details: {
-        processed: "$undefined",
-        vendor: "sed",
+        processed: '$undefined',
+        vendor: 'sed',
         date: new Date().toLocaleDateString(),
-        ref: "100" + num,
+        ref: '100' + num,
       },
       // uploadedBy: "Rosemary Sunday",
       uploadedOn: new Date(),
@@ -31,8 +43,8 @@ const documentsRow = (): any[] => {
 
 const documentsColumn: GridColDef[] = [
   {
-    field: "name",
-    headerName: "File Name",
+    field: 'name',
+    headerName: 'File Name',
     renderCell: ({ row }) => (
       <div className="flex  gap-4 items-center">
         <span>{row.name.item}</span>
@@ -50,8 +62,8 @@ const documentsColumn: GridColDef[] = [
     sortable: false,
   },
   {
-    field: "details",
-    headerName: "Details",
+    field: 'details',
+    headerName: 'Details',
     renderCell: ({ row }) => (
       <div className="flex flex-col h-full justify-center">
         <p className="text-xs">Processed: {row.details.processed}</p>
@@ -63,23 +75,23 @@ const documentsColumn: GridColDef[] = [
     flex: 1,
   },
   // { field: "uploadedBy", headerName: "Uploaded By", flex: 1, sortable: false },
-  { field: "uploadedOn", headerName: "Uploaded On", flex: 0.5, type: "date" },
+  { field: 'uploadedOn', headerName: 'Uploaded On', flex: 0.5, type: 'date' },
 ];
 
 export default function Documents() {
   const [uploadModal, setUploadModal] = useState(false);
   const [embedModal, setEmbedModal] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [embedURL, setEmbedURL] = useState("");
+  const [embedURL, setEmbedURL] = useState('');
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      "image/jpeg": [],
-      "image/png": [],
-      "video/mp4": [],
-      "application/pdf": [],
-      "application/msword": [],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      'image/jpeg': [],
+      'image/png': [],
+      'video/mp4': [],
+      'application/pdf': [],
+      'application/msword': [],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
         [],
     },
     maxSize: 50000000,
@@ -95,7 +107,7 @@ export default function Documents() {
 
   function saveEmbedURL() {
     if (!embedURL.trim()) {
-      alert("Please enter a valid URL.");
+      alert('Please enter a valid URL.');
       return;
     }
     setEmbedModal(false);
@@ -103,31 +115,31 @@ export default function Documents() {
 
   async function uploadFiles() {
     if (uploadedFiles.length === 0) {
-      alert("No files selected.");
+      alert('No files selected.');
       return;
     }
 
     const formData = new FormData();
     uploadedFiles.forEach((file) => {
-      formData.append("files", file);
+      formData.append('files', file);
     });
 
     try {
-      const response = await fetch("", {
-        method: "POST",
+      const response = await fetch('', {
+        method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
-        alert("Files uploaded successfully!");
+        alert('Files uploaded successfully!');
         setUploadedFiles([]);
         setUploadModal(false);
       } else {
-        alert("Upload failed.");
+        alert('Upload failed.');
       }
     } catch (error) {
-      console.error("Upload error:", error);
-      alert("An error occurred while uploading.");
+      console.error('Upload error:', error);
+      alert('An error occurred while uploading.');
     }
   }
 
@@ -177,7 +189,7 @@ export default function Documents() {
                   key={index}
                   className="flex items-center gap-3 border p-2 rounded-lg"
                 >
-                  {file.type.startsWith("image/") ? (
+                  {file.type.startsWith('image/') ? (
                     <img
                       src={URL.createObjectURL(file)}
                       alt="Preview"
@@ -247,7 +259,7 @@ export default function Documents() {
       )}
 
       {/* Page Content */}
-      <div className="mt-4 flex flex-col gap-y-5 flex-1">
+      <div className="mt-4 flex flex-col gap-y-5">
         {/* Header: Title & Upload Button */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
           <h1 className="text-2xl md:text-3xl font-semibold">Documents</h1>

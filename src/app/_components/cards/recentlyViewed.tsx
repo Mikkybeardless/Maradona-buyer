@@ -1,8 +1,11 @@
-import Image from "next/image";
-import { Button } from "../common/button";
-import { CiHeart } from "react-icons/ci";
-import EastIcon from "@mui/icons-material/East";
+'use client';
 
+import Image from 'next/image';
+import { Button } from '../common/button';
+import { CiHeart } from 'react-icons/ci';
+import EastIcon from '@mui/icons-material/East';
+
+// const { isMobileScreen } = useWindowResizer();
 export const RecentlyViewedCard = () => {
   return (
     <div className="flex flex-col gap-4 md:w-[250px]">
@@ -35,7 +38,7 @@ export const RecentlyViewedCard = () => {
 export const RecentlyViewedCard2 = () => {
   return (
     <div>
-      <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="flex flex-col gap-y-2 md:flex-row md:items-center justify-between">
         <div className="flex flex-col md:flex-row items-center gap-x-5">
           {/* <div className="relative w-full h-40 md:w-[250px] rounded-lg md:h-[160px]">
             <Image
@@ -64,7 +67,7 @@ export const RecentlyViewedCard2 = () => {
           </div>
         </div>
 
-        <div className="flex flex-row md:flex-col gap-3 ">
+        <div className="flex flex-col gap-3 ">
           <Button icon={<EastIcon />} btnText="Buy Now" width="w-full" />
           <Button
             btnText="Remove"

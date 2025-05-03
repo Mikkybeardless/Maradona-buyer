@@ -1,50 +1,50 @@
-"use client";
+'use client';
 
-import { FaApple, FaGooglePlay } from "react-icons/fa6";
+import { FaApple, FaGooglePlay } from 'react-icons/fa6';
 
 //import Image from "next/image";
 
-import HeroSection from "@/app/_components/home/Hero";
-import { CarCard } from "@/app/_components/home/cards/car";
-import { LandCard } from "@/app/_components/home/cards/land";
-import Testimonial from "@/app/_components/home/Testimonial";
-import Footer from "@/app/_components/footer/Footer";
-import NavSection from "@/app/_components/home/NavSection";
-import { repeatedComponents } from "@/app/_components/common/repeatComp";
-import Link from "next/link";
+import HeroSection from '@/app/_components/home/Hero';
+import { CarCard } from '@/app/_components/home/cards/car';
+import { LandCard } from '@/app/_components/home/cards/land';
+import Testimonial from '@/app/_components/home/Testimonial';
+import Footer from '@/app/_components/footer/Footer';
+import NavSection from '@/app/_components/home/NavSection';
+import { repeatedComponents } from '@/app/_components/common/repeatComp';
+import Link from 'next/link';
 
-const reviews = [
-  {
-    title: "This platform is God sent I must say",
-    content:
-      "Been thinking of buying a car for a while but for insufficient funds, I couldn't. I saw online on Instagram that I can get a car loan through Cars45. I clicked on the link and was redirected to fill out a form which I did. Someone from the Cars45 team reached out to me and the rest is history. They managed all conversations with the seller so the process was fast, easy and stress-free for me.",
-    user: "Rosemary Sunday",
-    location: "Director, Captain Territory",
-    date: "22 Jun, 2022",
-    rating: 4,
-  },
-  {
-    title: "Smooth process and great deals!",
-    content:
-      "I was hesitant at first, but the process was seamless. The customer support was always available to assist me.",
-    user: "John Doe",
-    location: "Business Owner",
-    date: "15 Aug, 2022",
-    rating: 5,
-  },
-];
+// const reviews = [
+//   {
+//     title: "This platform is God sent I must say",
+//     content:
+//       "Been thinking of buying a car for a while but for insufficient funds, I couldn't. I saw online on Instagram that I can get a car loan through Cars45. I clicked on the link and was redirected to fill out a form which I did. Someone from the Cars45 team reached out to me and the rest is history. They managed all conversations with the seller so the process was fast, easy and stress-free for me.",
+//     user: "Rosemary Sunday",
+//     location: "Director, Captain Territory",
+//     date: "22 Jun, 2022",
+//     rating: 4,
+//   },
+//   {
+//     title: "Smooth process and great deals!",
+//     content:
+//       "I was hesitant at first, but the process was seamless. The customer support was always available to assist me.",
+//     user: "John Doe",
+//     location: "Business Owner",
+//     date: "15 Aug, 2022",
+//     rating: 5,
+//   },
+// ];
 
 export default function Home() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    centerMode: true,
-    centerPadding: "50px",
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   arrows: true,
+  //   centerMode: true,
+  //   centerPadding: "50px",
+  // };
 
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
@@ -163,21 +163,21 @@ export default function Home() {
                 <li>
                   <span className="text-[#5FC4FD] font-medium text-base">
                     • Browse Listings:
-                  </span>{" "}
+                  </span>{' '}
                   Visit our auction section and look for items marked with the
                   special <b>10% discount</b> badge.
                 </li>
                 <li>
                   <span className="text-[#5FC4FD] font-medium text-base">
                     • Place Your Bids:
-                  </span>{" "}
+                  </span>{' '}
                   Participate in live auctions and place bids on your desired
                   items.
                 </li>
                 <li>
                   <span className="text-[#5FC4FD] font-medium text-base">
                     • Win and Save:
-                  </span>{" "}
+                  </span>{' '}
                   If you win, the additional <b>10% discount</b> will apply
                   automatically.
                 </li>
@@ -189,7 +189,7 @@ export default function Home() {
               </p>
 
               <p className="mt-2 text-base text-[#ffffff] font-normal">
-                <span className="text-blue-300 text-base font-bold">Note:</span>{" "}
+                <span className="text-blue-300 text-base font-bold">Note:</span>{' '}
                 Terms and conditions apply. Discount applies only to selected
                 auction items. Offer valid while supplies last.
               </p>
@@ -205,18 +205,20 @@ export default function Home() {
                 Limited time offer!
               </p>
 
-              <h4 className="mt-4 text-base  font-medium">What's included:</h4>
+              <h4 className="mt-4 text-base  font-medium">
+                What&apos;s included:
+              </h4>
               <ul className="mt-2 mb-7 space-y-2 text-[#ffffff] font-normal">
                 <li>
                   <span className="text-[#5FC4FD] font-medium text-base">
                     • Luxury Cars:
-                  </span>{" "}
+                  </span>{' '}
                   High-end models with significant savings.
                 </li>
                 <li>
                   <span className="text-[#5FC4FD] font-medium text-base">
                     • Real Estate:
-                  </span>{" "}
+                  </span>{' '}
                   Prime houses and land parcels ready for bidding.
                 </li>
               </ul>
@@ -234,7 +236,10 @@ export default function Home() {
         </div>
 
         {/* reviews */}
-        <Testimonial />
+        <div className="hidden md:block">
+          <Testimonial />
+        </div>
+
         <div className="mt-20 flex flex-col md:flex-row items-center gap-6">
           {/* Left Section */}
           <div className="rounded-[48px] flex flex-col items-center p-6 sm:p-8 md:p-12 pb-0 w-full md:w-[55%] bg-[#F5F5F5] text-center">
@@ -261,7 +266,7 @@ export default function Home() {
             {/* App img */}
             <img
               className="mt-5 w-[80%] sm:w-[60%] md:w-[50%]"
-              src={`home/IOS-app-display.png`}
+              src={`/home/IOS-app-display.png`}
               alt="IOS app"
             />
           </div>
@@ -276,7 +281,7 @@ export default function Home() {
             {/* QR Code img */}
             <img
               className="mt-10 sm:mt-16 w-[50%] sm:w-[40%] md:w-[60%] rounded-[21px]"
-              src={`home/qr-code.png`}
+              src={`/home/qr-code.png`}
               alt="QR-code"
             />
           </div>

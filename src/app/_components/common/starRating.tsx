@@ -1,17 +1,21 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import StarIcon from "@mui/icons-material/Star";
+import { useState } from 'react';
+import StarIcon from '@mui/icons-material/Star';
 
 const ratingLabels: { [key: number]: string } = {
-  1: "Poor",
-  2: "Fair",
-  3: "Good",
-  4: "Very Good",
-  5: "Excellent",
+  1: 'Poor',
+  2: 'Fair',
+  3: 'Good',
+  4: 'Very Good',
+  5: 'Excellent',
 };
 
-export const StarRating = ({ ratedIndex }) => {
+interface StarRatingProps {
+  ratedIndex: (index: number) => void; // Function to handle rating selection
+}
+
+export const StarRating = ({ ratedIndex }: StarRatingProps) => {
   const [rating, setRating] = useState<number>(0);
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -31,8 +35,8 @@ export const StarRating = ({ ratedIndex }) => {
               key={index}
               className={`cursor-pointer transition-colors duration-200 ${
                 (hovered ?? rating) >= index
-                  ? "text-[#FFD700]"
-                  : "text-[#EAE6E9]"
+                  ? 'text-[#FFD700]'
+                  : 'text-[#EAE6E9]'
               }`}
               onClick={() => handleClick(index)}
               onMouseEnter={() => setHovered(index)}

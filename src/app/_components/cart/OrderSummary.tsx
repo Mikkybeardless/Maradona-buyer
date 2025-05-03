@@ -1,6 +1,8 @@
-import Image from "next/image";
-import { CardDetailsModal } from "../modals/cardDetails";
-import Link from "next/link";
+'use client';
+import Image from 'next/image';
+import { CardDetailsModal } from '../modals/cardDetails';
+import Link from 'next/link';
+import { useState } from 'react';
 interface OrderSummaryProps {
   isLink?: boolean;
   onClick?: () => void;
@@ -8,10 +10,17 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary = ({
-  btnText = "Check out",
+  btnText = 'Check out',
   isLink = false,
-  onClick,
 }: OrderSummaryProps) => {
+  const [disCountCode, setDiscountCode] = useState('');
+
+  const handleApplyDiscount = () => {
+    // Logic to apply discount code
+    console.log('Applying discount code:', disCountCode);
+    // Reset the input field after applying the discount code
+    setDiscountCode('');
+  };
   return (
     <div className="flex w-full h-full p-6 rounded-xl bg-white shadow-md flex-col gap-4">
       <div className="flex justify-between">
@@ -36,17 +45,22 @@ const OrderSummary = ({
         <div className="border border-gray-300 rounded-md px-4 py-2">
           <input
             type="text"
+            value={disCountCode}
+            onChange={(e) => setDiscountCode(e.target.value)}
             className="w-full outline-none "
             placeholder="Discount Code"
           />
         </div>
-        <button className="border border-gray-300 rounded-lg px-2 py-1">
+        <button
+          onClick={handleApplyDiscount}
+          className="border border-gray-300 rounded-lg px-2 py-1"
+        >
           Apply
         </button>
       </div>
       <div className="mb-4">
         <p className="flex justify-between">
-          <span>Discount:</span>{" "}
+          <span>Discount:</span>{' '}
           <span className="text-defaultBlue md:text-lg font-semibold">₦0</span>
         </p>
         <p className="flex justify-between">

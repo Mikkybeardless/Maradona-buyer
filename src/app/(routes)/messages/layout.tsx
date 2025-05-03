@@ -1,35 +1,38 @@
-import { NavBar } from "@/app/_components/NavBar";
-import Image from "next/image";
+import { NavBar } from '@/app/_components/NavBar';
+import Image from 'next/image';
 
-export default function Layout({ children }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+export default function Layout({ children }: LayoutProps) {
   const messages = [
     {
       id: 1,
-      imgSrc: "/notifications/image1.png",
-      title: "James Joseph",
-      detail: "Details here",
-      time: "12:36 PM",
+      imgSrc: '/notifications/image1.png',
+      title: 'James Joseph',
+      detail: 'Details here',
+      time: '12:36 PM',
     },
     {
       id: 2,
-      imgSrc: "/notifications/image2.png",
-      title: "Price drop alert",
-      detail: "The price of the item.",
-      time: "12:36 PM",
+      imgSrc: '/notifications/image2.png',
+      title: 'Price drop alert',
+      detail: 'The price of the item.',
+      time: '12:36 PM',
     },
     {
       id: 3,
-      imgSrc: "/notifications/image3.png",
-      title: "New item added",
-      detail: "hello",
-      time: "12:36 PM",
+      imgSrc: '/notifications/image3.png',
+      title: 'New item added',
+      detail: 'hello',
+      time: '12:36 PM',
     },
     {
       id: 4,
-      imgSrc: "/notifications/image1.png",
-      title: "Reminder",
-      detail: "Hello",
-      time: "12:36 PM",
+      imgSrc: '/notifications/image1.png',
+      title: 'Reminder',
+      detail: 'Hello',
+      time: '12:36 PM',
     },
   ];
   return (

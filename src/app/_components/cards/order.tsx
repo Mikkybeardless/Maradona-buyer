@@ -1,7 +1,14 @@
-import { Ellipsis } from "lucide-react";
-import Image from "next/image";
+import { Ellipsis } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 interface OrderCardProps {
-  order: { imageSrc: string; product: string; status: string; date: string };
+  order: {
+    imageSrc: string;
+    product: string;
+    status: string;
+    date: string;
+    id: number;
+  };
 }
 export const OrderCard = ({ order }: OrderCardProps) => {
   return (
@@ -18,10 +25,10 @@ export const OrderCard = ({ order }: OrderCardProps) => {
         </div>
         <div>
           <p
-            className={`   ${
-              order.status === "Delivered"
-                ? " text-[#00A800]"
-                : "text-[#BF8E11]"
+            className={`${
+              order.status === 'Delivered'
+                ? ' text-[#00A800]'
+                : 'text-[#BF8E11]'
             }`}
           >
             {order.status}
@@ -33,11 +40,14 @@ export const OrderCard = ({ order }: OrderCardProps) => {
         </div>
       </div>
 
-      {order.status !== "Delivered" ? (
+      {order.status !== 'Delivered' ? (
         <div className="flex justify-between md:justify-start gap-2">
-          <button className="bg-gray-200 text-secondaryOrange font-semibold px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300 ease-in-out">
+          <Link
+            href={'/track/${order.id}'}
+            className="bg-gray-200 text-secondaryOrange font-semibold px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300 ease-in-out"
+          >
             Track Order
-          </button>
+          </Link>
 
           <button className="text-[2em]   font-bold px-4 rounded-lg py-2 border border-gray-300 text-secondaryTextColor">
             <Ellipsis />

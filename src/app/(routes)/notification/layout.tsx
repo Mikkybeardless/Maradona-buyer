@@ -1,7 +1,10 @@
-import Breadcrumb from "@/app/_components/breadcrumb";
-import { NavBar } from "@/app/_components/NavBar";
+import Breadcrumb from '@/app/_components/breadcrumb';
+import { NavBar } from '@/app/_components/NavBar';
 
-export default function Layout({ children }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
       {/* <NavBar /> */}

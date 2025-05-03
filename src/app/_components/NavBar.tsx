@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
-import { GrCart } from "react-icons/gr";
+import Link from 'next/link';
+import { FaRegBell, FaRegHeart, FaRegUser } from 'react-icons/fa6';
+import { GrCart } from 'react-icons/gr';
 
 export const NavBar = () => {
   return (
@@ -11,7 +11,9 @@ export const NavBar = () => {
         alt="Distress sale Logo"
       />
       <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-6 items-center">
-        <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+        <Link href="/admin/profile">
+          <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+        </Link>
         <Link href="/saved">
           <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
         </Link>

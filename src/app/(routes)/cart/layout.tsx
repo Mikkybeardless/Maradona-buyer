@@ -1,7 +1,9 @@
-import Breadcrumb from "@/app/_components/breadcrumb";
-import { NavBar } from "@/app/_components/NavBar";
-
-export default function Layout({ children }) {
+import Breadcrumb from '@/app/_components/breadcrumb';
+import { NavBar } from '@/app/_components/NavBar';
+interface LayoutProps {
+  children: React.ReactNode;
+}
+export default function Layout({ children }: LayoutProps) {
   return (
     <div>
       <NavBar />

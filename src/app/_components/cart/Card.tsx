@@ -1,6 +1,6 @@
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import Image from "next/image";
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import Image from 'next/image';
 
 export const CartCard = () => {
   return (

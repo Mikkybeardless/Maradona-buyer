@@ -1,5 +1,6 @@
-import { BiLogoFacebookSquare } from "react-icons/bi";
-import { FaInstagram, FaWhatsapp, FaXTwitter } from "react-icons/fa6";
+import { BiLogoFacebookSquare } from 'react-icons/bi';
+import { FaInstagram, FaWhatsapp, FaXTwitter } from 'react-icons/fa6';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -13,7 +14,7 @@ export default function Footer() {
             <h5>Payment Gateways</h5>
             <img
               className="w-[6rem] sm:w-[8rem]"
-              src={`home/payment-cards.svg`}
+              src={`/home/payment-cards.svg`}
               alt="payment methods"
             />
           </div>
@@ -28,8 +29,15 @@ export default function Footer() {
           <div className="flex flex-col gap-y-3 footerTags">
             <h5>Make money with us</h5>
             <div className="font-light text-sm space-y-1">
-              <p>Sell products on DistressSales</p>
-              <p>Become an Affiliate</p>
+              <p>
+                <Link href={'/forms/agent'}>Agent Registration Form</Link>
+              </p>
+              <p>
+                <Link href={'/forms/investor'}>Become an Investor</Link>
+              </p>
+              <p>
+                <Link href={'/forms/seller'}>Become a Vendor</Link>
+              </p>
             </div>
           </div>
           <div className="flex flex-col gap-y-3 footerTags">
@@ -46,7 +54,9 @@ export default function Footer() {
               <p>Your account</p>
               <p>Your orders</p>
               <p>Shopping rates and policies</p>
-              <p>Returns and replacements</p>
+              <p>
+                <Link href={'/return-policy'}> Returns and replacements </Link>
+              </p>
               <p>Help</p>
             </div>
           </div>
@@ -56,7 +66,7 @@ export default function Footer() {
         <div className="w-full z-20 bg-transparent mt-16 md:mt-20 pb-5 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
           <img
             className="w-[80px] h-[80px] md:w-[97px] md:h-[97px]"
-            src={`home/shorter-logo.svg`}
+            src={`/home/shorter-logo.svg`}
             alt="Logo"
           />
 

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import StopCircleIcon from "@mui/icons-material/StopCircle";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import Image from "next/image";
+import { useRouter } from 'next/navigation';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import Image from 'next/image';
 
 export default async function SellerDetails({
   params,
@@ -12,6 +12,7 @@ export default async function SellerDetails({
   params: { id: string };
 }) {
   const id = params.id;
+  console.log('Seller ID:', id); // Log the seller ID to the console
   const router = useRouter();
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden p-10 custom-scrollbar flex flex-col bg-[#F7F7F7]">
@@ -36,7 +37,7 @@ export default async function SellerDetails({
               </div>
               <div className="flex justify-between items-center">
                 <p>Reasonable Shipping cost</p>
-                <hr className="w-[157px] h-1 bg-secondaryTextColor" />{" "}
+                <hr className="w-[157px] h-1 bg-secondaryTextColor" />{' '}
                 <span>4.9</span>
               </div>
               <div className="flex justify-between items-center">
@@ -56,7 +57,7 @@ export default async function SellerDetails({
               <h4>
                 <span className="mr-3 font-semibold text-lg">
                   Seller&apos;s feedback
-                </span>{" "}
+                </span>{' '}
                 <span>(5,079)</span>
               </h4>
               <div className="flex gap-4 justify-between items-center mb-5">

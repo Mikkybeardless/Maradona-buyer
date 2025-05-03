@@ -1,11 +1,13 @@
-import CategorySideBar from "@/app/_components/CategoriesSideBar";
-import NavSection from "@/app/_components/home/NavSection";
-import LanguageIcon from "@mui/icons-material/Language";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import SwapVertSharpIcon from "@mui/icons-material/SwapVertSharp";
-import { AuctionCard } from "@/app/_components/cards/auction";
+import CategorySideBar from '@/app/_components/CategoriesSideBar';
+import NavSection from '@/app/_components/home/NavSection';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SwapVertSharpIcon from '@mui/icons-material/SwapVertSharp';
+import { AuctionCard } from '@/app/_components/cards/auction';
 
-export default function Layout({ children }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+export default function Layout({ children }: LayoutProps) {
   return (
     <section className="">
       <NavSection />
@@ -20,12 +22,12 @@ export default function Layout({ children }) {
               <p>Sort By: </p>
               <p className="cursor-pointer hover:text-defaultBlue">
                 <SwapVertSharpIcon
-                  sx={{ fontSize: "22px", color: "#E65800" }}
+                  sx={{ fontSize: '22px', color: '#E65800' }}
                 />
                 Recommended
               </p>
               <p className="cursor-pointer hover:text-defaultBlue">
-                <AccessTimeIcon sx={{ fontSize: "22px", color: "#E65800" }} />{" "}
+                <AccessTimeIcon sx={{ fontSize: '22px', color: '#E65800' }} />{' '}
                 Any Time
               </p>
             </div>

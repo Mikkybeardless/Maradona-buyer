@@ -47,6 +47,16 @@ export default function AddCardModal({
     setNewCard({ ...newCard, [e.target.name]: e.target.value });
   };
 
+  const handleSaveCard = () => {
+    if (newCard.bank && newCard.cvv && newCard.cardNumber && newCard.expDate) {
+      onAddCard(newCard);
+      setNewCard({ bank: '', cvv: '', cardNumber: '', expDate: '' });
+      onClose();
+    } else {
+      alert('Please fill in all fields');
+    }
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[400px] ">
@@ -129,7 +139,7 @@ export default function AddCardModal({
             <Button
               variant="contained"
               sx={{ background: '#E65800', color: '#fff', flex: 1 }}
-              onClick={() => onAddCard(newCard)}
+              onClick={handleSaveCard}
             >
               Save
             </Button>

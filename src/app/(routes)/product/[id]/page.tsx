@@ -1,20 +1,10 @@
-import { repeatedComponents } from "@/app/_components/common/repeatComp";
-import { CarCard } from "@/app/_components/home/cards/car";
-import Image from "next/image";
-// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import StopCircleIcon from "@mui/icons-material/StopCircle";
-import GppGoodIcon from "@mui/icons-material/GppGood";
-import { CiHeart } from "react-icons/ci";
-import Link from "next/link";
-import { FaAward } from "react-icons/fa6";
-import { LuRefreshCw } from "react-icons/lu";
-import { TbTruckDelivery } from "react-icons/tb";
-import { SiVisa } from "react-icons/si";
+// At the top
+import dynamic from 'next/dynamic';
+
+const ProductDetailClient = dynamic(
+  () => import('@/app/_components/product/productDetailClient'),
+  { ssr: false }
+);
 
 export default async function ProductDetail({
   params,
@@ -22,343 +12,39 @@ export default async function ProductDetail({
   params: { id: string };
 }) {
   const id = params.id;
+  // You can fetch data here if needed, e.g., using a database or API call
+  // const product = await fetchProductById(id);
+  // const product = {
+  //   id: id,
+  //   name: '2003 Toyota SR5 1 OWNER FL TITLE 31 SERVICES',
+  //   description:
+  //     '1 OWNER, FL TITLE, BED LINER, SALT RUST FREE 31 services NON SMOKERS, POWER WINDOWS, POWER MIRRORS 4.7 V8',
+  //   price: 20000000,
+  //   keyfeatures: {
+  //     transmission: 'Automatic',
+  //     fuelType: 'Gasoline',
+  //     mileage: '150,000 miles',
+  //     color: 'Silver',
+  //     acceleration: '120 km/h',
+  //     enginePower: '4.7L V8',
+  //     condition: 'Used',
+  //   },
+  //   images: [
+  //     'https://example.com/image1.jpg',
+  //     'https://example.com/image2.jpg',
+  //     'https://example.com/image3.jpg',
+  //   ],
+  //   category: 'Vehicles',
+  //   location: 'Miami, FL',
+  //   seller: {
+  //     id: 'seller123',
+  //     name: 'John Doe',
+  //     rating: 4.5,
+  //     reviewsCount: 120,
+  //   },
+  //   createdAt: new Date().toISOString(),
+  //   updatedAt: new Date().toISOString(),
+  // };
 
-  const descs = [
-    { name: "Engine", detail: "2.5L 4-cylinder" },
-    { name: "Color", detail: "Blue" },
-    { name: "Horsepower", detail: "203 hp" },
-    { name: "Transmission", detail: "8-speed automatic" },
-    { name: "Fuel Economy", detail: "28 MPG city / 39 MPG highway" },
-    {
-      name: "Features",
-      detail:
-        "7-inch touchscreen, Apple CarPlay/ Android Auto, Toyota Safety Sense",
-    },
-  ];
-
-  const shipping = [
-    {
-      name: "Shipping",
-      desc: "₦ 100,000International shipment of items may be subject to customers processing and additional charges.",
-    },
-    {
-      name: "Delivery",
-      desc: `Estimated delivery between Monday, July 10 and Friday, July 18 to 800094. 
-            Please note that the delivery estimate is more than 4 business days. 
-            Allow extra time if international delivery is subject to customs processing.`,
-    },
-    { name: "Returns", desc: "Seller does not accept returns. See details" },
-  ];
-  return (
-    <div>
-      <p>Product Id: {id}</p>
-      <main className=" px-[4%] space-y-4 md:space-y-0">
-        <section className="flex flex-col gap-5 md:px-[8%] space-y-4 md:space-y-0">
-          {/* image and cta */}
-          <div className="flex flex-col md:flex-row  md:justify-between gap-4">
-            {/* left */}
-            <div className="relative w-full md:basis-[50%] h-[300px] rounded-md overflow-hidden shadow-sm ">
-              <Image
-                src="/categories/car.png"
-                alt="product image"
-                className="w-full h-full object-cover"
-                fill
-              />
-            </div>
-
-            {/* right */}
-            <div className=" md:p-3 md:pr-5 md:pl-20 w-full md:basis-[50%] space-y-2">
-              <div className="flex items-center relative justify-between gap-2 ">
-                <h2 className="font-bold text-lg mb-2">
-                  Toyota Camry LE (2024)
-                </h2>
-                <div className="border cursor-pointer border-[#BDBDBD] rounded-full p-1 flex items-center justify-center">
-                  <CiHeart className="w-5 h-5 text-black font-bold" />
-                </div>
-              </div>
-
-              <p>Car</p>
-              <p>
-                <span>Distresssales 100% positive </span>
-                <span>Seller&apos;s other items</span>
-                <span>Contact Seller</span>
-              </p>
-              <p>
-                <span className="line-through mr-4 font-semibold">
-                  ₦25,000,000
-                </span>
-                <span className="text-[24px] text-primaryOrange">
-                  ₦20,000,000
-                </span>
-              </p>
-              <p>
-                <span className="mr-2">Uploaded:</span> Monday, 2nd June, 2024.
-                02:00pm
-              </p>
-              <p>
-                <span className="mr-2">0 bids.</span>
-                Ends in 3d 1hr . Monday, 02:11 Of Best Offer
-              </p>
-              <p>
-                Condition:{" "}
-                <span className="text-darkBlue font-semibold">Pre-Owned</span>
-              </p>
-              <div className=" flex flex-col gap-y-4">
-                <button className="bg-primaryOrange text-white rounded-md px-4 py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange">
-                  Buy Now <ArrowRightAltIcon />
-                </button>
-                <button className="text-defaultOrangeHover border rounded-md border-primaryOrange px-4 py-2 hover:bg-primaryOrange hover:text-white">
-                  Add to cart
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* description */}
-          <div className="flex flex-col md:flex-row  md:justify-between gap-4">
-            {/* left */}
-            <div className="flex flex-col  md:basis-[50%] gap-4 w-full">
-              <h3 className="px-4 py-2 w-full bg-defaultBlue text-lg rounded-md ">
-                <span className="text-white">Description</span>
-              </h3>
-              <div className="px-5 py-3 space-y-2 bg-white">
-                {descs.map((desc) => (
-                  <div key={desc.name} className="flex justify-between gap-8">
-                    <h3 className="mr-4">{desc.name}:</h3>
-                    <p>{desc.detail}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div>
-                <div className="flex justify-between">
-                  <h3 className="font-semibold">Shop with confidence</h3>
-                  <KeyboardArrowUpIcon className="text-secondaryTextColor" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <GppGoodIcon className="text-[#3B3BFE]" />
-                  <div>
-                    <p>DistressSales Money Back Guarantee</p>
-                    <p>
-                      Get the item you ordered or your money back.
-                      <Link
-                        className="text-xs ml-2 underline text-darkBlue"
-                        href={`/`}
-                      >
-                        Learn more
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* right */}
-            <div className="flex flex-col gap-4 w-full md:pr-5 md:pl-20 md:basis-[50%] space-y-2">
-              {shipping.map((item) => (
-                <div key={item.name} className="flex gap-4">
-                  <h3 className="font-semibold">{item.name}:</h3>
-                  <p>{item.desc}</p>
-                </div>
-              ))}
-              <div className="flex gap-4">
-                <h3 className="font-semibold">Payment:</h3>
-                <SiVisa className=" text-3xl text-blue-900 p-1 shadow-md " />
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <h3 className="font-semibold">Shop with confidence</h3>
-                  <KeyboardArrowUpIcon className="text-secondaryTextColor" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <GppGoodIcon className="text-[#3B3BFE]" />
-                  <div>
-                    <p>DistressSales Money Back Guarantee</p>
-                    <p>
-                      Get the item you ordered or your money back.
-                      <Link
-                        className="text-xs ml-2 underline text-darkBlue"
-                        href={`/`}
-                      >
-                        Learn more
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <hr className="bg-slate-500" />
-
-          <div className="flex flex-col gap-2 md:flex-row md:gap-8">
-            <div className="flex items-center gap-4">
-              <TbTruckDelivery size={25} color="#111" />
-              <div>
-                <h3 className="text-lg font-semibold">Nation wide Delivery</h3>
-                <p>Shop the best distress items just for you.</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <LuRefreshCw size={25} color="#111" />
-              <div>
-                <h3 className="text-lg font-semibold">Free return Policy</h3>
-                <p>Shop the best distress items just for you.</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <FaAward size={25} color="#111" />
-              <div>
-                <h3 className="text-lg font-semibold">1 year Warranty</h3>
-                <p>Shop the best distress items just for you.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* About seller */}
-        <section className="bg-white space-y-3 md:space-y-0 px-4 md:px-12 md:py-12 py-4 my-10">
-          <h2 className="font-bold mb-8 text-2xl">About Seller</h2>
-
-          <div className="flex flex-col justify-center md:flex-row md:justify-between">
-            {/* image */}
-            <div className="mb-6">
-              <div className="flex items-center justify-center md:justify-start gap-4">
-                <div className="w-32 h-32 relative">
-                  <Image
-                    src="/categories/seller.png"
-                    alt="seller's picture"
-                    fill
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-                <div className="">
-                  <h3 className="font-bold text-2xl mb-1">Distressales</h3>
-                  <p>99.3% positive feedback</p>
-                  <p>6.4K items sold</p>
-                </div>
-              </div>
-
-              <p>
-                <EventNoteIcon className="text-secondaryOrange mr-1" />
-                Joined Aug, 2023
-              </p>
-              <p>
-                <AccessTimeIcon className="text-secondaryOrange mr-1" /> Usually
-                responds within 24 hours
-              </p>
-            </div>
-
-            <div className="flex md:flex-col gap-2">
-              <button className="rounded-md px-3 py-2 text-white hover:text-defaultBlue hover:bg-[#EAE6E9] hover:border-defaultBlue border bg-defaultBlue">
-                Contact
-              </button>
-              <button className="rounded-md px-3 py-2 flex items-center gap-2 bg-[#EAE6E9] border border-defaultBlue text-defaultBlue hover:text-white hover:bg-defaultBlue">
-                <CiHeart className="w-5 h-5" />
-                <span>Save seller</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2 md:flex-row md:gap-20 md:justify-between relative">
-            {/* left side */}
-            <div className="w-full  md:w-[50%]">
-              <h3 className="font-semibold text-lg">Detailed seller ratings</h3>
-              <p className="mb-4">Average for the last 12 hours</p>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <p>Accurate description </p>
-                  <hr className="w-[157px] h-1 bg-secondaryTextColor" />
-                  <span>4.9</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <p>Reasonable Shipping cost</p>
-                  <hr className="w-[157px] h-1 bg-secondaryTextColor" />{" "}
-                  <span>4.9</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <p>Shipping Speed</p>
-                  <hr className="w-[157px] h-1 bg-secondaryTextColor" />
-                  <span>4.9</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <p>Communication </p>
-                  <hr className="w-[157px] h-1 bg-secondaryTextColor" />
-                  <span>4.9</span>
-                </div>
-              </div>
-            </div>
-
-            {/* right side */}
-            <div className=" w-full  md:w-[50%]">
-              <div className="flex justify-end">
-                <Link
-                  href={`/product/seller/${id}`}
-                  className="text-defaultBlue hover:font-semibold"
-                >
-                  View more <ArrowRightAltIcon />
-                </Link>
-              </div>
-
-              <div>
-                <h4>
-                  <span className="mr-3 font-semibold text-lg">
-                    Seller&apos;s feedback
-                  </span>{" "}
-                  <span>(5,079)</span>
-                </h4>
-                <div className="flex gap-4 justify-between items-center mb-5">
-                  <div className="flex items-center gap-2">
-                    <span>
-                      <StopCircleIcon
-                        sx={{ fontSize: "14px" }}
-                        className="text-secondaryOrange mr-1"
-                      />
-                      K****K (90)
-                    </span>
-                    <span>
-                      <FiberManualRecordIcon
-                        sx={{ fontSize: "14px" }}
-                        className="text-green-600 mr-1"
-                      />
-                      2 months ago
-                    </span>
-                  </div>
-                  <p>Verified purchase</p>
-                </div>
-
-                <div className="flex jsutify-between gap-10 mb-4">
-                  <p className="">
-                    Item is a nice one, and exactly as described. My only
-                    problem was the shipping cost which too high and the
-                    packaging wasn&apos;t very impressive. aside these, i love
-                    their customer service and my experience with them is
-                    awesome.
-                  </p>
-                  <div className=" h-[100px] w-[27rem] rounded-sm relative">
-                    <Image
-                      src="/categories/review-pic.png"
-                      fill
-                      className="object-contain w-full h-full rounded-sm"
-                      alt="reviewed product image"
-                    />
-                  </div>
-                </div>
-                <p className="text-center">
-                  Toyota Camry SE (2024) Engine: 2.5L 4-cylinder, Colour: Blue
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 className="mb-4 md:text-2xl font-bold">Similar Item</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {repeatedComponents(20, CarCard)}
-          </div>
-        </section>
-      </main>
-    </div>
-  );
+  return <ProductDetailClient productId={id} />;
 }

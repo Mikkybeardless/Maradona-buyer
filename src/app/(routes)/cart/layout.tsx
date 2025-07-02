@@ -5,8 +5,7 @@ interface LayoutProps {
 }
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div>
-      <NavBar />
+    <div className="">
       <div className="ml-5 md:ml-20 mt-5">
         <Breadcrumb />
       </div>

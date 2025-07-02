@@ -37,9 +37,6 @@ export default function Layout({ children }: LayoutProps) {
   ];
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
-      {/* <NavBar /> */}
-      <NavBar />
-
       <div className=" flex justify-between">
         {/* side bar */}
         <div className="bg-white w-[30%] min-h-screen space-y-2">

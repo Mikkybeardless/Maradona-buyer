@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import ModalWrapper from "./modalWrapper";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import Image from "next/image";
-import { StarRating } from "../common/starRating";
+import { useState } from 'react';
+import ModalWrapper from './modalWrapper';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import Image from 'next/image';
+import { StarRating } from '../common/starRating';
 
 export const ReviewModal = ({
   btnText,
@@ -14,7 +14,7 @@ export const ReviewModal = ({
   btnColor?: string;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [review, setReview] = useState("");
+  const [review, setReview] = useState('');
 
   // handle input change
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -27,27 +27,27 @@ export const ReviewModal = ({
     e.preventDefault();
     // Perform validation and any other logic here
 
-    console.log("review:", review);
+    console.log('review:', review);
     // Perform any further actions with the card details here
   };
 
   const handleCancel = () => {
-    setReview("");
+    setReview('');
     setIsModalOpen(false);
   };
 
   const handleRatingChange = (index: number) => {
-    console.log("Selected rating:", index);
+    console.log('Selected rating:', index);
   };
 
   return (
     <div>
       <button
         type="button"
-        className={`border mt-10 ${
+        className={` mt-10 ${
           btnColor
             ? btnColor
-            : "border-primaryOrange  hover:bg-primaryOrange text-primaryOrange hover:text-white"
+            : 'border-primaryOrange border  hover:bg-primaryOrange text-primaryOrange hover:text-white'
         }   w-full rounded-lg px-2 py-2`}
         onClick={() => {
           setIsModalOpen(true);
@@ -56,13 +56,13 @@ export const ReviewModal = ({
         {btnText}
       </button>
       <ModalWrapper
-        modalWidth="md:w-[50%]  w-[90%]  my-auto"
+        modalWidth="md:w-[50%]  w-[90%]  my-5"
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
       >
-        <div className="w-full p-4 bg-white rounded-lg  flex flex-col gap-4">
+        <div className="w-full p-4 bg-white rounded-lg  flex flex-col gap-2">
           <button
-            className="absolute top-4 right-4 rounded-full p-2 "
+            className="absolute hover:bg-gray-100   top-4 right-4 rounded-full p-2 "
             onClick={() => {
               setIsModalOpen(false);
             }}
@@ -70,8 +70,9 @@ export const ReviewModal = ({
             <CloseRoundedIcon />
           </button>
           <h2 className="text-2xl font-bold text-center">
-            How was the Product/Purchase?
+            How was the Purchase?
           </h2>
+          <hr />
 
           <div className="flex flex-col  justify-center items-center">
             {/* image */}
@@ -102,26 +103,24 @@ export const ReviewModal = ({
               placeholder="Write your review here..."
             ></textarea>
 
-            <div className="flex justify-end   mt-4">
-              <div className="flex gap-4">
-                <button
-                  onClick={handleCancel}
-                  className="bg-gray-200  font-semibold px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-300 ease-in-out"
-                >
-                  Clancel
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleSubmit(
-                      e as unknown as React.FormEvent<HTMLFormElement>
-                    );
-                  }}
-                  className="bg-primaryOrange text-white py-2 rounded-lg mx-auto px-4"
-                >
-                  Publish Review
-                </button>
-              </div>
+            <div className="flex justify-between w-full  mt-3">
+              <button
+                onClick={handleCancel}
+                className="bg-gray-200  font-semibold px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-300 ease-in-out"
+              >
+                Clancel
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit(
+                    e as unknown as React.FormEvent<HTMLFormElement>
+                  );
+                }}
+                className="bg-primaryOrange text-white py-2 rounded-lg px-4"
+              >
+                Publish Review
+              </button>
             </div>
           </form>
         </div>

@@ -19,7 +19,7 @@ export const PlayBidModal = () => {
     <div>
       <button
         type="button"
-        className={`border mt-10  border-primaryOrange  hover:bg-primaryOrange text-primaryOrange hover:text-white"
+        className={`border mt-10  hover:border-primaryOrange hover:bg-inherit  bg-primaryOrange hover:text-primaryOrange text-white
         }   w-full rounded-lg px-2 py-2`}
         onClick={() => {
           setIsModalOpen(true);

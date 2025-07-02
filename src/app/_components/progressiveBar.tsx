@@ -46,7 +46,7 @@ export default function ProgressBar() {
 
           {/* Progress overlay - green line for completed sections */}
           <div
-            className="absolute left-0 h-[2px] bg-green-500"
+            className="absolute left-0 h-[2px] bg-primaryOrange"
             style={{
               width: `${(Math.max(0, currentStep - 1) / (steps.length - 1)) * 100}%`,
             }}
@@ -59,7 +59,7 @@ export default function ProgressBar() {
                 className={`w-5 h-5 rounded-full flex items-center justify-center
                 ${
                   step.id <= currentStep
-                    ? 'border-2 border-green-500 bg-white'
+                    ? 'border-2 border-primaryOrange bg-white'
                     : 'border-2 border-gray-400 bg-white'
                 }`}
               >
@@ -75,7 +75,7 @@ export default function ProgressBar() {
                   //       clipRule="evenodd"
                   //     />
                   //   </svg>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-primaryOrange"></div>
                 ) : step.id === currentStep ? (
                   <div className="w-3 h-3 rounded-full bg-white"></div>
                 ) : (
@@ -124,7 +124,7 @@ export default function ProgressBar() {
 
             {/* Progress overlay - green line for completed sections */}
             <div
-              className="absolute top-0 w-[2px] bg-blue-800"
+              className="absolute top-0 w-[2px] bg-primaryOrange"
               style={{
                 height: `${(Math.max(0, currentStep - 1) / (steps.length - 1)) * 100}%`,
               }}
@@ -137,12 +137,12 @@ export default function ProgressBar() {
                   className={`w-5 h-5 rounded-full flex items-center justify-center
                 ${
                   step.id <= currentStep
-                    ? 'border-2 border-blue-800 bg-blue-800'
+                    ? 'border-2 border-primaryOrange bg-primaryOrange'
                     : 'border-2 border-gray-400 bg-white'
                 }`}
                 >
                   {step.id < currentStep ? (
-                    <div className="w-3 h-3 rounded-full bg-blue-800"></div>
+                    <div className="w-3 h-3 rounded-full bg-primaryOrange"></div>
                   ) : step.id === currentStep ? (
                     <div className="w-3 h-3 rounded-full bg-white"></div>
                   ) : (
@@ -160,7 +160,9 @@ export default function ProgressBar() {
                 key={`label-${step.id}`}
                 className="flex flex-col items-center"
               >
-                <p className="text-defaultBlue font-bold text-xl">
+                <p
+                  className={` ${step.id === currentStep ? 'text-primaryOrange' : 'text-secondaryTextColor'}  font-bold text-xl`}
+                >
                   {step.name}
                 </p>
                 <p className="text-secondaryTextColor text-sm">

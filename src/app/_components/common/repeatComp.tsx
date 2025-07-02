@@ -1,3 +1,12 @@
-export const repeatedComponents = (n: number, Comp: React.ComponentType) => {
-  return Array.from({ length: n }).map((_, i) => <Comp key={i} />);
+import React from 'react';
+
+export const repeatedComponents = (
+  n: number,
+  component: React.ReactElement
+) => {
+  return Array.from({ length: n }).map((_, i) => (
+    <div key={i} className="w-full">
+      {React.cloneElement(component, { key: i })}
+    </div>
+  ));
 };

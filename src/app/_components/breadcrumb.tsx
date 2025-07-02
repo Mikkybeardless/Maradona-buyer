@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 
 interface BreadcrumbItem {
   label: string;
@@ -15,7 +15,7 @@ export default function Breadcrumb() {
   const pathname = usePathname();
 
   //match numeric IDs and UUID patterns
-  const pathSegments = pathname.split("/").filter(
+  const pathSegments = pathname.split('/').filter(
     (segment) =>
       segment &&
       !/^\d+(\[.+\])?$/.test(segment) && // Numeric IDs
@@ -25,11 +25,11 @@ export default function Breadcrumb() {
   );
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: "Home", href: "/", isActive: pathname === "/" },
+    { label: 'Auction Deals', href: '/', isActive: pathname === '/' },
     ...pathSegments.map((segment, index) => {
-      const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
+      const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
       return {
-        label: decodeURIComponent(segment.replace(/-/g, " ")),
+        label: decodeURIComponent(segment.replace(/-/g, ' ')),
         href,
         isActive: pathname.startsWith(href),
       };
@@ -50,17 +50,17 @@ export default function Breadcrumb() {
         >
           {index !== 0 && (
             <ArrowForwardIosSharpIcon
-              sx={{ fontSize: "14px" }}
+              sx={{ fontSize: '14px' }}
               className="mx-2"
             />
           )}
           {breadcrumb.isActive ? (
             <span className="text-[#000929] font-bold">
-              {breadcrumb.label === "cart"
-                ? "my cart"
-                : breadcrumb.label === "saved"
-                ? "saved items"
-                : breadcrumb.label}
+              {breadcrumb.label === 'cart'
+                ? 'my cart'
+                : breadcrumb.label === 'saved'
+                  ? 'saved items'
+                  : breadcrumb.label}
             </span>
           ) : (
             <Link

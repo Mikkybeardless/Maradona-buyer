@@ -2,15 +2,9 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Buyer',
+  title: 'Buyers',
   description: 'Distress Sale Buyer Application',
 };
-
-// const work_sans = Work_Sans({
-//   subsets: ["latin"],
-//   display: "swap",
-//   variable: "--font-work-sans",
-// });
 
 interface LayoutProps {
   children: React.ReactNode;

@@ -1,113 +1,82 @@
 'use client';
-import {
-  Button,
-  Divider,
-  Drawer,
-  IconButton,
-  InputAdornment,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material';
+import { Button, Drawer, MenuItem, Select, TextField } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
-import { CiSearch } from 'react-icons/ci';
-import { FaBars, FaRegBell, FaRegHeart, FaRegUser } from 'react-icons/fa6';
+import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
 import { GrCart } from 'react-icons/gr';
+import SearchBox from '../SearchBox';
 
 export default function NavSection() {
   const [mobileOpen, setMobileOpen] = useState(false);
   return (
-    <section id="nav">
-      <nav className="flex justify-between items-center py-2 w-full px-3 sm:px-4 md:px-[8%]">
+    <header>
+      <nav className="hidden fixed left-0 z-30 md:flex justify-between items-center py-2 bg-white  w-full px-3 sm:px-4 md:px-[5%]">
         {/* Left side - Logo and Mobile Menu Button */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <IconButton onClick={() => setMobileOpen(true)}>
-              <FaBars className="w-5 h-5" />
-            </IconButton>
+
+        <Link href="/">
+          <img
+            className="h-[60px] w-auto hidden md:flex"
+            src={`/home/logo.svg`}
+            alt="Logo"
+          />
+        </Link>
+
+        <div className="flex items-center gap-3">
+          <Select
+            defaultValue="all"
+            variant="standard"
+            disableUnderline
+            className="ml-2 text-gray-600 rounded-lg px-3 py-1 bg-[#F0F0F0]"
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="Houses">Houses</MenuItem>
+            <MenuItem value="Lands">Lands</MenuItem>
+          </Select>
+          <div className="w-64 bg-white py-1 px-2 rounded-lg">
+            {/* <TextField
+              variant="standard"
+              placeholder="property type, location, price range"
+              InputProps={{
+                disableUnderline: true,
+                // startAdornment: (
+                //   <InputAdornment position="start">
+                //     <CiSearch className="text-gray-400" />
+                //   </InputAdornment>
+                // ),
+              }}
+              className="w-full"
+            /> */}
+            <SearchBox />
           </div>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex gap-4 lg:gap-6">
-            <Link
-              href="/"
-              className="hover:text-defaultOrange text-xs sm:text-sm"
-            >
-              Home
-            </Link>
-            <a
-              href="#services"
-              className="hover:text-defaultOrange text-xs sm:text-sm"
-            >
-              Our Services
-            </a>
-            <a
-              href="#testimonials"
-              className="hover:text-defaultOrange text-xs sm:text-sm"
-            >
-              Testimonials
-            </a>
-            <a
-              href="#help"
-              className="hover:text-defaultOrange text-xs sm:text-sm"
-            >
-              Help
-            </a>
-          </div>
+          <button className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white">
+            <FaRegCircle size={18} />
+          </button>
         </div>
 
-        {/* Right side - Icons & Buttons */}
-        <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-6 items-center">
-          <Link href="/admin/profile">
-            <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          </Link>
-          <Link href="/saved">
-            <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          </Link>
-          <Link href="/notification">
-            <FaRegBell className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          </Link>
-          <Link href="/cart">
-            <GrCart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-          </Link>
-
-          {/* Desktop Login/Register Buttons (Hidden on small screens) */}
-          <div className="hidden md:flex gap-3 lg:gap-4">
-            <Link href="/login">
-              <Button
-                variant="contained"
-                sx={{
-                  background: '#14199C',
-                  color: '#FFFFFF',
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  height: '35px',
-                  borderRadius: '6px',
-                }}
-              >
-                Login
-              </Button>
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 items-center">
+            <Link href={'/overview'} className="flex gap-2 items-center">
+              <FaRegUser size={30} />
             </Link>
-            <Link href="/admin/profile">
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: '#14199C',
-                  color: '#14199C',
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  height: '35px',
-                  borderRadius: '6px',
-                }}
-              >
-                Dashboard
-              </Button>
-            </Link>
+            <div className="flex flex-col">
+              <span>Welcome</span>
+              <Link href={'/login'} className="text-darkBlue  font-bold">
+                Signin / Register
+              </Link>
+            </div>
           </div>
-        </div>
 
+          <Link href={'/cart'} className="flex gap-2 items-center">
+            <GrCart size={30} />
+            <div className="flex flex-col items-center">
+              <span className="bg-[#6A2900] rounded-2xl px-5 text-white py-1">
+                0
+              </span>
+              <span className="text-darkBlue font-bold">Cart</span>
+            </div>
+          </Link>
+        </div>
         {/* Mobile Drawer Menu */}
         <Drawer
           anchor="left"
@@ -168,48 +137,6 @@ export default function NavSection() {
           </div>
         </Drawer>
       </nav>
-
-      <header className="flex items-center  gap-x-56 mt-5 bg-white px-[8%] py-2">
-        <img
-          className="h-[60px] w-auto hidden md:flex"
-          src={`/home/logo.svg`}
-          alt="Logo"
-        />
-
-        <div className="flex items-center text-center w-full max-w-lg border border-gray-300 rounded overflow-hidden px-3 py-1">
-          <TextField
-            variant="standard"
-            placeholder="property type, location, price range"
-            InputProps={{
-              disableUnderline: true,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CiSearch className="text-gray-400" />
-                </InputAdornment>
-              ),
-            }}
-            className="flex-1"
-          />
-          <Divider orientation="vertical" flexItem />
-          <Select
-            defaultValue="Cars"
-            variant="standard"
-            disableUnderline
-            className="ml-2 text-gray-600"
-          >
-            <MenuItem value="Cars">Cars</MenuItem>
-            <MenuItem value="Houses">Houses</MenuItem>
-            <MenuItem value="Lands">Lands</MenuItem>
-          </Select>
-        </div>
-
-        {/* <Link
-            to="/seller/dashboard"
-            className="rounded-[8px] px-3 py-2.5 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
-          >
-            Become a seller
-          </Link> */}
-      </header>
-    </section>
+    </header>
   );
 }

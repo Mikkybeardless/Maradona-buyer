@@ -11,17 +11,30 @@ export default function ResetPassword() {
   const [phase, setPhase] = useState(1);
   const [otp, setOtp] = useState('');
   const [time, setTime] = useState(60);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   useEffect(() => {
-    if (time === 0) {
-      setTime(60);
-    }
+    // if (time === 0) {
+    //   setTime(60);
+    // }
     const interval = setInterval(() => {
-      setTime((prevTime) => prevTime - 1);
+      setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [time]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#F5F5F5] px-4">
@@ -32,7 +45,7 @@ export default function ResetPassword() {
           </h1>
 
           <p className="text-secondaryTextColor text-sm text-center mt-2.5 max-w-[90%]">
-            Enter your email, and we’ll send instructions to reset your
+            Enter your email, and we&apos;ll send instructions to reset your
             password.
           </p>
 
@@ -41,6 +54,9 @@ export default function ResetPassword() {
             <input
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
               placeholder="Enter your email"
             />
           </div>
@@ -99,19 +115,25 @@ export default function ResetPassword() {
           </h1>
 
           <div className="flex flex-col gap-y-1.5 mt-8 w-full">
-            <label>New password:</label>
+            <label htmlFor="password">New password:</label>
             <input
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
               placeholder="New password"
             />
           </div>
 
           <div className="flex flex-col gap-y-1.5 mt-4 w-full">
-            <label>Confirm password:</label>
+            <label htmlFor="confirmPassword">Confirm password:</label>
             <input
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
               placeholder="Confirm password"
             />
           </div>

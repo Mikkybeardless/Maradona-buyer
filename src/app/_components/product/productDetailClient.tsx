@@ -46,6 +46,20 @@ export default function ProductDetailClient({ productId }: Props) {
     { name: 'Exterior color', detail: 'Silver' },
     { name: 'Interior color', detail: 'Black' },
   ];
+  const productDetails = {
+    id: productId,
+    title: '2003 Toyota SR5 1 OWNER FL TITLE 31 SERVICES',
+    price: '₦20,000,000',
+    description:
+      '1 OWNER, FL TITLE, BED LINER, SALT RUST FREE 31 services NON SMOKERS, POWER WINDOWS, POWER MIRRORS 4.7 V8',
+    images: [
+      '/categories/car.png',
+      '/categories/car.png',
+      '/categories/car.png',
+      '/categories/car.png',
+    ],
+    productType: 'sale', // or 'sale'
+  };
 
   const dynamicStates: StateObject[] = [
     { state: 'about', label: 'About this Item', id: 1 },
@@ -208,7 +222,15 @@ export default function ProductDetailClient({ productId }: Props) {
                 {/* <button className="bg-primaryOrange text-white rounded-lg px-4 py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange">
                   Buy Now
                 </button> */}
-                <PlayBidModal />
+
+                {productDetails.productType === 'auction' ? (
+                  <PlayBidModal />
+                ) : (
+                  <button className="bg-primaryOrange text-white rounded-lg px-4 py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange">
+                    Schedule Inspection
+                  </button>
+                )}
+
                 <button className="text-darkBlue border rounded-lg border-[#D0D5DD] px-4 py-2 ">
                   Add to cart
                 </button>

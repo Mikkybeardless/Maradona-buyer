@@ -11,7 +11,7 @@ interface ModalProps {
 export const EditPasswordModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-}) => {
+}: ModalProps) => {
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',

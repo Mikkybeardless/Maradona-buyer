@@ -1,17 +1,27 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SignUp({ setSignUp }: SignUpProps) {
-  const [country, setCountry] = useState("");
-  const [region, setRegion] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    country: '',
+    region: '',
+    address: '',
+    postalCode: '',
+  });
   const [togglePasswordShow, setTogglePasswordShow] = useState({
     signUp1: false,
     signUp2: false,
@@ -19,7 +29,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
   const router = useRouter();
 
   function goToHome() {
-    router.push("/");
+    router.push('/');
   }
 
   function handleToggleSignUp1() {
@@ -36,6 +46,14 @@ export default function SignUp({ setSignUp }: SignUpProps) {
     });
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="w-full md:w-[70%] flex flex-col py-10 px-4 md:px-0">
       <h1 className="text-3xl md:text-4xl font-bold text-center">
@@ -51,6 +69,9 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <label>First name:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
             type="text"
             placeholder="First name"
           />
@@ -60,6 +81,9 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
             placeholder="Last name"
           />
         </div>
@@ -68,6 +92,9 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
             placeholder="Email"
           />
         </div>
@@ -76,6 +103,9 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
+            value={formData.username}
+            onChange={handleInputChange}
+            name="username"
             placeholder="Choose username"
           />
         </div>
@@ -86,7 +116,10 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <div className="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-[#DED9DD] bg-white">
             <input
               className="outline-none flex-1"
-              type={!togglePasswordShow.signUp1 ? "password" : "text"}
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              type={!togglePasswordShow.signUp1 ? 'password' : 'text'}
               placeholder="Type"
             />
             {!togglePasswordShow.signUp1 ? (
@@ -109,7 +142,10 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <div className="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-[#DED9DD] bg-white">
             <input
               className="outline-none flex-1"
-              type={!togglePasswordShow.signUp2 ? "password" : "text"}
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              type={!togglePasswordShow.signUp2 ? 'password' : 'text'}
               placeholder="Type"
             />
             {!togglePasswordShow.signUp2 ? (
@@ -133,17 +169,27 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <label>Country:</label>
           <CountryDropdown
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            value={country}
-            onChange={(val) => setCountry(val)}
+            value={formData.country}
+            onChange={(val) =>
+              setFormData((prev) => ({
+                ...prev,
+                country: val,
+              }))
+            }
           />
         </div>
         <div className="flex flex-col gap-y-1.5">
           <label>State/City:</label>
           <RegionDropdown
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            country={country}
-            value={region}
-            onChange={(val) => setRegion(val)}
+            country={formData.country}
+            value={formData.region}
+            onChange={(val) =>
+              setFormData((prev) => ({
+                ...prev,
+                region: val,
+              }))
+            }
           />
         </div>
 
@@ -153,6 +199,9 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
             placeholder="Type"
           />
         </div>
@@ -160,6 +209,9 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <label>Postal Code:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
+            name="postalCode"
+            value={formData.postalCode}
+            onChange={handleInputChange}
             type="text"
             placeholder="Type"
           />
@@ -188,7 +240,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
         >
           <img
             className="w-[39px] h-[39px]"
-            src={"/home/google-icon.svg"}
+            src={'/home/google-icon.svg'}
             alt="google"
           />
           <span>Google</span>
@@ -199,7 +251,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
         >
           <img
             className="w-[24px] h-[24px]"
-            src={"/home/facebook-logo.png"}
+            src={'/home/facebook-logo.png'}
             alt="facebook"
           />
           <span>Facebook</span>
@@ -208,7 +260,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
 
       {/* Login Link */}
       <p className="text-[#6D6D6D] text-center mt-5">
-        Already have an account?{" "}
+        Already have an account?{' '}
         <span
           onClick={() => setSignUp(false)}
           className="hover:underline cursor-pointer font-medium text-black"

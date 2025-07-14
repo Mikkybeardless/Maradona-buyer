@@ -1,4 +1,4 @@
-import ProductMap from '@/app/_components/Map';
+// import ProductMap from '@/app/_components/Map';
 import ProgressBar from '@/app/_components/progressiveBar';
 import { BsTruckFront } from 'react-icons/bs';
 import { FiPhoneCall } from 'react-icons/fi';

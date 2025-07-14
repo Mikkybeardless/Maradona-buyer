@@ -1,4 +1,3 @@
-import { NavBar } from '@/app/_components/NavBar';
 import Image from 'next/image';
 
 interface LayoutProps {

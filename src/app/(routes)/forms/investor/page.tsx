@@ -1,11 +1,43 @@
 'use client';
-
 import { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa6';
 import Link from 'next/link';
 
 export default function InvestorForm() {
   const [currentTab, setCurrentTab] = useState(1);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    nationality: '',
+    address: '',
+    dob: '',
+    state: '',
+    city: '',
+    investMentAmount: 0,
+    primaryRevenue: '',
+    sellingPlan: '',
+    scalingPlan: '',
+    expansionPlan: '',
+    potentialRisks: '',
+    businessName: '',
+    businessType: 'individual' as 'individual' | 'partnership',
+    challengePlan: '',
+    existStrategy: '',
+    alignment: '',
+    futurePlan: '',
+    aditionalInfo: '',
+    coreFeatures: '',
+    targetMarket: '',
+    differentiation: '',
+    valuePropositions: '',
+    expectedRI: '',
+    reasonForInvestment: '',
+    confidentiality: false,
+    expectedCost: '',
+    expectedHoldingPeriod: '',
+    investmentStructure: '',
+  });
 
   const handleNextTab = () => {
     setCurrentTab((prev) => Math.min(prev + 1, 4));
@@ -14,8 +46,21 @@ export default function InvestorForm() {
   const handlePrevTab = () => {
     setCurrentTab((prev) => Math.max(prev - 1, 1));
   };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
-    <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7] p-8">
+    <section className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7] p-8">
       {/* Breadcrumb Navigation */}
       <div className="flex flex-wrap gap-x-2 gap-y-2 items-center text-xs">
         <Link href={`/`} className="">
@@ -33,7 +78,7 @@ export default function InvestorForm() {
           e-commerce platform that facilitates the sale of distressed inventory,
           overstock, surplus stock, and liquidation sales.
         </p>
-        <div className="w-full lg:w-5/6">
+        <form className="w-full lg:w-5/6">
           {
             currentTab === 1 ? (
               // Tab One
@@ -45,6 +90,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
                         placeholder="Full name"
                       />
                     </div>
@@ -55,6 +103,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="Email"
                       />
                     </div>
@@ -65,6 +116,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
                         placeholder="Phone"
                       />
                     </div>
@@ -75,6 +129,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="date"
+                        name="dob"
+                        value={formData.dob}
+                        onChange={handleInputChange}
                         placeholder="DOB"
                       />
                     </div>
@@ -85,6 +142,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="nationality"
+                        value={formData.nationality}
+                        onChange={handleInputChange}
                         placeholder="Nationality"
                       />
                     </div>
@@ -98,6 +158,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleInputChange}
                         placeholder="Address"
                       />
                     </div>
@@ -108,6 +171,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleInputChange}
                         placeholder="State"
                       />
                     </div>
@@ -118,6 +184,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleInputChange}
                         placeholder="City"
                       />
                     </div>
@@ -127,7 +196,10 @@ export default function InvestorForm() {
                     <div className="bg-[#FFFFFF] border border-[#DED9DD] p-2 rounded">
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
-                        type="text"
+                        type="number"
+                        name="investMentAmount"
+                        value={formData.investMentAmount}
+                        onChange={handleInputChange}
                         placeholder="Amount"
                       />
                     </div>
@@ -138,6 +210,9 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="investmentStructure"
+                        value={formData.investmentStructure}
+                        onChange={handleInputChange}
                         placeholder="Equity"
                       />
                     </div>
@@ -151,7 +226,10 @@ export default function InvestorForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
-                        placeholder="Business name"
+                        placeholder="Period"
+                        name="expectedHoldingPeriod"
+                        value={formData.expectedHoldingPeriod}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -164,16 +242,23 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={10}
+                        name="reasonForInvestment"
+                        value={formData.reasonForInvestment}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
                     <div className="mb-1">Type of Business:</div>
                     <div className="bg-[#FFFFFF] border border-[#DED9DD] p-2 rounded">
-                      <select className="bg-none outline-none text-[#A3A3B3] w-full">
-                        <option>Individual</option>
-                        <option>Partnership</option>
+                      <select
+                        name="businessType"
+                        onChange={handleInputChange}
+                        className="bg-none outline-none text-[#A3A3B3] w-full"
+                      >
+                        <option value="indivitual">Individual</option>
+                        <option value="partnership">Partnership</option>
                       </select>
                     </div>
                   </div>
@@ -193,8 +278,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="expectedRI"
+                        value={formData.expectedRI}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -206,8 +294,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="alignment"
+                        value={formData.alignment}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -219,8 +310,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="targetMarket"
+                        value={formData.targetMarket}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>
@@ -235,8 +329,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="coreFeatures"
+                        value={formData.coreFeatures}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -248,8 +345,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="differentiation"
+                        value={formData.differentiation}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -262,8 +362,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="primaryRevenue"
+                        value={formData.primaryRevenue}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>
@@ -281,8 +384,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="sellingPlan"
+                        value={formData.sellingPlan}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -295,8 +401,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="expectedCost"
+                        value={formData.expectedCost}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -308,8 +417,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="scalingPlan"
+                        value={formData.scalingPlan}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>
@@ -324,8 +436,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="expansionPlan"
+                        value={formData.expansionPlan}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -337,8 +452,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="potentialRisks"
+                        value={formData.potentialRisks}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -351,8 +469,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="challengePlan"
+                        value={formData.challengePlan}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>
@@ -371,8 +492,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="existStrategy"
+                        value={formData.existStrategy}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -385,8 +509,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="futurePlan"
+                        value={formData.futurePlan}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                   <div>
@@ -399,6 +526,12 @@ export default function InvestorForm() {
                         <input
                           className=""
                           type="radio"
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              confidentiality: e.target.checked,
+                            })
+                          }
                           name="confidentiality"
                         />
                         <span>Yes</span>
@@ -408,6 +541,12 @@ export default function InvestorForm() {
                         <input
                           className=""
                           type="radio"
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              confidentiality: !e.target.checked,
+                            })
+                          }
                           name="confidentiality"
                         />
                         <span>No</span>
@@ -426,8 +565,11 @@ export default function InvestorForm() {
                       <textarea
                         className="bg-none outline-none text-[#A3A3B3]"
                         rows={8}
+                        name="aditionalInfo"
+                        value={formData.aditionalInfo}
+                        onChange={handleInputChange}
                         placeholder=""
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>
@@ -460,9 +602,9 @@ export default function InvestorForm() {
                   Next
                 </div>
               ) : (
-                <div className="border border-[#14199C] text-[#14199C] cursor-pointer text-center text-sm px-14 py-2 rounded">
+                <button className="border border-[#14199C] text-[#14199C] cursor-pointer text-center text-sm px-14 py-2 rounded">
                   Submit
-                </div>
+                </button>
               )}
             </div>
           </div>
@@ -493,8 +635,8 @@ export default function InvestorForm() {
               } border border-[#14199C] p-1 rounded-2xl`}
             ></div>
           </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </section>
   );
 }

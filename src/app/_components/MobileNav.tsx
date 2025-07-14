@@ -1,13 +1,18 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { Home, User, Settings, Briefcase, Mail } from 'lucide-react';
+// import { Home, User, Settings, Briefcase, Mail } from 'lucide-react';
 import Link from 'next/link';
 import SearchBox from './SearchBox';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
-import { GrCart } from 'react-icons/gr';
+// import { GrCart } from 'react-icons/gr';
 import { CiHeart, CiWallet } from 'react-icons/ci';
 import { TbCurrentLocation, TbMessage2 } from 'react-icons/tb';
+import { usePathname } from 'next/navigation';
 
+interface MobileNavProps {
+  menuItems?: { name: string; href: string; icon: React.ElementType }[];
+  className?: string;
+}
 export default function MobileNav({
   menuItems = [
     { name: 'Bids & Orders', href: '/', icon: CiWallet },
@@ -16,13 +21,13 @@ export default function MobileNav({
     { name: 'Track Shipment', href: '/track', icon: TbCurrentLocation },
   ],
   className = '',
-}) {
+}: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
-
+  const [searchQuery, setSearchQuery] = useState('');
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
-
+  const path = usePathname();
   const linksWitOutIcons = [
     { name: 'Shipping Address', href: '/' },
     { name: 'Pending reviews', href: '/' },
@@ -60,6 +65,9 @@ export default function MobileNav({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const handleSearch = () => {
+    console.log('Search Query:', searchQuery);
+  };
   return (
     <header className="fixed   md:hidden left-0 z-30 w-full">
       <nav
@@ -107,22 +115,34 @@ export default function MobileNav({
               <Link href={'/overview'} className="flex gap-2 items-center">
                 <FaRegUser size={30} />
               </Link>
-
+              {/* 
               <Link href={'/cart'} className="flex gap-2 items-center">
                 <GrCart size={30} />
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
 
         <div className="flex mx-auto px-4 items-center gap-3">
           <div className="w-full bg-white py-1 px-2 rounded-lg">
-            <SearchBox />
+            <SearchBox onSearch={setSearchQuery} />
           </div>
 
-          <button className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white">
-            <FaRegCircle size={18} />
-          </button>
+          {path !== '/search' ? (
+            <Link
+              href={`/search?query=${searchQuery}`}
+              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
+            >
+              <FaRegCircle size={18} />
+            </Link>
+          ) : (
+            <button
+              onClick={handleSearch}
+              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
+            >
+              <FaRegCircle size={18} />
+            </button>
+          )}
         </div>
 
         {/* Mobile Dropdown Menu */}

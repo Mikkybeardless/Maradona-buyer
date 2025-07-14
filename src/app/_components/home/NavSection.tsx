@@ -1,13 +1,20 @@
 'use client';
-import { Button, Drawer, MenuItem, Select, TextField } from '@mui/material';
+import { Button, Drawer, MenuItem, Select } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
-import { GrCart } from 'react-icons/gr';
+// import { GrCart } from 'react-icons/gr';
 import SearchBox from '../SearchBox';
+import { usePathname } from 'next/navigation';
 
 export default function NavSection() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const path = usePathname();
+
+  const handleSearch = () => {
+    console.log('Search Query:', searchQuery);
+  };
   return (
     <header>
       <nav className="hidden fixed left-0 z-30 md:flex justify-between items-center py-2 bg-white  w-full px-3 sm:px-4 md:px-[5%]">
@@ -33,25 +40,24 @@ export default function NavSection() {
             <MenuItem value="Lands">Lands</MenuItem>
           </Select>
           <div className="w-64 bg-white py-1 px-2 rounded-lg">
-            {/* <TextField
-              variant="standard"
-              placeholder="property type, location, price range"
-              InputProps={{
-                disableUnderline: true,
-                // startAdornment: (
-                //   <InputAdornment position="start">
-                //     <CiSearch className="text-gray-400" />
-                //   </InputAdornment>
-                // ),
-              }}
-              className="w-full"
-            /> */}
-            <SearchBox />
+            <SearchBox onSearch={setSearchQuery} />
           </div>
 
-          <button className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white">
-            <FaRegCircle size={18} />
-          </button>
+          {path !== '/search' ? (
+            <Link
+              href={`/search?query=${searchQuery}`}
+              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
+            >
+              <FaRegCircle size={18} />
+            </Link>
+          ) : (
+            <button
+              onClick={handleSearch}
+              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
+            >
+              <FaRegCircle size={18} />
+            </button>
+          )}
         </div>
 
         <div className="flex items-center gap-4">
@@ -67,7 +73,7 @@ export default function NavSection() {
             </div>
           </div>
 
-          <Link href={'/cart'} className="flex gap-2 items-center">
+          {/* <Link href={'/cart'} className="flex gap-2 items-center">
             <GrCart size={30} />
             <div className="flex flex-col items-center">
               <span className="bg-[#6A2900] rounded-2xl px-5 text-white py-1">
@@ -75,7 +81,7 @@ export default function NavSection() {
               </span>
               <span className="text-darkBlue font-bold">Cart</span>
             </div>
-          </Link>
+          </Link> */}
         </div>
         {/* Mobile Drawer Menu */}
         <Drawer

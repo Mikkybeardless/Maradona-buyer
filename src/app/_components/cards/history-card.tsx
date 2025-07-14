@@ -1,8 +1,8 @@
 import { formatAmount } from '@/app/Utils/util';
 import Image from 'next/image';
-import { CiHeart } from 'react-icons/ci';
-import { GoDotFill } from 'react-icons/go';
-import { MdVerified } from 'react-icons/md';
+// import { CiHeart } from 'react-icons/ci';
+// import { GoDotFill } from 'react-icons/go';
+// import { MdVerified } from 'react-icons/md';
 import { PiHourglassLowDuotone } from 'react-icons/pi';
 
 interface HistoryItemProps {

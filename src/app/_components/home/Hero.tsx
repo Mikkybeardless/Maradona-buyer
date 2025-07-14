@@ -1,4 +1,3 @@
-import { useRouter } from 'next/navigation';
 import { IoFilterOutline } from 'react-icons/io5';
 import ImageCarousel from './Carousel';
 interface HeroProps {

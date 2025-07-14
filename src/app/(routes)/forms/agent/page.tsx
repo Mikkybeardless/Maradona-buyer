@@ -15,6 +15,26 @@ import Link from 'next/link';
 
 export default function AgentForm() {
   const [currentTab, setCurrentTab] = useState(1);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    address: '',
+    state: '',
+    city: '',
+    phoneNumber: '',
+    bankName: '',
+    businessName: '',
+    businessAddress: '',
+    typeOfBusiness: '',
+    yearsOfExperience: 0,
+    businessRegNo: '',
+    accountName: '',
+    accountNumber: '',
+    preferredContactMethod: '',
+    trainingInterest: '',
+    dateOfBirth: '',
+    gender: 'male' as 'male' | 'female' | 'other',
+  });
 
   const handleNextTab = () => {
     setCurrentTab((prev) => Math.min(prev + 1, 2));
@@ -40,8 +60,16 @@ export default function AgentForm() {
     );
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
-    <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7] p-8">
+    <section className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7] p-8">
       {/* Breadcrumb Navigation */}
       <div className="flex flex-wrap gap-x-2 gap-y-2 items-center text-xs">
         <Link href={`/`} className="">
@@ -58,7 +86,7 @@ export default function AgentForm() {
           Thank you for your interest in becoming an agent on our e-commerce
           platform! Please fill out the form below to register
         </p>
-        <div className="w-full lg:w-5/6">
+        <form className="w-full lg:w-5/6">
           {
             currentTab === 1 ? (
               // Tab One
@@ -69,6 +97,9 @@ export default function AgentForm() {
                     <div className="bg-[#FFFFFF] border border-[#DED9DD] p-2 rounded">
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
                         type="text"
                         placeholder="Full name"
                       />
@@ -80,6 +111,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="Email"
                       />
                     </div>
@@ -90,6 +124,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
                         placeholder="Phone"
                       />
                     </div>
@@ -101,6 +138,9 @@ export default function AgentForm() {
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="date"
                         placeholder="DOB"
+                        name="dateOfBirth"
+                        value={formData.dateOfBirth}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -132,6 +172,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleInputChange}
                         placeholder="Address"
                       />
                     </div>
@@ -142,6 +185,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleInputChange}
                         placeholder="State"
                       />
                     </div>
@@ -152,6 +198,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleInputChange}
                         placeholder="City"
                       />
                     </div>
@@ -162,6 +211,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="businessName"
+                        value={formData.businessName}
+                        onChange={handleInputChange}
                         placeholder="Business name"
                       />
                     </div>
@@ -174,6 +226,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="businessRegNo"
+                        value={formData.businessRegNo}
+                        onChange={handleInputChange}
                         placeholder="Reg No."
                       />
                     </div>
@@ -184,6 +239,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="number"
+                        name="yearsOfExperience"
+                        value={formData.yearsOfExperience}
+                        onChange={handleInputChange}
                         placeholder=""
                       />
                     </div>
@@ -290,6 +348,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="bankName"
+                        value={formData.bankName}
+                        onChange={handleInputChange}
                         placeholder="Bank Name:"
                       />
                     </div>
@@ -300,6 +361,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="accountName"
+                        value={formData.accountName}
+                        onChange={handleInputChange}
                         placeholder="Account Name"
                       />
                     </div>
@@ -313,6 +377,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="accountNumber"
+                        value={formData.accountNumber}
+                        onChange={handleInputChange}
                         placeholder="Bank Account Number"
                       />
                     </div>
@@ -323,6 +390,9 @@ export default function AgentForm() {
                       <input
                         className="bg-none outline-none text-[#A3A3B3] w-full"
                         type="text"
+                        name="preferredContactMethod"
+                        value={formData.preferredContactMethod}
+                        onChange={handleInputChange}
                         placeholder="Preferred Contact Method:"
                       />
                     </div>
@@ -388,9 +458,9 @@ export default function AgentForm() {
                   Next
                 </div>
               ) : (
-                <div className="border border-[#14199C] text-[#14199C] cursor-pointer text-center text-sm px-14 py-2 rounded">
+                <button className="border border-[#14199C] text-[#14199C] cursor-pointer text-center text-sm px-14 py-2 rounded">
                   Submit
-                </div>
+                </button>
               )}
             </div>
           </div>
@@ -405,8 +475,8 @@ export default function AgentForm() {
               className={`${currentTab === 2 ? 'bg-[#14199C]' : null} border border-[#14199C] p-1 rounded-2xl`}
             ></div>
           </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </section>
   );
 }

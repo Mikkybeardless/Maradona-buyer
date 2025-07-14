@@ -5,17 +5,24 @@ import Autosuggest, {
   ChangeEvent as AutosuggestInputOnChangeData,
 } from 'react-autosuggest';
 import { Combobox } from '@headlessui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDebounce } from '../hooks/useDebounce';
 
 // Simulated data
-const fakeData = ['Apple', 'Banana', 'Orange', 'Grapes', 'Mango'];
+const innerData = ['Apple', 'Banana', 'Orange', 'Grapes', 'Mango'];
 
-export default function SearchBox() {
-  const [value, setValue] = useState('');
+interface SearchBoxProps<T> {
+  data?: T[];
+  onSearch?: (query: string) => void;
+}
+export default function SearchBox({
+  data = innerData,
+  onSearch = () => {},
+}: SearchBoxProps<string>) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
-
+  const [value, setValue] = useState('');
   const onSuggestionsFetchRequested = ({ value }: { value: string }) => {
-    const filtered = fakeData.filter((item) =>
+    const filtered = data.filter((item) =>
       item.toLowerCase().includes(value.toLowerCase())
     );
     setSuggestions(filtered);
@@ -37,6 +44,12 @@ export default function SearchBox() {
     </Combobox.Option>
   );
 
+  const debouncedValue = useDebounce(value, 300);
+
+  useEffect(() => {
+    onSearch(debouncedValue);
+  }, [debouncedValue]);
+
   return (
     <div className="w-full">
       <Combobox value={value} onChange={setValue}>
@@ -47,13 +60,16 @@ export default function SearchBox() {
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={{
-            value,
+            value: value,
             onChange: (
-              _event: React.FormEvent<any>,
+              _event: React.FormEvent<HTMLInputElement>,
               data: AutosuggestInputOnChangeData
-            ) => setValue(data.newValue),
+            ) => {
+              setValue(data.newValue);
+            },
             placeholder: 'property type, location, price range',
-            className: 'w-full',
+            className:
+              'w-full focus:outline-none focus:ring-2 focus:ring-primaryOrange rounded-lg px-4 py-2 border border-gray-300',
           }}
           theme={{
             container: 'relative',

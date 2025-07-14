@@ -11,6 +11,10 @@ interface SignUpProps {
 
 export default function SignIn({ setSignUp }: SignUpProps) {
   const [togglePasswordShow, setTogglePasswordShow] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
   const router = useRouter();
 
   function goToHome() {
@@ -20,6 +24,14 @@ export default function SignIn({ setSignUp }: SignUpProps) {
   function handlePasswordShow() {
     setTogglePasswordShow(!togglePasswordShow);
   }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="w-full md:w-[70%] flex flex-col py-10 px-4 md:px-0">
@@ -35,6 +47,9 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         <input
           className="p-3 px-4 rounded-[8px] border-primaryBorder border-[1px] outline-none bg-white"
           type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
           placeholder="Type"
         />
       </div>
@@ -44,6 +59,9 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         <div className="w-full flex gap-x-2 items-center px-4 py-3 rounded-[8px] border-primaryBorder border-[1px] bg-white">
           <input
             className="outline-none w-[95%]"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
             type={!togglePasswordShow ? 'password' : 'text'}
             placeholder="Type"
           />

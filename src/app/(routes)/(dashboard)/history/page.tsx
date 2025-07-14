@@ -1,7 +1,7 @@
 'use client';
 
 import { HistoryItem } from '@/app/_components/cards/history-card';
-import { SavedItem } from '@/app/_components/cards/savedItems-card';
+// import { SavedItem } from '@/app/_components/cards/savedItems-card';
 import DynamicNav, { StateObject } from '@/app/_components/common/DetailNav';
 
 import { repeatedComponents } from '@/app/_components/common/repeatComp';

@@ -1,7 +1,5 @@
 'use client';
 
-import { repeatedComponents } from '@/app/_components/common/repeatComp';
-
 import OrderSummary from '@/app/_components/cart/OrderSummary';
 import { CartItem } from '@/app/_components/cart/Cart-card';
 import Image from 'next/image';

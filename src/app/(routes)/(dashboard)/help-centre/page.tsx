@@ -1,4 +1,4 @@
-import { FaInstagram, FaTwitter } from 'react-icons/fa6';
+import { FaInstagram } from 'react-icons/fa6';
 import { LuPhoneCall } from 'react-icons/lu';
 import { MdOutlineEmail } from 'react-icons/md';
 import { GrFacebookOption } from 'react-icons/gr';

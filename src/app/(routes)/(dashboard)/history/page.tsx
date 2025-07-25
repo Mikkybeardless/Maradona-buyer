@@ -54,7 +54,7 @@ export default function Page() {
           />
 
           {detailState === 'bids' ? (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 ">
               {repeatedComponents(5, <HistoryItem item={item} />)}
             </div>
           ) : (

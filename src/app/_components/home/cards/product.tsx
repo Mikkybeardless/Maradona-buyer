@@ -1,10 +1,11 @@
 import Image from 'next/image';
 
-import { GoDotFill } from 'react-icons/go';
+import { GoDotFill, GoHeart, GoHeartFill } from 'react-icons/go';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { PiHourglassLowDuotone } from 'react-icons/pi';
 // import { BsCartPlus, BsCartPlusFill } from 'react-icons/bs';
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface ProductCardProps {
   isActive?: boolean;
@@ -18,32 +19,41 @@ export const ProductCard = ({
   imageUrl,
   title = 'Toyota Camry 2017',
 }: ProductCardProps) => {
-  return (
-    <Link href="/product/12">
-      <div className="w-full flex flex-col ">
-        <div className="bg-white flex flex-col w-full rounded-md  mb-4">
-          {/* img */}
-          <div className="w-full relative">
-            <Image
-              src={`${imageUrl}`}
-              alt="dummycars"
-              width={300}
-              height={200}
-              className="w-full h-48 object-cover rounded-2xl"
-            />
-            {/* Heart Icon (Fixed Position) */}
-            {/* <button
-              onClick={handleToggleFavorite}
-              className={`absolute md:top-7 xs:top-2 right-5 bg-white rounded-full h-7 w-7 flex items-center justify-center`}
-            >
-              {isFavorite ? (
-                <GoHeartFill className={`text-primaryOrange`} size={24} />
-              ) : (
-                <GoHeart size={24} />
-              )}
-            </button>
+  const [isFavorite, setIsFavorite] = useState(false);
+  // const [addedToCart, setAddedToCart] = useState(false);
 
-            <button
+  // const handleAddToCart = () => {
+  //   setAddedToCart(!addedToCart);
+  // };
+
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+  return (
+    <div className="w-full flex flex-col ">
+      <div className="bg-white flex flex-col w-full rounded-md  mb-4">
+        {/* img */}
+        <div className="w-full relative">
+          <Image
+            src={`${imageUrl}`}
+            alt="dummycars"
+            width={300}
+            height={200}
+            className="w-full h-48 object-cover rounded-2xl"
+          />
+          {/* Heart Icon (Fixed Position) */}
+          <button
+            onClick={handleToggleFavorite}
+            className={`absolute z-20 md:top-7 xs:top-2 right-5 bg-white rounded-full h-7 w-7 flex items-center justify-center`}
+          >
+            {isFavorite ? (
+              <GoHeartFill className={`text-primaryOrange`} size={24} />
+            ) : (
+              <GoHeart size={24} />
+            )}
+          </button>
+
+          {/* <button
               onClick={handleAddToCart}
               className={`absolute md:bottom-7 xs:bottom-2 right-5  bg-white rounded-full h-7 w-7 flex items-center justify-center`}
             >
@@ -53,8 +63,10 @@ export const ProductCard = ({
                 <BsCartPlus size={24} />
               )}
             </button> */}
-          </div>
         </div>
+      </div>
+
+      <Link href="/product/12">
         <div className="w-full space-y-2">
           <p className="text-xs">Listed by Marathona real estate solutions</p>
           <h3 className="text-darkBlue font-bold text-sm md:text-2xl">
@@ -109,7 +121,7 @@ export const ProductCard = ({
             )}
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };

@@ -5,7 +5,15 @@ import ModalWrapper from './modalWrapper';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { formatAmount } from '@/app/Utils/util';
 
-export const PlaceBidModal = () => {
+interface PlaceBidModalProps {
+  btnStyle?: string;
+  title?: string;
+}
+
+export const PlaceBidModal = ({
+  btnStyle = "border mt-10  hover:border-primaryOrange hover:bg-inherit  bg-primaryOrange hover:text-primaryOrange text-white'} w-full rounded-lg px-2 py-2",
+  title = 'Place bid',
+}: PlaceBidModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const bids = [
@@ -19,13 +27,12 @@ export const PlaceBidModal = () => {
     <div>
       <button
         type="button"
-        className={`border mt-10  hover:border-primaryOrange hover:bg-inherit  bg-primaryOrange hover:text-primaryOrange text-white
-        }   w-full rounded-lg px-2 py-2`}
+        className={btnStyle}
         onClick={() => {
           setIsModalOpen(true);
         }}
       >
-        place bid
+        {title}
       </button>
       <ModalWrapper
         isOpen={isModalOpen}

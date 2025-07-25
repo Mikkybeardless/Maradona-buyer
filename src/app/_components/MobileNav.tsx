@@ -6,7 +6,7 @@ import SearchBox from './SearchBox';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
 // import { GrCart } from 'react-icons/gr';
 import { CiHeart, CiWallet } from 'react-icons/ci';
-import { TbCurrentLocation, TbMessage2 } from 'react-icons/tb';
+import { TbMessage2 } from 'react-icons/tb';
 import { usePathname } from 'next/navigation';
 
 interface MobileNavProps {
@@ -16,9 +16,9 @@ interface MobileNavProps {
 export default function MobileNav({
   menuItems = [
     { name: 'Bids & Orders', href: '/', icon: CiWallet },
-    { name: 'Help Centre', href: '/help', icon: TbMessage2 },
-    { name: 'Saved', href: '/saved', icon: CiHeart },
-    { name: 'Track Shipment', href: '/track', icon: TbCurrentLocation },
+    { name: 'Help Centre', href: '/help-centre', icon: TbMessage2 },
+    { name: 'Saved', href: '/saved-items', icon: CiHeart },
+    // { name: 'Track Shipment', href: '/track', icon: TbCurrentLocation },
   ],
   className = '',
 }: MobileNavProps) {
@@ -29,11 +29,11 @@ export default function MobileNav({
   const closeMenu = () => setIsOpen(false);
   const path = usePathname();
   const linksWitOutIcons = [
-    { name: 'Shipping Address', href: '/' },
+    { name: 'Shipping Address', href: '/addresses' },
     { name: 'Pending reviews', href: '/' },
-    { name: 'Seller log in', href: '/' },
-    { name: 'Return&refund policy', href: '/' },
-    { name: 'Help Center', href: '/' },
+    { name: 'History', href: '/history' },
+    { name: 'Return&refund policy', href: '/forms/refund' },
+    { name: 'Help Center', href: '/help-centre' },
   ];
 
   // Close menu when clicking outside
@@ -176,7 +176,7 @@ export default function MobileNav({
 
             <div className="space-y-2 flex flex-col px-4 py-3">
               {linksWitOutIcons.map((link) => (
-                <Link key={link.name} href={link.href}>
+                <Link onClick={closeMenu} key={link.name} href={link.href}>
                   {link.name}
                 </Link>
               ))}

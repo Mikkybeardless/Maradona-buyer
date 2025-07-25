@@ -75,7 +75,7 @@ export default function SearchFilterPage() {
 
   return (
     <div className="flex mt-16 md:mt-8">
-      <div className="flex flex-col gap-4 pl-[4%] w-[30%]">
+      <div className="flex flex-col gap-7 pl-[4%] w-[30%]">
         {filtersConfig.map(({ key, label, type, options }) => (
           <FilterSection
             key={key}

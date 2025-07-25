@@ -54,7 +54,7 @@ const FilterSection = ({
               <button
                 key={id}
                 onClick={onChange(keyName, id)}
-                className={` rounded-3xl px-4 py-2 border border-[#BFBFBF] hover:bg-primaryOrange ${
+                className={` rounded-3xl px-4 py-2 border border-[#BFBFBF] hover:bg-primaryOrange hover:text-white ${
                   isSelected ? 'bg-primaryOrange text-white' : ''
                 }`}
               >

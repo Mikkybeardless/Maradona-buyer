@@ -18,8 +18,9 @@ import { SellerFeedBack } from '../cards/sellerFeedBack';
 import ProductCarousel from '../ProductCarousel';
 import DynamicNav, { StateObject } from '../common/DetailNav';
 import { HiOutlineMegaphone } from 'react-icons/hi2';
-import { PlayBidModal } from '../modals/placeYourBid';
+import { PlaceBidModal } from '../modals/placeYourBid';
 import { ProductCard } from '../home/cards/product';
+import { SellerInfoModal } from '../modals/sellerInfoModal';
 
 type DetailState = 'about' | 'summary';
 
@@ -60,6 +61,7 @@ export default function ProductDetailClient({ productId }: Props) {
     ],
     productType: 'sale', // or 'sale'
   };
+  const [contactModal, setContactModal] = useState(false);
 
   const dynamicStates: StateObject[] = [
     { state: 'about', label: 'About this Item', id: 1 },
@@ -77,6 +79,10 @@ export default function ProductDetailClient({ productId }: Props) {
 
   return (
     <div>
+      <SellerInfoModal
+        isOpen={contactModal}
+        onClose={() => setContactModal(false)}
+      />
       <main className=" px-[4%] space-y-4 md:space-y-10">
         <section className="flex flex-col gap-5 md:px-[2%] space-y-4 md:space-y-0">
           {/* image and cta */}
@@ -224,16 +230,19 @@ export default function ProductDetailClient({ productId }: Props) {
                 </button> */}
 
                 {productDetails.productType === 'auction' ? (
-                  <PlayBidModal />
+                  <PlaceBidModal />
                 ) : (
-                  <button className="bg-primaryOrange text-white rounded-lg px-4 py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange">
+                  <button
+                    onClick={() => setContactModal(true)}
+                    className="bg-primaryOrange text-white rounded-lg px-4 py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange"
+                  >
                     Schedule Inspection
                   </button>
                 )}
 
-                <button className="text-darkBlue border rounded-lg border-[#D0D5DD] px-4 py-2 ">
+                {/* <button className="text-darkBlue border rounded-lg border-[#D0D5DD] px-4 py-2 ">
                   Add to cart
-                </button>
+                </button> */}
               </div>
               <div className="bg-[#E8E8F4] px-4 py-3 rounded-md flex items-center gap-2  md:justify-between">
                 <span className="p-3 rounded-full bg-white">
@@ -503,8 +512,11 @@ export default function ProductDetailClient({ productId }: Props) {
               <CiCalendar size={24} className="text-[#585858]" /> Joined Sept
               2003
             </p>
-            <button className="bg-primaryOrange text-white rounded-lg px-4 w-full py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange">
-              Contact Seller
+            <button
+              onClick={() => setContactModal(true)}
+              className="bg-primaryOrange text-white rounded-lg px-4 w-full py-2 hover:bg-inherit hover:text-primaryOrange border hover:border-primaryOrange"
+            >
+              Schedule an inspection
             </button>
           </div>
 

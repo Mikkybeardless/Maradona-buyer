@@ -5,7 +5,7 @@ import ModalWrapper from './modalWrapper';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { formatAmount } from '@/app/Utils/util';
 
-export const PlayBidModal = () => {
+export const PlaceBidModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const bids = [

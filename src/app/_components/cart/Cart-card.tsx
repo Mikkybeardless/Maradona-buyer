@@ -63,13 +63,13 @@ export const CartItem = ({ item }: CartProps) => {
 
             <div className="space-y-2 w-full">
               <div className="flex justify-between ">
-                <h4 className="text-2xl font-bold">{item.title}</h4>
+                <h4 className="md:text-2xl font-bold">{item.title}</h4>
                 <button>
                   <GoTrash />
                 </button>
               </div>
 
-              <div className="flex items-center text-[12px] gap-5">
+              <div className="flex flex-col md:flex-row md:items-center text-[12px] gap-2 md:gap-5">
                 <p className="flex items-center gap-1">
                   <span className="text-secondaryTextColor">Transmission:</span>
                   <GoDotFill className="text-secondaryOrange" />

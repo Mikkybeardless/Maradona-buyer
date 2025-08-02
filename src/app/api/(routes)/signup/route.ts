@@ -4,7 +4,7 @@ import authService from '../../services/auth.service';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const response = await authService.signUp(body);
+    const response = await authService.register(body);
     console.log('Create user response:', response.data);
     return NextResponse.json(
       { message: 'Create user successful', data: response.data },

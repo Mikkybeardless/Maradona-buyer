@@ -138,7 +138,7 @@ export default function Page() {
             <section className="p-5">
               <button
                 onClick={() => setIsOpen(true)}
-                className="bg-[#F0F0F0] rounded-lg mb-1 w-[400px] h-[200px] flex items-center gap-2 justify-center"
+                className="bg-[#F0F0F0] rounded-lg mb-1 w-full md:w-[400px] h-[200px] flex items-center gap-2 justify-center"
               >
                 <FiPlusCircle size={18} /> Add new card
               </button>

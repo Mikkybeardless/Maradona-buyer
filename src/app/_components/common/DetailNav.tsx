@@ -39,12 +39,12 @@ export default function DynamicNav({
   }, [detailState, onStateChange]);
 
   return (
-    <nav className=" border-gray-200 border-b-2 flex items-center gap-20">
+    <nav className=" border-gray-200 border-b-2 flex items-center  justify-between md:gap-20">
       {states.map((state) => (
         <button
           key={state.id}
           onClick={() => setDetailState(state.state)}
-          className={`${detailState === state.state ? `${textColor} font-bold ${borderColor} border-b-4` : ''}`}
+          className={`${detailState === state.state ? `${textColor} text-sm md:text-base font-bold ${borderColor} border-b-4` : ''}`}
         >
           {state.label}
         </button>

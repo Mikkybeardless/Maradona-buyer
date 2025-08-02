@@ -14,19 +14,22 @@ export default function ProductNav({ onStateChange }: ProductNavProps) {
   }, [detailState, onStateChange]);
 
   return (
-    <nav className=" border-gray-200 border-b-2 flex items-center gap-20">
+    <section
+      id="product-nav"
+      className=" border-gray-200 border-b-2 flex items-center gap-20"
+    >
       <button
         onClick={() => setDetailState('about')}
         className={`${detailState === 'about' ? 'text-darkBlue font-bold border-[#4345AA] border-b-4' : ''}`}
       >
         About this Item
-      </button>{' '}
+      </button>
       <button
         onClick={() => setDetailState('summary')}
         className={`${detailState === 'summary' ? 'text-darkBlue font-bold border-[#4345AA] border-b-4' : ''}`}
       >
         Inspection Summary
       </button>
-    </nav>
+    </section>
   );
 }

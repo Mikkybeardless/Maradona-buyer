@@ -74,8 +74,9 @@ export default function SearchFilterPage() {
   };
 
   return (
-    <div className="flex mt-16 md:mt-8">
-      <div className="flex flex-col gap-7 pl-[4%] w-[30%]">
+    <div className="flex px-[5%] md:px-0 flex-col gap-5 md:gap-0 md:flex-row mt-16 md:mt-8">
+      {/* desktop filter */}
+      <div className="md:flex hidden  flex-col gap-7 md:pl-[4%] md:w-[30%]">
         {filtersConfig.map(({ key, label, type, options }) => (
           <FilterSection
             key={key}
@@ -91,8 +92,14 @@ export default function SearchFilterPage() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-4 w-[70%]">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 px-[5%]">
+      {/* mobile filter */}
+      <div>
+        <button className="md:hidden">Filters</button>
+      </div>
+      {/* filter modal for mobile screen */}
+
+      <div className="flex flex-col gap-4 md:w-[70%] md:px-[5%] ">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 ">
           {repeatedComponents(
             24,
             <ProductCard

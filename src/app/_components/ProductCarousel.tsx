@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useState } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
@@ -40,10 +41,12 @@ export default function ProductCarousel({ images }: { images: string[] }) {
               }`}
               aria-label={`View image ${index + 1}`}
             >
-              <img
+              <Image
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full rounded-md object-cover"
+                width={80}
+                height={56}
               />
             </button>
           ))}

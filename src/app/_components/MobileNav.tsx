@@ -69,6 +69,13 @@ export default function MobileNav({
   const handleSearch = () => {
     console.log('Search Query:', searchQuery);
   };
+
+  const isActiveClass = (href: string) => {
+    const fullPath = `/${href}`;
+    return path.startsWith(fullPath)
+      ? 'border-l-4 border-[#B44500] bg-[#F7F7F7] pr-0  transition-colors duration-300'
+      : 'hover:text-[#B44500] text-[#585858] transition-colors duration-300';
+  };
   return (
     <header className="fixed   md:hidden left-0 z-30 w-full">
       <nav
@@ -163,10 +170,10 @@ export default function MobileNav({
                     key={item.name}
                     href={item.href}
                     onClick={closeMenu}
-                    className="group flex items-center px-4 py-3  hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150"
+                    className={`group flex items-center px-4 py-3 ${isActiveClass(item.href)}  hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150`}
                   >
                     {IconComponent && (
-                      <IconComponent className="w-5 h-5 mr-3  group-hover:text-gray-500" />
+                      <IconComponent className="w-5 h-5 mr-3  group-hover:text-orange-500" />
                     )}
                     <span className="font-medium">{item.name}</span>
                   </Link>
@@ -177,7 +184,12 @@ export default function MobileNav({
 
             <div className="space-y-2 flex flex-col px-4 py-3">
               {linksWitOutIcons.map((link) => (
-                <Link onClick={closeMenu} key={link.name} href={link.href}>
+                <Link
+                  onClick={closeMenu}
+                  className={`hover:text-orange-500 ${isActiveClass(link.href)}`}
+                  key={link.name}
+                  href={link.href}
+                >
                   {link.name}
                 </Link>
               ))}

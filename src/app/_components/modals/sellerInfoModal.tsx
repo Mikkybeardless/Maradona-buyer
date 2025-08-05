@@ -57,11 +57,11 @@ export const SellerInfoModal = ({ isOpen, onClose }: ModalProps) => {
           </div>
 
           <div>
-            <span className="flex items-center gap-1 text-[#585858] text-sm">
+            <span className="flex items-center gap-1 text-[#585858] text-xs md:text-sm">
               <FaPhoneAlt className="text-[#FD8133]" /> <span>08093408403</span>
             </span>
 
-            <span className="flex text-[#585858] items-center gap-1 text-sm font-medium ">
+            <span className="flex text-[#585858] items-center gap-1 text-xs md:text-sm font-medium ">
               <MdEmail className="text-[#FD8133]" />{' '}
               <span>stepetta@email.com</span>
             </span>

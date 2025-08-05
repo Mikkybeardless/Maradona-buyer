@@ -85,7 +85,9 @@ export const SavedItem = ({ item }: SavedItemProps) => {
                     alt="part rating image"
                   />
                   <p>
-                    <span className="text-darkBlue">{item.hp} Hp</span>
+                    <span className="text-darkBlue text-xs md:text-base">
+                      {item.hp} Hp
+                    </span>
                   </p>
                 </div>
                 <div className=" flex  gap-2 ">
@@ -97,7 +99,10 @@ export const SavedItem = ({ item }: SavedItemProps) => {
                     alt="part rating image"
                   />
                   <p>
-                    <span className="text-darkBlue"> {item.mileage} miles</span>
+                    <span className="text-darkBlue text-xs md:text-base">
+                      {' '}
+                      {item.mileage} miles
+                    </span>
                   </p>
                 </div>
                 <div className="flex  gap-2 ">
@@ -110,7 +115,9 @@ export const SavedItem = ({ item }: SavedItemProps) => {
                   />
 
                   <p>
-                    <span className="text-darkBlue">{item.miles} km/h</span>
+                    <span className="text-darkBlue text-xs md:text-base">
+                      {item.miles} km/h
+                    </span>
                   </p>
                 </div>
               </div>
@@ -136,7 +143,7 @@ export const SavedItem = ({ item }: SavedItemProps) => {
               </p>
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex flex-col md:flex-row gap-y-2  justify-between w-full">
               <div className="flex  bg-[#F0F0F0] w-fit rounded-lg shadow-smd text-[#585858] items-center justify-around px-4 py-1 gap-2">
                 <PiHourglassLowDuotone size={30} />
                 <div className="flex  items-center text-lg flex-col">
@@ -154,7 +161,7 @@ export const SavedItem = ({ item }: SavedItemProps) => {
                   <span className="text-[10px]">Mins</span>
                 </div>
               </div>
-              <p className=" md:text-xl font-semibold">
+              <p className=" text-lg md:text-xl font-semibold">
                 {' '}
                 {formatAmount(item.price)}
               </p>

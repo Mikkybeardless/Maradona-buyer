@@ -43,7 +43,7 @@ export default function Page() {
           </div>
           <hr />
           {show ? (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 px-2">
               {repeatedComponents(5, <SavedItem item={item} />)}
             </div>
           ) : (

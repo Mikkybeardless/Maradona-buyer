@@ -30,14 +30,14 @@ interface SavedItemProps {
 
 export const SavedItem = ({ item }: SavedItemProps) => {
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex md:items-center gap-2 md:gap-5">
       <input
         id="item"
         type="checkbox"
         className="accent-primaryOrange w-4 h-4 transform  hover:scale-125 transition-transform duration-200 ease-in-out"
       />
       <div className=" w-full">
-        <h4 className="text-2xl font-bold">{item.title}</h4>
+        <h4 className="md:text-2xl   font-bold">{item.title}</h4>
         <div className="flex flex-col md:flex-row gap-20 w-full rounded-lg py-7 md:h-[250px]  md:items-center md:gap-4  px-4  md:p-[20px]  ">
           <div className="relative w-full h-40 md:w-[250px]  md:h-[200px]">
             <Image
@@ -49,19 +49,25 @@ export const SavedItem = ({ item }: SavedItemProps) => {
           </div>
 
           <div className="space-y-2 w-full">
-            <div className="flex items-center text-[12px] gap-5">
+            <div className="flex flex-col md:flex-row md:items-center text-[12px] md:gap-5">
               <p className="flex items-center gap-1">
-                <span className="text-secondaryTextColor">Transmission:</span>
+                <span className="text-secondaryTextColor w-[100px]">
+                  Transmission:
+                </span>
                 <GoDotFill className="text-secondaryOrange" />
                 <span className="font-semibold">{item.transmission}</span>
               </p>
               <p className="flex items-center gap-1">
-                <span className="text-secondaryTextColor">Condition:</span>
+                <span className="text-secondaryTextColor w-[100px]">
+                  Condition:
+                </span>
                 <GoDotFill className="text-secondaryOrange" />
                 <span className="font-semibold">{item.condition}</span>
               </p>
               <p className="flex items-center gap-1">
-                <span className="text-secondaryTextColor">Color:</span>
+                <span className="text-secondaryTextColor w-[100px]">
+                  Color:
+                </span>
                 <GoDotFill className="text-[#D0D5DD]" />
                 <span className="font-semibold">{item.color}</span>
               </p>

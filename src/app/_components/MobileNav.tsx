@@ -30,7 +30,8 @@ export default function MobileNav({
   const path = usePathname();
   const linksWitOutIcons = [
     { name: 'Shipping Address', href: '/addresses' },
-    { name: 'Pending reviews', href: '/' },
+    { name: 'Pending reviews', href: '/pending-reviews' },
+    { name: 'Recently Viewed', href: '/recently-viewed' },
     { name: 'History', href: '/history' },
     { name: 'Return&refund policy', href: '/forms/refund' },
     { name: 'Help Center', href: '/help-centre' },
@@ -80,7 +81,7 @@ export default function MobileNav({
             <div className="flex gap-3 items-center">
               <button
                 onClick={toggleMenu}
-                className="relative z-50 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-all duration-200"
+                className="relative z-50 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500 transition-all duration-200"
                 aria-expanded={isOpen}
                 aria-label="Toggle navigation menu"
               >

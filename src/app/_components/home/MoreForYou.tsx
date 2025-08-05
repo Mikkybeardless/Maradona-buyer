@@ -3,7 +3,7 @@ import { ProductCard } from './cards/product';
 
 export default function MoreForYou() {
   return (
-    <section className="mt-20 ">
+    <section id="more-for-you" className="mt-20 ">
       <div className="flex items-center gap-3 px-4 sm:px-8 lg:px-[8%]">
         <h1 className="text-[20px] md:text-[32px] w-[200px] md:w-[20%] font-semibold  text-[#040421]">
           More For You

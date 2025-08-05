@@ -36,7 +36,7 @@ export const ProductCard = ({
         <div className="w-full relative">
           <Image
             src={`${imageUrl}`}
-            alt="dummycars"
+            alt={title}
             width={300}
             height={200}
             className="w-full h-48 object-cover rounded-2xl"
@@ -72,7 +72,7 @@ export const ProductCard = ({
           <h3 className="text-darkBlue font-bold text-sm md:text-2xl">
             {title}
           </h3>
-          <div className="flex items-center gap-x-1 font-normal text-sm text-[#454545] mb-[15px]">
+          <div className="flex md:flex-row flex-col gap-1 md:items-center  font-normal text-sm text-[#454545] mb-[15px]">
             <p className="flex gap-1 text-xs md:text-sm items-center">
               <GoDotFill className="text-primaryOrange" />
               <span>Automatic</span>

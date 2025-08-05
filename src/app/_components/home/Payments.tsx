@@ -17,7 +17,7 @@ export default function Payment() {
             alt="available payments"
           />
           <button className="bg-primaryOrange px-4 py-2 w-fit rounded-lg font-semibold text-white">
-            Shop Now
+            <a href="#more-for-you">Shop Now</a>
           </button>
         </div>
 

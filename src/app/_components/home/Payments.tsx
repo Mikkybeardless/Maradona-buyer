@@ -65,13 +65,16 @@ export default function Payment() {
 export const DealCard = () => {
   return (
     <div className="flex flex-col p-2  md:p-4">
-      <Image
-        src="/home/Dashboard-house-1.png"
-        alt="Deal Image"
-        width={300}
-        height={200}
-        className="w-full h-48 object-contain mb-4"
-      />
+      <div className="w-full h-48 rounded-xl overflow-hidden mb-4">
+        <Image
+          src="/home/Dashboard-house-1.png"
+          alt="Deal Image"
+          width={300}
+          height={200}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
       <p className="text-darkBlue font-bold md:text-2xl">₦20,000,000</p>
       <p className="flex items-center text-[11px] gap-1">
         <HiOutlineLocationMarker /> Lagos, Nigeria

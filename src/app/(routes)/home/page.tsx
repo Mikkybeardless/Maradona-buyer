@@ -1,5 +1,4 @@
 'use client';
-
 import HeroSection from '@/app/_components/home/Hero';
 import Payment from '@/app/_components/home/Payments';
 import Dream from '@/app/_components/home/Dream';

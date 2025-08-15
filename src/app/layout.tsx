@@ -1,5 +1,9 @@
 // import { Work_Sans } from "next/font/google";
+
 import './globals.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ReduxProvider from './_components/redux/ReduxProvider';
 
 export const metadata = {
   title: 'Buyers',
@@ -12,7 +16,10 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ReduxProvider>{children}</ReduxProvider>
+        <ToastContainer position="top-right" autoClose={3000} />
+      </body>
     </html>
   );
 }

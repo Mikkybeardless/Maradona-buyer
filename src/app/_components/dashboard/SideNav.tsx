@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardSideNav() {
   const pathName = usePathname();
+  const router = useRouter();
   const NavItems = [
     { name: 'Overview', href: 'overview' },
     { name: 'Transaction Histrory', href: 'history' },
@@ -21,7 +23,9 @@ export default function DashboardSideNav() {
       ? 'border-l-4 border-[#B44500] bg-[#F7F7F7] pr-0  transition-colors duration-300'
       : 'hover:text-[#B44500] text-[#585858] transition-colors duration-300';
   };
-
+  const handleLogOut = () => {
+    router.push('/login');
+  };
   return (
     <div className="flex flex-col w-64 h-fit py-4   bg-white">
       <div className="flex items-center justify-center">
@@ -39,6 +43,12 @@ export default function DashboardSideNav() {
               </Link>
             </li>
           ))}
+          <button
+            onClick={handleLogOut}
+            className="block pl-4 py-2 hover:text-[#B44500] text-[#585858] transition-colors duration-300"
+          >
+            Log Out
+          </button>
         </ul>
       </nav>
     </div>

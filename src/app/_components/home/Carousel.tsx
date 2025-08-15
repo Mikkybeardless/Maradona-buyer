@@ -71,7 +71,7 @@ const ImageCarousel = () => {
   return (
     <div className="relative w-full  bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
       {/* Main carousel container */}
-      <div className="relative h-96 md:h-[500px] overflow-hidden">
+      <div className="relative h-[300px] md:h-[500px] overflow-hidden">
         {/* Images and content */}
         {carouselData.map((slide, index) => (
           <div
@@ -88,10 +88,10 @@ const ImageCarousel = () => {
             <div className="h-full flex flex-col md:flex-row items-center justify-between">
               {/* Content section */}
               <div className=" w-full md:w-[50%] px-8 md:px-16 py-8">
-                <h2 className="text-lg md:text-xl font-semibold   mb-4 transform transition-all duration-700 delay-200">
+                <h2 className="text-lg md:text-xl font-semibold  mb-2  md:mb-4 transform transition-all duration-700 delay-200">
                   {slide.title}
                 </h2>
-                <p className="text-3xl md:text-5xl font-bold  mb-6 transform transition-all duration-700 delay-300">
+                <p className="text-3xl md:text-5xl font-bold mb-3 md:mb-6 transform transition-all duration-700 delay-300">
                   {slide.subtitle}
                 </p>
                 <div className="md:flex items-center hidden  gap-4 mt-8">
@@ -116,14 +116,13 @@ const ImageCarousel = () => {
 
               {/* Mobile image section */}
 
-              <div className="flex items-center gap-5 justify-between w-full md:hidden">
-                <div className="w-[30%]">
-                  <button className="bg-primaryOrange  text-white text-sm px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              <div className="flex mb-5 px-2 items-center justify-between w-full md:hidden">
+                <div className="w-[113px] mb-2">
+                  <button className="bg-primaryOrange  text-white text-xs  md:text-sm px-4 py-2 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
                     {slide.buttonText}
                   </button>
                 </div>
-
-                <div className=" w-[60%] p-2">
+                <div className=" w-[190px] p-2">
                   <img
                     src={slide.image}
                     alt={slide.title}

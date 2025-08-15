@@ -177,3 +177,12 @@ export const filtersConfig = [
     ],
   },
 ];
+
+export const linksWitOutIcons = [
+  { name: 'Shipping Address', href: '/addresses' },
+  { name: 'Pending reviews', href: '/pending-reviews' },
+  { name: 'Recently Viewed', href: '/recently-viewed' },
+  { name: 'History', href: '/history' },
+  { name: 'Return&refund policy', href: '/forms/refund' },
+  { name: 'Help Center', href: '/help-centre' },
+];

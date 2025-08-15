@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import { login } from '@/app/redux/slices/authSlice';
+import { Spinner } from '../common/spinner';
+import axios from 'axios';
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,26 +17,75 @@ interface SignUpProps {
 
 export default function SignIn({ setSignUp }: SignUpProps) {
   const [togglePasswordShow, setTogglePasswordShow] = useState(false);
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-  function goToHome() {
-    router.push('/');
-  }
+  const router = useRouter();
 
   function handlePasswordShow() {
     setTogglePasswordShow(!togglePasswordShow);
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError('');
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleLogin = async () => {
+    setIsLoading(true);
+    setError('');
+    const { email, password } = formData;
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await axios.post('/api/auth/login', formData);
+      console.log('login res:', response);
+      if (response.status == 200) {
+        const data = response.data.data;
+        toast.success('Login successful');
+        console.log('Login successful:', data.token);
+        Cookies.set('buyer_token', data.token);
+        dispatch(login(data.user));
+
+        // Redirect
+        return setTimeout(() => {
+          router.push('/overview');
+        }, 2000);
+      }
+    } catch (err: unknown) {
+      console.error('Login error:', err);
+      setError(() => {
+        const status =
+          axios.isAxiosError(err) && err.response
+            ? err.response.status
+            : undefined;
+
+        switch (status) {
+          case 401:
+            return 'Invalid credentials';
+          case 403:
+            return 'You are not authorized to access this page';
+          case 404:
+            return 'User not found';
+          default:
+            return 'An unknown error occurred. Please try again.';
+        }
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -89,11 +144,16 @@ export default function SignIn({ setSignUp }: SignUpProps) {
       </Link>
 
       <button
-        onClick={goToHome}
-        className="w-full py-3 rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+        onClick={handleLogin}
+        className="w-full py-3 flex items-center justify-center rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover text-sm"
       >
-        Login
+        {isLoading ? <Spinner /> : 'Login'}
       </button>
+      {error && (
+        <>
+          <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+        </>
+      )}
 
       <div className="mt-8 relative flex items-center justify-center">
         <p className="text-center bg-[#F5F5F5] px-3 z-10">Or Sign up with</p>
@@ -118,7 +178,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         >
           <img
             className="w-[24px] h-[24px]"
-            src={'/home//facebook-logo.png'}
+            src={'/home/facebook-logo.png'}
             alt="facebook logo"
           />
           <span>Facebook</span>

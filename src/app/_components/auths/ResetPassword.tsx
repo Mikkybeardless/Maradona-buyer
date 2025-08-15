@@ -6,16 +6,21 @@ import { FaArrowLeftLong } from 'react-icons/fa6';
 import OTPInput from 'react-otp-input';
 import Link from 'next/link';
 import Done from '../../_assets/done-animation.json';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { Spinner } from '../common/spinner';
 
 export default function ResetPassword() {
   const [phase, setPhase] = useState(1);
   const [otp, setOtp] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [time, setTime] = useState(60);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
   });
+  const [error, setError] = useState('');
 
   useEffect(() => {
     // if (time === 0) {
@@ -34,6 +39,76 @@ export default function ResetPassword() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const email = formData.email;
+
+  const handleGetOtp = async () => {
+    setIsLoading(true);
+    if (!email) {
+      setError('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post('/api/auth/req-password-reset', {
+        email,
+      });
+      if (response.status == 200) {
+        toast.success('Check your email for otp code');
+        setPhase(2);
+      }
+    } catch (error: unknown) {
+      console.error('Error sending password reset code:', error);
+      const status =
+        axios.isAxiosError(error) && error.response
+          ? error.response.status
+          : undefined;
+      if (status === 404 || status === 422) {
+        toast.error('Email not found');
+      } else {
+        toast.error('Error sending password reset code');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleConfirmReset = async () => {
+    const { password, confirmPassword } = formData;
+    setIsLoading(true);
+    if (!otp || !password) {
+      setError('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post('/api/auth/do-password-reset', {
+        email: email,
+        otp,
+        password: password,
+        password_confirmation: confirmPassword,
+      });
+      if (response.status == 200) {
+        toast.success('Password reset successful');
+        setPhase(4);
+      }
+    } catch (error: unknown) {
+      console.error('Error confirming password reset:', error);
+      const status =
+        axios.isAxiosError(error) && error.response
+          ? error.response.status
+          : undefined;
+      if (status === 400) {
+        toast.error('Invalid verification code');
+      } else {
+        toast.error('Error resetting password, please try again later');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -62,11 +137,16 @@ export default function ResetPassword() {
           </div>
 
           <button
-            onClick={() => setPhase(2)}
-            className="mt-8 w-full rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+            onClick={handleGetOtp}
+            className="mt-8 w-full flex items-center justify-center rounded-lg py-3 sm:py-4 text-white bg-orange hover:bg-amber-700"
           >
-            Reset Password
+            {isLoading ? <Spinner /> : 'Reset'}
           </button>
+          {error && (
+            <>
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            </>
+          )}
         </div>
       ) : phase === 2 ? (
         <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[35%] flex flex-col items-center p-6 sm:p-12 rounded-2xl bg-white shadow-md">
@@ -97,7 +177,7 @@ export default function ResetPassword() {
             Didn&apos;t get a code?
             <span className="font-medium cursor-pointer hover:underline">
               {' '}
-              Resend
+              {isLoading ? <Spinner /> : 'Resend'}
             </span>
           </p>
 
@@ -139,11 +219,16 @@ export default function ResetPassword() {
           </div>
 
           <button
-            onClick={() => setPhase(4)}
-            className="mt-10 w-full rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+            onClick={handleConfirmReset}
+            className="mt-10 w-full flex items-center justify-center rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
           >
-            Reset Password
+            {isLoading ? <Spinner /> : 'Reset Password'}
           </button>
+          {error && (
+            <>
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            </>
+          )}
         </div>
       ) : phase === 4 ? (
         <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[35%] flex flex-col items-center">
@@ -165,12 +250,11 @@ export default function ResetPassword() {
       ) : null}
 
       {phase !== 4 && (
-        <Link
-          className="flex items-center gap-x-1 mt-10 text-sm sm:text-base"
-          href="/login"
-        >
-          <FaArrowLeftLong size={18} />
-          <span>Back to login</span>
+        <Link href="/login" className="hover:underline">
+          <div className="flex justify-center mt-4 items-center gap-3 ">
+            <FaArrowLeftLong size={18} />
+            <span>Back to Login</span>
+          </div>
         </Link>
       )}
     </div>

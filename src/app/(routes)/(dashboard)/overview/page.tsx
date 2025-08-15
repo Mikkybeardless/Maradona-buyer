@@ -6,13 +6,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaChevronRight, FaRegHeart } from 'react-icons/fa6';
-import { IoCartOutline } from 'react-icons/io5';
+// import { IoCartOutline } from 'react-icons/io5';
 import { LuWallet } from 'react-icons/lu';
 import { FiPlusCircle } from 'react-icons/fi';
 import { GoShieldCheck } from 'react-icons/go';
 import AddCardModal from '@/app/_components/modals/addCardModal';
 import { EditPasswordModal } from '@/app/_components/modals/edit-passwordModal';
 import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
+import { LogoutModal } from '@/app/_components/modals/logoutModal';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 type DetailState = 'info' | 'payment' | 'security';
 
@@ -20,21 +25,16 @@ export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditPasswordOpen, setIsEditPasswordOpen] = useState(false);
   const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
   const [emailNotificationsEnabled, setEmailNotificationsEnabled] =
     useState(true);
-  // const [newCard, setNewCard] = useState({
-  //   bank: '',
-
-  //   cvv: '',
-  //   cardNumber: '',
-  //   expDate: '',
-  // });
   const [detailState, setDetailState] = useState<
     'info' | 'payment' | 'security'
   >('info');
   const NavItems = [
     { name: 'Saved', href: 'saved-items', icon: FaRegHeart },
-    { name: 'Cart', href: 'cart', icon: IoCartOutline },
     { name: 'History', href: 'history', icon: LuWallet },
   ];
   const dynamicStates: StateObject[] = [
@@ -57,6 +57,26 @@ export default function Page() {
   const handleAddCard = (card: Card) => {
     console.log('New card added:', card);
   };
+
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      const res = await axios.post('/api/auth/logout');
+      if (res.status === 200) {
+        toast.success('Logout successful');
+        Cookies.remove('buyer_token');
+        router.push('/login');
+      } else {
+        toast.error('logout failed. pls try again');
+        console.error('Logout failed:', res.data);
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      setIsLogoutModalOpen(false);
+      setIsLoggingOut(false);
+    }
+  };
   return (
     <div className=" space-y-5 w-full ">
       <div className="bg-white  flex flex-col items-center   py-5 space-y-4">
@@ -71,7 +91,7 @@ export default function Page() {
           <h1>Rosemary Sunday</h1>
         </div>
 
-        <nav className="flex px-10 items-center justify-between w-full">
+        <nav className="flex px-10 items-center justify-between w-[50%]">
           {NavItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -236,6 +256,20 @@ export default function Page() {
             </section>
           )}
         </div>
+        <div className="flex justify-center mt-10">
+          <button
+            className="text-red-500"
+            onClick={() => setIsLogoutModalOpen(true)}
+          >
+            Logout
+          </button>
+        </div>
+        <LogoutModal
+          isOpen={isLogoutModalOpen}
+          onClose={() => setIsLogoutModalOpen(false)}
+          onConfirm={handleLogout}
+          isLoggingOut={isLoggingOut}
+        />
       </main>
     </div>
   );

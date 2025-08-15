@@ -4,33 +4,33 @@ import { useState } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '../common/spinner';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SignUp({ setSignUp }: SignUpProps) {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+  const initialFormData = {
+    name: '',
     email: '',
-    username: '',
     password: '',
-    confirmPassword: '',
-    country: '',
-    region: '',
-    address: '',
-    postalCode: '',
-  });
+    password_confirmation: '',
+    // shop_name: "",
+    // address: "",
+  };
+  const [createAccountFormData, setCreateAccountFormData] =
+    useState(initialFormData);
+  const [isLoading, setIsLoading] = useState(false);
+  const [country, setCountry] = useState('');
+  const [region, setRegion] = useState('');
   const [togglePasswordShow, setTogglePasswordShow] = useState({
     signUp1: false,
     signUp2: false,
   });
   const router = useRouter();
-
-  function goToHome() {
-    router.push('/');
-  }
 
   function handleToggleSignUp1() {
     setTogglePasswordShow({
@@ -48,10 +48,46 @@ export default function SignUp({ setSignUp }: SignUpProps) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setCreateAccountFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
+  };
+  const handleCreateAccount = async () => {
+    const apiData = {
+      ...createAccountFormData,
+      type: 'buyer',
+    };
+    // Convert to FormData
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(apiData)) {
+      // Global empty check for all fields
+      if (value.trim() === '') {
+        const capitalized = key.charAt(0).toUpperCase() + key.slice(1);
+        toast.error(`The field "${capitalized}" cannot be empty.`);
+        setIsLoading(false);
+        return;
+      }
+      // Append the rest
+      formData.append(key, value as string | Blob);
+    }
+    for (const [key, value] of Array.from(formData.entries())) {
+      console.log(key, value);
+    }
+    try {
+      setIsLoading(true);
+      const response = await axios.post('/api/auth/signup', formData);
+      if (response.status === 201) {
+        toast.success('SignUp successful!');
+        setCreateAccountFormData(initialFormData);
+        router.push('/login');
+      }
+    } catch (error: unknown) {
+      toast.error('Signup failed. Please try again.');
+      console.error('Signup error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -66,58 +102,39 @@ export default function SignUp({ setSignUp }: SignUpProps) {
       {/* Input Fields */}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         <div className="flex flex-col gap-y-1.5">
-          <label>First name:</label>
+          <label>Name:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            name="firstName"
-            value={formData.firstName}
+            name="name"
+            value={createAccountFormData.name}
             onChange={handleInputChange}
             type="text"
-            placeholder="First name"
+            placeholder="Name"
           />
         </div>
+
         <div className="flex flex-col gap-y-1.5">
-          <label>Last name:</label>
-          <input
-            className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            placeholder="Last name"
-          />
-        </div>
-        <div className="flex flex-col gap-y-1.5">
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="email"
             name="email"
-            value={formData.email}
+            id="email"
+            value={createAccountFormData.email}
             onChange={handleInputChange}
             placeholder="Email"
-          />
-        </div>
-        <div className="flex flex-col gap-y-1.5">
-          <label>Choose username:</label>
-          <input
-            className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            type="text"
-            value={formData.username}
-            onChange={handleInputChange}
-            name="username"
-            placeholder="Choose username"
           />
         </div>
 
         {/* Password Fields */}
         <div className="w-full flex flex-col gap-y-1.5">
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <div className="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-[#DED9DD] bg-white">
             <input
               className="outline-none flex-1"
+              id="password"
               name="password"
-              value={formData.password}
+              value={createAccountFormData.password}
               onChange={handleInputChange}
               type={!togglePasswordShow.signUp1 ? 'password' : 'text'}
               placeholder="Type"
@@ -138,12 +155,13 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           </div>
         </div>
         <div className="w-full flex flex-col gap-y-1.5">
-          <label>Confirm Password</label>
+          <label htmlFor="password_confirmation">Confirm Password</label>
           <div className="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-[#DED9DD] bg-white">
             <input
               className="outline-none flex-1"
-              name="confirmPassword"
-              value={formData.confirmPassword}
+              id="password_confirmation"
+              name="password_confirmation"
+              value={createAccountFormData.password_confirmation}
               onChange={handleInputChange}
               type={!togglePasswordShow.signUp2 ? 'password' : 'text'}
               placeholder="Type"
@@ -169,27 +187,17 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <label>Country:</label>
           <CountryDropdown
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            value={formData.country}
-            onChange={(val) =>
-              setFormData((prev) => ({
-                ...prev,
-                country: val,
-              }))
-            }
+            value={country}
+            onChange={(val) => setCountry(val)}
           />
         </div>
         <div className="flex flex-col gap-y-1.5">
           <label>State/City:</label>
           <RegionDropdown
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
-            country={formData.country}
-            value={formData.region}
-            onChange={(val) =>
-              setFormData((prev) => ({
-                ...prev,
-                region: val,
-              }))
-            }
+            country={country}
+            value={region}
+            onChange={(val) => setRegion(val)}
           />
         </div>
 
@@ -200,8 +208,8 @@ export default function SignUp({ setSignUp }: SignUpProps) {
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
             name="address"
-            value={formData.address}
-            onChange={handleInputChange}
+            // value={formData.address}
+            // onChange={handleInputChange}
             placeholder="Type"
           />
         </div>
@@ -210,8 +218,8 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             name="postalCode"
-            value={formData.postalCode}
-            onChange={handleInputChange}
+            // value={formData.postalCode}
+            // onChange={handleInputChange}
             type="text"
             placeholder="Type"
           />
@@ -220,10 +228,10 @@ export default function SignUp({ setSignUp }: SignUpProps) {
 
       {/* Create Account Button */}
       <button
-        onClick={goToHome}
+        onClick={handleCreateAccount}
         className="w-full sm:w-[70%] mx-auto py-3 rounded-lg mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover transition"
       >
-        Create account
+        {isLoading ? <Spinner /> : 'Create account'}
       </button>
 
       {/* Divider */}

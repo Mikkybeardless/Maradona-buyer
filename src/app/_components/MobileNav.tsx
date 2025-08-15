@@ -1,13 +1,21 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-// import { Home, User, Settings, Briefcase, Mail } from 'lucide-react';
 import Link from 'next/link';
 import SearchBox from './SearchBox';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
-// import { GrCart } from 'react-icons/gr';
 import { CiHeart, CiWallet } from 'react-icons/ci';
 import { TbMessage2 } from 'react-icons/tb';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+// import { linksWitOutIcons } from '../config';
+
+const linksWitOutIcons = [
+  { name: 'Shipping Address', href: '/addresses' },
+  { name: 'Pending reviews', href: '/pending-reviews' },
+  { name: 'Recently Viewed', href: '/recently-viewed' },
+  { name: 'History', href: '/history' },
+  { name: 'Return&refund policy', href: '/forms/refund' },
+  { name: 'Help Center', href: '/help-centre' },
+];
 
 interface MobileNavProps {
   menuItems?: { name: string; href: string; icon: React.ElementType }[];
@@ -18,7 +26,6 @@ export default function MobileNav({
     { name: 'Bids & Orders', href: '/', icon: CiWallet },
     { name: 'Help Centre', href: '/help-centre', icon: TbMessage2 },
     { name: 'Saved', href: '/saved-items', icon: CiHeart },
-    // { name: 'Track Shipment', href: '/track', icon: TbCurrentLocation },
   ],
   className = '',
 }: MobileNavProps) {
@@ -28,14 +35,7 @@ export default function MobileNav({
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
   const path = usePathname();
-  const linksWitOutIcons = [
-    { name: 'Shipping Address', href: '/addresses' },
-    { name: 'Pending reviews', href: '/pending-reviews' },
-    { name: 'Recently Viewed', href: '/recently-viewed' },
-    { name: 'History', href: '/history' },
-    { name: 'Return&refund policy', href: '/forms/refund' },
-    { name: 'Help Center', href: '/help-centre' },
-  ];
+  const router = useRouter();
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -76,10 +76,14 @@ export default function MobileNav({
       ? 'border-l-4 border-[#B44500] bg-[#F7F7F7] pr-0  transition-colors duration-300'
       : 'hover:text-[#B44500] text-[#585858] transition-colors duration-300';
   };
+  const handleLogOut = () => {
+    router.push('/login');
+  };
+
   return (
     <header className="fixed   md:hidden left-0 z-30 w-full">
       <nav
-        className={`relative bg-white border-b py-5 border-gray-200 shadow-sm ${className}`}
+        className={`relative bg-white border-b py-2 border-gray-200 shadow-sm ${className}`}
         ref={menuRef}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,21 +97,22 @@ export default function MobileNav({
                 aria-label="Toggle navigation menu"
               >
                 <div className="relative w-6 h-6">
-                  <span
-                    className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
-                      isOpen ? 'rotate-45 translate-y-2.5' : '-translate-y-1.5'
-                    }`}
-                  />
-                  <span
-                    className={`absolute block h-0.5 w-6 bg-current transform transition duration-200 ease-in-out ${
-                      isOpen ? 'opacity-0' : 'opacity-100'
-                    }`}
-                  />
-                  <span
-                    className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
-                      isOpen ? '-rotate-45 -translate-y-2.5' : 'translate-y-1.5'
-                    }`}
-                  />
+                  {isOpen ? (
+                    <span className="text-2xl">X</span>
+                  ) : (
+                    <>
+                      <span
+                        className={`absolute block h-0.5 w-6 bg-current transform transition duration-300 -translate-y-1.5 ease-in-out`}
+                      />
+                      <span
+                        className={`absolute block h-0.5 w-6 bg-current transform transition duration-200 ease-in-out opacity-100 
+                        `}
+                      />
+                      <span
+                        className={`absolute block h-0.5 w-6 bg-current transform translate-y-1.5 transition duration-300 ease-in-out `}
+                      />
+                    </>
+                  )}
                 </div>
               </button>
               <Link href="/">
@@ -193,6 +198,9 @@ export default function MobileNav({
                   {link.name}
                 </Link>
               ))}
+              <button onClick={handleLogOut} className="hover:text-orange-500">
+                Log Out
+              </button>
             </div>
           </div>
         </div>

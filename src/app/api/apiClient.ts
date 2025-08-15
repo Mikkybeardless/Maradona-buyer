@@ -1,24 +1,32 @@
+'use server';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-const API_BASE_URL = 'https://ds.reconnaissancetechnologies.com/api/v2';
+import { cookies } from 'next/headers'; // Only works server-side
+
+const API_BASE_URL = process.env.API_BASE_URL;
+const systemKey = process.env.SYSTEM_KEY;
+
 const apiClient = axios.create({
   withCredentials: true,
   headers: {
-    'System-Key': '1234',
-    'Content-Type': 'application/json',
+    'System-Key': systemKey,
   },
   baseURL: API_BASE_URL,
 });
 
-// Request interceptor for adding auth token
 apiClient.interceptors.request.use(
-  (config) => {
-    const token =
-      Cookies.get('token') ||
-      '8|h0YBeDc8ErIGxFpfp2P4ktP0N0Anu3WRcZEFoq6Kc573c9e2';
+  async (config) => {
+    let token: string | undefined;
+    try {
+      const cookieStore = cookies();
+      token = cookieStore.get('buyer_token')?.value;
+    } catch (err) {
+      console.warn('Server-side cookie access failed:', err);
+    }
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)

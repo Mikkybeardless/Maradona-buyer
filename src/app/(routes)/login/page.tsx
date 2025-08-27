@@ -7,9 +7,9 @@ export default function Login() {
   const [signUp, setSignUp] = useState(false);
 
   return (
-    <div className="w-screen  flex bg-[#F5F5F5]">
+    <div className="w-screen mt-10 md:mt-0 h-screen  flex bg-[#F5F5F5]">
       {/* Background Section (Hidden on Small Screens) */}
-      <div className="hidden md:flex w-1/2 signInBg bg-no-repeat bg-center bg-cover"></div>
+      <div className="hidden md:flex w-1/2  signInBg bg-no-repeat bg-center bg-cover"></div>
 
       {/* Authentication Form Section */}
       <div

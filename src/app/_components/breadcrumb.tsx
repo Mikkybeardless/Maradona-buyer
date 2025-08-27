@@ -25,7 +25,7 @@ export default function Breadcrumb() {
   );
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: 'Auction Deals', href: '/', isActive: pathname === '/' },
+    // { label: 'Auction Deals', href: '/', isActive: pathname === '/' },
     ...pathSegments.map((segment, index) => {
       const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
       return {

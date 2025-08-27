@@ -1,10 +1,8 @@
 // components/FilterSection.tsx
-
 import { IoChevronDownSharp, IoChevronUpSharp } from 'react-icons/io5';
 import { CustomCheckbox } from '../common/customCheckInput';
 
 type Option = { id: string | number; label: string };
-
 type FilterSectionProps = {
   keyName: string;
   label: string;

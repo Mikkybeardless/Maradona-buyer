@@ -5,29 +5,43 @@ import { useState } from 'react';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
 // import { GrCart } from 'react-icons/gr';
 import SearchBox from '../SearchBox';
-import { usePathname } from 'next/navigation';
+import { useSearchState } from '@/app/hooks/useSearchState';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/store';
+import Image from 'next/image';
 
 export default function NavSection() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const path = usePathname();
+  const { searchQuery, setSearchQuery, performSearch } = useSearchState();
+
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const handleSearch = () => {
-    console.log('Search Query:', searchQuery);
+    performSearch(searchQuery);
   };
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <header>
       <nav className="hidden fixed left-0 z-30 md:flex justify-between items-center py-2 bg-white  w-full px-3 sm:px-4 md:px-[5%]">
         {/* Left side - Logo and Mobile Menu Button */}
 
         <Link href="/">
-          <img
+          <Image
             className="h-[60px] w-auto hidden md:flex"
             src={`/home/logo.svg`}
             alt="Logo"
+            priority
+            width={240}
+            height={60}
           />
         </Link>
-
         <div className="flex items-center gap-3">
           <Select
             defaultValue="all"
@@ -39,25 +53,26 @@ export default function NavSection() {
             <MenuItem value="Houses">Houses</MenuItem>
             <MenuItem value="Lands">Lands</MenuItem>
           </Select>
-          <div className="w-64 bg-white py-1 px-2 rounded-lg">
-            <SearchBox onSearch={setSearchQuery} />
-          </div>
 
-          {path !== '/search' ? (
-            <Link
-              href={`/search?query=${searchQuery}`}
-              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
-            >
-              <FaRegCircle size={18} />
-            </Link>
-          ) : (
+          <div
+            className="flex mx-auto px-4 items-center gap-3"
+            onKeyPress={handleKeyPress}
+          >
+            <div className="w-full bg-white py-1 px-2 rounded-lg">
+              <SearchBox
+                value={searchQuery}
+                onChange={setSearchQuery}
+                // Remove onSearch prop since we're handling it manually
+              />
+            </div>
+
             <button
               onClick={handleSearch}
               className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
             >
               <FaRegCircle size={18} />
             </button>
-          )}
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
@@ -67,9 +82,13 @@ export default function NavSection() {
             </Link>
             <div className="flex flex-col">
               <span>Welcome</span>
-              <Link href={'/login'} className="text-darkBlue  font-bold">
-                Signin / Register
-              </Link>
+              {!isAuthenticated ? (
+                <Link href={'/login'} className="text-darkBlue  font-bold">
+                  Signin / Register
+                </Link>
+              ) : (
+                <span className="text-darkBlue  font-bold"> {user.name}</span>
+              )}
             </div>
           </div>
 

@@ -6,6 +6,11 @@ import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
 import { CiHeart, CiWallet } from 'react-icons/ci';
 import { TbMessage2 } from 'react-icons/tb';
 import { usePathname, useRouter } from 'next/navigation';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { useSearchState } from '../hooks/useSearchState';
+import Image from 'next/image';
 // import { linksWitOutIcons } from '../config';
 
 const linksWitOutIcons = [
@@ -31,10 +36,9 @@ export default function MobileNav({
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
-  const [searchQuery, setSearchQuery] = useState('');
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
-  const path = usePathname();
+  const pathname = usePathname();
   const router = useRouter();
 
   // Close menu when clicking outside
@@ -66,18 +70,36 @@ export default function MobileNav({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const { searchQuery, setSearchQuery, performSearch } = useSearchState();
+
   const handleSearch = () => {
-    console.log('Search Query:', searchQuery);
+    performSearch(searchQuery);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
   const isActiveClass = (href: string) => {
     const fullPath = `/${href}`;
-    return path.startsWith(fullPath)
+    return pathname.startsWith(fullPath)
       ? 'border-l-4 border-[#B44500] bg-[#F7F7F7] pr-0  transition-colors duration-300'
       : 'hover:text-[#B44500] text-[#585858] transition-colors duration-300';
   };
-  const handleLogOut = () => {
-    router.push('/login');
+  const handleLogOut = async () => {
+    try {
+      // setIsLoggingOut(true);
+      const res = await axios.post('/api/auth/logout');
+      if (res.status === 200) {
+        toast.success('Logout successful');
+        Cookies.remove('buyer_token');
+        router.push('/login');
+      }
+    } catch (error) {
+      toast.error('logout failed. pls try again');
+      console.error('Logout failed:', error);
+    }
   };
 
   return (
@@ -116,10 +138,13 @@ export default function MobileNav({
                 </div>
               </button>
               <Link href="/">
-                <img
+                <Image
                   className="h-[40px] w-auto "
                   src={`/home/logo.svg`}
                   alt="Logo"
+                  width={240}
+                  height={40}
+                  priority
                 />
               </Link>
             </div>
@@ -136,26 +161,20 @@ export default function MobileNav({
           </div>
         </div>
 
-        <div className="flex mx-auto px-4 items-center gap-3">
+        <div
+          onKeyPress={handleKeyPress}
+          className="flex mx-auto px-4 items-center gap-3"
+        >
           <div className="w-full bg-white py-1 px-2 rounded-lg">
             <SearchBox onSearch={setSearchQuery} />
           </div>
 
-          {path !== '/search' ? (
-            <Link
-              href={`/search?query=${searchQuery}`}
-              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
-            >
-              <FaRegCircle size={18} />
-            </Link>
-          ) : (
-            <button
-              onClick={handleSearch}
-              className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
-            >
-              <FaRegCircle size={18} />
-            </button>
-          )}
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2.5 rounded-lg bg-primaryOrange text-white"
+          >
+            <FaRegCircle size={18} />
+          </button>
         </div>
 
         {/* Mobile Dropdown Menu */}

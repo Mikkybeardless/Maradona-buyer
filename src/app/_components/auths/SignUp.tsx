@@ -234,13 +234,12 @@ export default function SignUp({ setSignUp }: SignUpProps) {
         {isLoading ? <Spinner /> : 'Create account'}
       </button>
 
-      {/* Divider */}
-      <div className="mt-8 relative flex items-center justify-center">
+      {/* <div className="mt-8 relative flex items-center justify-center">
         <p className="text-center bg-[#F5F5F5] px-3 z-10">Or Sign up with</p>
         <div className="h-[1.6px] w-full bg-[#DED9DD] absolute"></div>
       </div>
 
-      {/* Social Sign-In Buttons */}
+     
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-8">
         <button
           className="flex justify-center items-center w-full sm:w-auto h-[48px] px-6 sm:px-10 gap-x-3 rounded-lg border border-[#6D6D6D] hover:bg-black/5 transition"
@@ -264,17 +263,17 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           />
           <span>Facebook</span>
         </button>
-      </div>
+      </div> */}
 
       {/* Login Link */}
       <p className="text-[#6D6D6D] text-center mt-5">
         Already have an account?{' '}
-        <span
+        <button
           onClick={() => setSignUp(false)}
           className="hover:underline cursor-pointer font-medium text-black"
         >
           Log In
-        </span>
+        </button>
       </p>
 
       {/* Bottom Spacing */}

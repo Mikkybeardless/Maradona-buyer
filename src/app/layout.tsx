@@ -4,6 +4,7 @@ import './globals.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReduxProvider from './_components/redux/ReduxProvider';
+import QueryProvider from './providers/QueryProvider';
 
 export const metadata = {
   title: 'Buyers',
@@ -17,8 +18,10 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body>
-        <ReduxProvider>{children}</ReduxProvider>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <QueryProvider>
+          <ReduxProvider>{children}</ReduxProvider>
+          <ToastContainer position="top-right" autoClose={3000} />
+        </QueryProvider>
       </body>
     </html>
   );

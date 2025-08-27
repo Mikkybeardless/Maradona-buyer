@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -26,6 +26,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   function handlePasswordShow() {
     setTogglePasswordShow(!togglePasswordShow);
@@ -51,18 +52,27 @@ export default function SignIn({ setSignUp }: SignUpProps) {
     }
     try {
       const response = await axios.post('/api/auth/login', formData);
-      console.log('login res:', response);
+
       if (response.status == 200) {
         const data = response.data.data;
         toast.success('Login successful');
-        console.log('Login successful:', data.token);
         Cookies.set('buyer_token', data.token);
         dispatch(login(data.user));
 
-        // Redirect
-        return setTimeout(() => {
-          router.push('/overview');
-        }, 2000);
+        //  Check if we have a redirect URL
+        const redirect = searchParams.get('redirect');
+        // redirect user
+        if (redirect) {
+          console.log('using redirect');
+          router.push(redirect);
+          return;
+        } else {
+          // fresh user
+          console.log('using default redirect');
+          return setTimeout(() => {
+            router.push('/overview');
+          }, 2000);
+        }
       }
     } catch (err: unknown) {
       console.error('Login error:', err);
@@ -155,7 +165,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         </>
       )}
 
-      <div className="mt-8 relative flex items-center justify-center">
+      {/* <div className="mt-8 relative flex items-center justify-center">
         <p className="text-center bg-[#F5F5F5] px-3 z-10">Or Sign up with</p>
         <div className="h-[1.6px] w-full bg-[#DED9DD] absolute -z-0"></div>
       </div>
@@ -183,16 +193,16 @@ export default function SignIn({ setSignUp }: SignUpProps) {
           />
           <span>Facebook</span>
         </button>
-      </div>
+      </div> */}
 
       <p className="text-[#6D6D6D] text-center mt-5">
         Don&apos;t have an account?{' '}
-        <span
+        <button
           onClick={() => setSignUp(true)}
           className="hover:underline cursor-pointer font-medium text-black"
         >
           Sign Up
-        </span>
+        </button>
       </p>
     </div>
   );

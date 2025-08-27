@@ -21,7 +21,7 @@ type State =
   | 'bids'
   | 'history'
   | 'did-not-win'
-  | 'orders'
+  | 'purchase-enquiries'
   | 'info'
   | 'payment'
   | 'security';

@@ -1,4 +1,3 @@
-import productService from '@/app/api/services/product.service';
 import purchaseEnquiryService from '@/app/api/services/purchaseEnq.service';
 import { AxiosError } from 'axios';
 import { NextResponse } from 'next/server';

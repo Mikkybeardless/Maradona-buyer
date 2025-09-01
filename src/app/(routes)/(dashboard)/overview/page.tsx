@@ -1,6 +1,6 @@
 'use client';
 import DynamicNav, { StateObject } from '@/app/_components/common/DetailNav';
-import { IoMdCheckmark } from 'react-icons/io';
+// import { IoMdCheckmark } from 'react-icons/io';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,8 +8,8 @@ import { useState } from 'react';
 import { FaChevronRight, FaRegHeart } from 'react-icons/fa6';
 // import { IoCartOutline } from 'react-icons/io5';
 import { LuWallet } from 'react-icons/lu';
-import { FiPlusCircle } from 'react-icons/fi';
-import { GoShieldCheck } from 'react-icons/go';
+// import { FiPlusCircle } from 'react-icons/fi';
+// import { GoShieldCheck } from 'react-icons/go';
 import AddCardModal from '@/app/_components/modals/addCardModal';
 import { EditPasswordModal } from '@/app/_components/modals/edit-passwordModal';
 import { BsToggleOff, BsToggleOn } from 'react-icons/bs';

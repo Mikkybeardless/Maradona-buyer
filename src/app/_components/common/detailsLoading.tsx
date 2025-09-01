@@ -1,6 +1,12 @@
 import { Spinner } from './spinner';
 
-export const DetailLoadingState = ({ message = 'Loading details...' }) => {
+interface DetailLoadingStateProps {
+  message?: string;
+}
+
+export const DetailLoadingState = ({
+  message = 'Loading details...',
+}: DetailLoadingStateProps) => {
   return (
     <div className="flex flex-col gap-3 justify-center my-[300px] items-center">
       <Spinner

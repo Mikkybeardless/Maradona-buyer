@@ -130,7 +130,6 @@ export default function MoreForYou() {
                 seller={product.seller.name}
                 productType="sale"
                 imageUrl={getImageUrl(product)}
-                title={product.name}
                 product={product}
               />
             ))}

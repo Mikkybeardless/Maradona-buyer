@@ -65,8 +65,11 @@ export const AuctionCard = ({
 
           {auction.data?.length !== 0 && (
             <div className="flex md:flex-row flex-col gap-1 md:items-center  font-normal text-sm text-[#454545] mb-[15px]">
-              {auction.data?.slice(0, 3).map((item) => (
-                <p className="flex gap-1 text-xs md:text-sm items-center">
+              {auction.data?.slice(0, 3).map((item, index) => (
+                <p
+                  key={index}
+                  className="flex gap-1 text-xs md:text-sm items-center"
+                >
                   <GoDotFill className="text-primaryOrange" />
                   <span>{Object.values(item)[0]}</span>
                 </p>

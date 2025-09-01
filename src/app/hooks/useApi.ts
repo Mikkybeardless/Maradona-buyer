@@ -250,42 +250,42 @@ export function useApiCache() {
 }
 
 // 5. Infinite Query Hook (for infinite scrolling)
-export function useInfiniteApi<T>(
-  endpoint: string,
-  pageSize: number = 10,
-  extraParams?: Record<string, string | number>,
-  options: UseApiOptions = {}
-) {
-  const { useInfiniteQuery } = require('@tanstack/react-query');
+// export function useInfiniteApi<T>(
+//   endpoint: string,
+//   pageSize: number = 10,
+//   extraParams?: Record<string, string | number>,
+//   options: UseApiOptions = {}
+// ) {
+//    const { useInfiniteQuery } = require('@tanstack/react-query');
 
-  return useInfiniteQuery({
-    queryKey: createQueryKey(endpoint, { pageSize, ...extraParams }),
-    queryFn: async ({ pageParam = 1 }): Promise<PaginatedResponse<T>> => {
-      const params = {
-        page: String(pageParam),
-        pageSize: String(pageSize),
-        ...Object.entries(extraParams || {}).reduce(
-          (acc, [key, value]) => {
-            acc[key] = String(value);
-            return acc;
-          },
-          {} as Record<string, string>
-        ),
-      };
-      const cleanParams = buildCleanParams(params);
+//   return useInfiniteQuery({
+//     queryKey: createQueryKey(endpoint, { pageSize, ...extraParams }),
+//     queryFn: async ({ pageParam = 1 }): Promise<PaginatedResponse<T>> => {
+//       const params = {
+//         page: String(pageParam),
+//         pageSize: String(pageSize),
+//         ...Object.entries(extraParams || {}).reduce(
+//           (acc, [key, value]) => {
+//             acc[key] = String(value);
+//             return acc;
+//           },
+//           {} as Record<string, string>
+//         ),
+//       };
+//       const cleanParams = buildCleanParams(params);
 
-      const response = await fetchFn(`${endpoint}?${cleanParams.toString()}`);
-      return response.data.data;
-    },
-    getNextPageParam: (lastPage: PaginatedResponse<T>) => {
-      return lastPage.current_page < lastPage.last_page
-        ? lastPage.current_page + 1
-        : undefined;
-    },
-    staleTime: options.staleTime ?? 5 * 60 * 1000,
-    gcTime: options.cacheTime ?? 10 * 60 * 1000,
-    refetchOnWindowFocus: options.refetchOnWindowFocus ?? false,
-    retry: options.retry ?? 2,
-    enabled: options.enabled ?? true,
-  });
-}
+//       const response = await fetchFn(`${endpoint}?${cleanParams.toString()}`);
+//       return response.data.data;
+//     },
+//     getNextPageParam: (lastPage: PaginatedResponse<T>) => {
+//       return lastPage.current_page < lastPage.last_page
+//         ? lastPage.current_page + 1
+//         : undefined;
+//     },
+//     staleTime: options.staleTime ?? 5 * 60 * 1000,
+//     gcTime: options.cacheTime ?? 10 * 60 * 1000,
+//     refetchOnWindowFocus: options.refetchOnWindowFocus ?? false,
+//     retry: options.retry ?? 2,
+//     enabled: options.enabled ?? true,
+//   });
+// }

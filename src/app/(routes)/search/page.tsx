@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { filtersConfig } from '@/app/config';
 import FilterSection from '@/app/_components/home/FilterSection';
-import { repeatedComponents } from '@/app/_components/common/repeatComp';
 import { ProductCard } from '@/app/_components/home/cards/product';
 import { FiltersModal } from '@/app/_components/modals/MobileFilters';
 import { useSearchParams } from 'next/navigation';
@@ -33,7 +32,13 @@ export default function SearchFilterPage() {
     propertyType: '',
   });
 
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<
+    (ProductDetails & {
+      id: number;
+      belongs_to_admin: boolean;
+      seller: { name: string };
+    })[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showFilter, setShowFilter] = useState({
@@ -74,8 +79,8 @@ export default function SearchFilterPage() {
         throw new Error('Search failed');
       }
 
-      const data = await response.json();
-      setResults(data.results || []);
+      const { data } = await response.json();
+      setResults(data.data.data || []);
     } catch (err) {
       setError('Failed to fetch search results');
       console.error('Search error:', err);
@@ -135,6 +140,8 @@ export default function SearchFilterPage() {
     });
   };
 
+  if (error) return <p className="text-red-500">{error}</p>;
+
   return (
     <div className="flex px-[5%] md:px-0 flex-col gap-5 md:gap-0 md:flex-row mt-16 md:mt-8">
       {/* desktop filter */}
@@ -182,16 +189,16 @@ export default function SearchFilterPage() {
       ) : (
         <div className="flex flex-col  gap-4 md:w-[70%] md:px-[5%] ">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 ">
-            {repeatedComponents(
-              24,
+            {results.map((product) => (
               <ProductCard
-                productType="auction"
-                seller="Mike"
-                isAdminProduct={false}
-                imageUrl="/home/auction-house.png"
-                title="2601 Apapa close, Lekki"
+                key={product.id}
+                isAdminProduct={product.belongs_to_admin}
+                seller={product.seller.name}
+                productType="sale"
+                imageUrl={product.media[0]}
+                product={product}
               />
-            )}
+            ))}
           </div>
         </div>
       )}

@@ -7,7 +7,6 @@ export function ProductDetailsClient({ id }: { id: number }) {
   const {
     data: product,
     isLoading,
-    isError,
     error,
   } = useApi<ProductDetails & { id: number; seller: Seller }>(
     `/api/products/${id}`
@@ -15,11 +14,9 @@ export function ProductDetailsClient({ id }: { id: number }) {
 
   return (
     <Details
-      type="sale"
       productId={id}
       product={product}
       isLoading={isLoading}
-      isError={isError}
       error={error}
     />
   );

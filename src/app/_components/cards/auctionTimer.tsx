@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { PiHourglassLowDuotone } from 'react-icons/pi';
 
-export const AuctionTimer = ({ endTime = '2025-10-09 14:34:00' }) => {
+interface AuctionTimerProps {
+  endTime: string;
+}
+
+export const AuctionTimer = ({
+  endTime = '2025-10-09 14:34:00',
+}: AuctionTimerProps) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,

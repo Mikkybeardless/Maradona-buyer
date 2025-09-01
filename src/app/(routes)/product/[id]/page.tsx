@@ -1,11 +1,5 @@
 // At the top
 import { ProductDetailsClient } from '@/app/_components/product';
-// import dynamic from 'next/dynamic';
-
-// const ProductDetailClient = dynamic(
-//   () => import('@/app/_components/product/details'),
-//   { ssr: false }
-// );
 
 export default async function ProductDetail({
   params,

@@ -127,7 +127,7 @@ export const PurchaseEnqModal = ({
                 onClick={handleCancel}
                 className="bg-gray-200  font-semibold px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-300 ease-in-out"
               >
-                Clancel
+                Cancel
               </button>
               <button
                 type="submit"

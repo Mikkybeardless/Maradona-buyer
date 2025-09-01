@@ -93,7 +93,6 @@ const SpecificProducts = ({ homeState }: SpecificProductsProp) => {
               <ProductCard
                 key={product.id}
                 imageUrl={getImageUrl(product)}
-                title={product.name}
                 product={product}
                 seller={product.seller.name}
                 isAdminProduct={product.belongs_to_admin}

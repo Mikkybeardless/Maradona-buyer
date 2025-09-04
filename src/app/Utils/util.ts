@@ -63,3 +63,23 @@ export function nairaToUsd(nairaAmount: number, rate = 0.00065) {
   const dollars = nairaAmount * rate;
   return parseFloat(dollars.toFixed(2)); // Rounded to 2 decimal places by default
 }
+
+export const formatCurrency = (value) => {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
+export const formatNumber = (value) => {
+  return new Intl.NumberFormat('en-NG').format(value);
+};
+
+export function formatDateToYYYYMMDD(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}

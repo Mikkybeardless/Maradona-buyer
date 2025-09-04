@@ -11,10 +11,11 @@ export default function DashboardSideNav() {
     { name: 'Overview', href: 'overview' },
     { name: 'Transaction Histrory', href: 'history' },
     { name: 'Help Centre', href: 'help-centre' },
-    { name: 'Saved', href: 'saved-items' },
-    { name: 'Shipping Address', href: 'addresses' },
-    { name: 'Pending Reviews', href: 'pending-reviews' },
-    { name: 'Recently Viewed', href: 'recently-viewed' },
+    // { name: 'Saved', href: 'saved-items' },
+    // { name: 'Shipping Address', href: 'addresses' },
+    { name: 'Analytics', href: 'analytics' },
+    // { name: 'Pending Reviews', href: 'pending-reviews' },
+    // { name: 'Recently Viewed', href: 'recently-viewed' },
   ];
 
   const isActiveClass = (href: string) => {

@@ -1,11 +1,12 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { filtersConfig } from '@/app/config';
 import FilterSection from '@/app/_components/home/FilterSection';
 import { ProductCard } from '@/app/_components/home/cards/product';
 import { FiltersModal } from '@/app/_components/modals/MobileFilters';
 import { useSearchParams } from 'next/navigation';
 import { buildCleanParams } from '@/app/Utils/util';
+import DefaultImage from '../../_assets/images/no-image.png';
 
 import { Spinner } from '@/app/_components/common/spinner';
 
@@ -80,7 +81,8 @@ export default function SearchFilterPage() {
       }
 
       const { data } = await response.json();
-      setResults(data.data.data || []);
+      console.log('Search results:', data.data);
+      setResults(data.data || []);
     } catch (err) {
       setError('Failed to fetch search results');
       console.error('Search error:', err);
@@ -96,9 +98,9 @@ export default function SearchFilterPage() {
     }
   }, [searchQuery]);
 
-  const handleSearchAndFilter = useCallback(() => {
+  const handleSearchAndFilter = () => {
     fetchSearchResults(searchQuery, filterData);
-  }, [searchQuery, filterData]);
+  };
 
   const handleFilterToggle = (filter: string) => {
     setShowFilter((prev) => ({
@@ -195,7 +197,7 @@ export default function SearchFilterPage() {
                 isAdminProduct={product.belongs_to_admin}
                 seller={product.seller.name}
                 productType="sale"
-                imageUrl={product.media[0]}
+                imageUrl={product.media[0] || DefaultImage.src}
                 product={product}
               />
             ))}

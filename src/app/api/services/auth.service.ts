@@ -5,14 +5,6 @@ interface LoginData {
   password: string;
 }
 
-// interface RegisterData {
-//   name: string;
-//   email: string;
-//   password: string;
-//   password_confirmation: string;
-//   type: string;
-// }
-
 interface ReqPasswordData {
   email: string;
 }
@@ -24,6 +16,7 @@ interface DoPassReset {
   password_confirmation: string;
 }
 const authService = {
+  getProfile: () => apiClient.get('/me'),
   login: (loginData: LoginData) => apiClient.post('/login', loginData),
   register: (registerData: FormData) =>
     apiClient.post('/register', registerData, {

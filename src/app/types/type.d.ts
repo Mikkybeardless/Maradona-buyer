@@ -208,3 +208,106 @@ declare interface THistory {
   bids: Bid[];
   enquiries: Enquiry[];
 }
+
+// stats
+declare interface Period {
+  start: string;
+  end: string;
+  description: string;
+}
+interface MonthlySpending {
+  month: string;
+  month_key: string;
+  direct_sales_spending: number;
+  auction_sales_spending: number;
+  total_spending: number;
+}
+
+interface TotalPurchase {
+  direct_sales_purchases: number;
+  auction_sales_purchases: number;
+  total_purchases: number;
+  period: Period;
+}
+
+interface TotalSpending {
+  direct_sales_spending: string;
+  auction_sales_spending: string;
+  total_spending: number;
+  period: Period;
+}
+
+interface PurchasesByProductType {
+  product_type: ProductType;
+  direct_sales_qty: string;
+  direct_sales_spending: string;
+  auction_sales_qty: number;
+  auction_sales_spending: number;
+  total_qty: string;
+  total_spending: string;
+}
+
+declare interface TotalPurchaseSummary {
+  current_period: {
+    direct_sales_units: number;
+    direct_sales_amount: number;
+    auction_sales_units: number;
+    auction_sales_amount: number;
+    total_units: number;
+    total_amount: number;
+  };
+  previous_period: {
+    direct_sales_units: number;
+    direct_sales_amount: number;
+    auction_sales_units: number;
+    auction_sales_amount: number;
+    total_units: number;
+    total_amount: number;
+  };
+  changes: {
+    unit_change: number;
+    amount_change: number;
+    unit_percentage_change: number;
+    amount_percentage_change: number;
+  };
+  period: Period;
+  comparison_period: {
+    start: string;
+    end: string;
+    description: string;
+  };
+}
+
+declare interface Stats {
+  monthly_spending: { data: MonthlySpending[]; period: Period };
+  total_purchases: TotalPurchase;
+  total_spending: TotalSpending;
+  purchases_by_product_type: { data: PurchasesByProductType[]; period: Period };
+  total_purchase_summary: TotalPurchaseSummary;
+}
+
+// profile
+declare interface Profile {
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at: null | string;
+    type: string;
+    created_at: string;
+    updated_at: string;
+    buyer_profile: {
+      id: number;
+      user_id: number;
+      created_at: string;
+      updated_at: string;
+    };
+  };
+  profile: {
+    id: number;
+    user_id: number;
+    created_at: string;
+    updated_at: string;
+  };
+  user_type: string;
+}

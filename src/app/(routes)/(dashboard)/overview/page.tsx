@@ -1,15 +1,10 @@
 'use client';
 import DynamicNav, { StateObject } from '@/app/_components/common/DetailNav';
-// import { IoMdCheckmark } from 'react-icons/io';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaChevronRight, FaRegHeart } from 'react-icons/fa6';
-// import { IoCartOutline } from 'react-icons/io5';
 import { LuWallet } from 'react-icons/lu';
-// import { FiPlusCircle } from 'react-icons/fi';
-// import { GoShieldCheck } from 'react-icons/go';
 import AddCardModal from '@/app/_components/modals/addCardModal';
 import { EditPasswordModal } from '@/app/_components/modals/edit-passwordModal';
 import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
@@ -21,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
 import { NoItem } from '@/app/_components/common/no-item';
-
+// import { fetchFn } from '@/app/api/fetchFn';
 type DetailState = 'info' | 'payment' | 'security';
 
 export default function Page() {
@@ -46,8 +41,9 @@ export default function Page() {
     { state: 'security', label: 'Security', id: 3 },
   ];
 
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [profile, setProfile] = useState<Profile | null>(null);
   const { user } = useSelector((state: RootState) => state.auth);
-
   const handleStateChange = (state: DetailState) => {
     setDetailState(state);
   };
@@ -62,6 +58,26 @@ export default function Page() {
   const handleAddCard = (card: Card) => {
     console.log('New card added:', card);
   };
+
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const response = await fetchFn('/api/auth/profile');
+  //       console.log('User Profile: ', response.data.data);
+  //       setProfile(response.data.data);
+  //       // const active =
+  //       //   response.data.data.profile.availability === 'available';
+  //       // setIsActive(active);
+  //     } catch (error) {
+  //       console.log('profile fetch error:', error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchProfile();
+  // }, []);
 
   const handleLogout = async () => {
     try {
@@ -94,7 +110,10 @@ export default function Page() {
           <h1>{user.name}</h1>
         </div>
 
-        <nav className="flex  items-center justify-between w-[50%]">
+        <section
+          id="nav-items"
+          className="flex  items-center justify-between w-[50%]"
+        >
           {NavItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -112,7 +131,7 @@ export default function Page() {
               </Link>
             );
           })}
-        </nav>
+        </section>
       </div>
 
       <AddCardModal
@@ -138,73 +157,14 @@ export default function Page() {
                   <p className="text-[#5C4D58] text-xs">First Name:</p>
                   <p className="font-semibold text-[#150A13]">{user.name}</p>
                 </div>
-
-                {/* <div className=" bg-[#F7F7F7] px-5 py-2 space-y-2 w-full">
-                  <p className="text-[#5C4D58] text-xs">Last Name:</p>
-                  <p className="font-semibold text-[#150A13]">Sunday</p>
-                </div> */}
               </div>
 
               <div className=" bg-[#F7F7F7] px-5 py-2 space-y-2 w-full">
                 <p className="text-[#5C4D58] text-xs">Email:</p>
                 <p className="font-semibold text-[#150A13]">{user.email}</p>
               </div>
-
-              {/* <div className=" bg-[#F7F7F7] px-5 py-2 space-y-2 w-full">
-                <p className="text-[#5C4D58] text-xs">Phone:</p>
-                <p className="font-semibold text-[#150A13] ">08023456788</p>
-              </div> */}
             </section>
           ) : detailState === 'payment' ? (
-            // <section className="p-5">
-            //   <button
-            //     onClick={() => setIsOpen(true)}
-            //     className="bg-[#F0F0F0] rounded-lg mb-1 w-full md:w-[400px] h-[200px] flex items-center gap-2 justify-center"
-            //   >
-            //     <FiPlusCircle size={18} /> Add new card
-            //   </button>
-            //   <p className="text-secondaryTextColor">
-            //     No cards saved. Add one to get started
-            //   </p>
-
-            //   <div className="mt-5 space-y-2">
-            //     <p className="flex items-center gap-2">
-            //       <GoShieldCheck size={20} className="text-[#A3A3B3]" />
-            //       <span className="text-darkBlue font-semibold">
-            //         Distress sale protects your payment information
-            //       </span>
-            //     </p>
-            //     <div>
-            //       <p className="flex items-center gap-2">
-            //         <IoMdCheckmark className="text-green-500" />
-            //         <span className="text-secondaryTextColor">
-            //           We follow the Payment Card Industry Data Security Standard
-            //           (PCI DSS) when handing card data
-            //         </span>
-            //       </p>
-            //       <p className="flex items-center gap-2">
-            //         <IoMdCheckmark className="text-green-500" />
-            //         <span className="text-secondaryTextColor">
-            //           All information remains secure and uncompromised
-            //         </span>
-            //       </p>
-
-            //       <p className="flex items-center gap-2">
-            //         <IoMdCheckmark className="text-green-500" />
-            //         <span className="text-secondaryTextColor">
-            //           All data is encrypted
-            //         </span>
-            //       </p>
-
-            //       <p className="flex items-center gap-2">
-            //         <IoMdCheckmark className="text-green-500" />
-            //         <span className="text-secondaryTextColor">
-            //           Your card information will never be mishandled or sold
-            //         </span>
-            //       </p>
-            //     </div>
-            //   </div>
-            // </section>
             <section>
               <NoItem text="No Payments Available" />
             </section>

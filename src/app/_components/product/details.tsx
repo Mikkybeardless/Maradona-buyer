@@ -98,15 +98,6 @@ export default function Details({
                     </span>
                   </p>
                   <RxDividerVertical />
-                  <p className="flex items-center gap-1">
-                    {' '}
-                    <span>Body Type:</span>{' '}
-                    <span className="text-darkBlue font-extrabold flex items-center gap-1">
-                      {' '}
-                      <GoDotFill className="text-primaryOrange" />
-                      {(product as Car).body_type}
-                    </span>
-                  </p>
                 </div>
               )}
 

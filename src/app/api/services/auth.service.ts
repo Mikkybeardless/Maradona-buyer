@@ -26,6 +26,10 @@ const authService = {
   reqPasswordReset: (reqPasswordData: ReqPasswordData) =>
     apiClient.post('/forgot-password', reqPasswordData),
   doPassReset: (data: DoPassReset) => apiClient.post('/reset-password', data),
+  updateProfile: (data: FormData) =>
+    apiClient.post('/profile', data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
 };
 
 export type { LoginData, ReqPasswordData, DoPassReset };

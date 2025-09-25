@@ -109,7 +109,13 @@ export default function NavSection() {
           onClose={() => setMobileOpen(false)}
         >
           <div className="w-56 p-4 flex flex-col gap-4">
-            <img className="h-[40px] w-auto" src={`home/logo.svg`} alt="Logo" />
+            <Image
+              className="h-[40px] w-auto"
+              width={40}
+              height={40}
+              src={`home/logo.svg`}
+              alt="Logo"
+            />
 
             {/* Mobile Navigation Links */}
             <Link href="/" className="hover:text-defaultOrange text-sm">

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FaApple, FaGooglePlay } from 'react-icons/fa6';
 
 export default function Download() {
@@ -22,10 +23,12 @@ export default function Download() {
         </div>
 
         {/* App img */}
-        <img
+        <Image
           className="mt-5 w-[80%] sm:w-[60%] md:w-[50%]"
           src={`/home/IOS-app-display.png`}
           alt="IOS app"
+          width={500}
+          height={500}
         />
       </div>
 
@@ -37,7 +40,9 @@ export default function Download() {
         </h1>
 
         {/* QR Code img */}
-        <img
+        <Image
+          width={300}
+          height={300}
           className="mt-10 sm:mt-16 w-[50%] sm:w-[40%] md:w-[60%] rounded-[21px]"
           src={`/home/qr-code.png`}
           alt="QR-code"

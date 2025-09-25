@@ -1,3 +1,6 @@
+// next.config.mjs or next.config.js (with "type": "module" in package.json)
+import bundleAnalyzer from '@next/bundle-analyzer';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
@@ -20,4 +23,8 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+export default withBundleAnalyzer(nextConfig);

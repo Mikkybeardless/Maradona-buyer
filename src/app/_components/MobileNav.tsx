@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import SearchBox from './SearchBox';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
-import { CiHeart, CiWallet } from 'react-icons/ci';
+import { CiWallet } from 'react-icons/ci';
+import { IoIosAnalytics } from 'react-icons/io';
 import { TbMessage2 } from 'react-icons/tb';
 import { usePathname, useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -11,16 +12,6 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useSearchState } from '../hooks/useSearchState';
 import Image from 'next/image';
-// import { linksWitOutIcons } from '../config';
-
-const linksWitOutIcons = [
-  { name: 'Shipping Address', href: '/addresses' },
-  { name: 'Pending reviews', href: '/pending-reviews' },
-  { name: 'Recently Viewed', href: '/recently-viewed' },
-  { name: 'History', href: '/history' },
-  { name: 'Return&refund policy', href: '/forms/refund' },
-  { name: 'Help Center', href: '/help-centre' },
-];
 
 interface MobileNavProps {
   menuItems?: { name: string; href: string; icon: React.ElementType }[];
@@ -28,12 +19,14 @@ interface MobileNavProps {
 }
 export default function MobileNav({
   menuItems = [
-    { name: 'Bids & Orders', href: '/', icon: CiWallet },
+    { name: 'Overview', href: '/overview', icon: FaRegUser },
+    { name: 'Transaction History', href: '/history', icon: CiWallet },
     { name: 'Help Centre', href: '/help-centre', icon: TbMessage2 },
-    { name: 'Saved', href: '/saved-items', icon: CiHeart },
+    { name: 'Analytics', href: '/analytics', icon: IoIosAnalytics },
   ],
   className = '',
 }: MobileNavProps) {
+  const [loggingOut, setIsLoggingOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -89,7 +82,7 @@ export default function MobileNav({
   };
   const handleLogOut = async () => {
     try {
-      // setIsLoggingOut(true);
+      setIsLoggingOut(true);
       const res = await axios.post('/api/auth/logout');
       if (res.status === 200) {
         toast.success('Logout successful');
@@ -99,6 +92,8 @@ export default function MobileNav({
     } catch (error) {
       toast.error('logout failed. pls try again');
       console.error('Logout failed:', error);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -185,7 +180,7 @@ export default function MobileNav({
               : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
         >
-          <div className="mx-4 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+          <div className="mx-4 mt-2 bg-white p-3 rounded-lg shadow-lg border border-gray-200 overflow-hidden">
             <div className="py-1">
               {menuItems.map((item) => {
                 const IconComponent = item.icon;
@@ -197,28 +192,14 @@ export default function MobileNav({
                     className={`group flex items-center px-4 py-3 ${isActiveClass(item.href)}  hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150`}
                   >
                     {IconComponent && (
-                      <IconComponent className="w-5 h-5 mr-3  group-hover:text-orange-500" />
+                      <IconComponent className="w-6 h-6 mr-3  group-hover:text-orange-500" />
                     )}
                     <span className="font-medium">{item.name}</span>
                   </Link>
                 );
               })}
-            </div>
-            <hr />
-
-            <div className="space-y-2 flex flex-col px-4 py-3">
-              {linksWitOutIcons.map((link) => (
-                <Link
-                  onClick={closeMenu}
-                  className={`hover:text-orange-500 ${isActiveClass(link.href)}`}
-                  key={link.name}
-                  href={link.href}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <button onClick={handleLogOut} className="hover:text-orange-500">
-                Log Out
+              <button className="pl-6 py-3" onClick={handleLogOut}>
+                {loggingOut ? 'Logging out...' : 'Logout'}
               </button>
             </div>
           </div>

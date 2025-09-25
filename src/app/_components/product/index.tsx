@@ -3,19 +3,21 @@
 import { useApi } from '@/app/hooks/useApi';
 import Details from './details';
 
+interface ResponseData {
+  data: ProductDetails & { id: number; seller: Seller };
+  isPromoted: boolean;
+}
 export function ProductDetailsClient({ id }: { id: number }) {
   const {
-    data: product,
+    data: data,
     isLoading,
     error,
-  } = useApi<ProductDetails & { id: number; seller: Seller }>(
-    `/api/products/${id}`
-  );
+  } = useApi<ResponseData>(`/api/products/${id}`);
 
   return (
     <Details
       productId={id}
-      product={product}
+      product={data?.data}
       isLoading={isLoading}
       error={error}
     />

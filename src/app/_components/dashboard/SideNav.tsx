@@ -1,21 +1,21 @@
 'use client';
-
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function DashboardSideNav() {
   const pathName = usePathname();
+  const [loggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
   const NavItems = [
     { name: 'Overview', href: 'overview' },
     { name: 'Transaction Histrory', href: 'history' },
     { name: 'Help Centre', href: 'help-centre' },
-    // { name: 'Saved', href: 'saved-items' },
-    // { name: 'Shipping Address', href: 'addresses' },
     { name: 'Analytics', href: 'analytics' },
-    // { name: 'Pending Reviews', href: 'pending-reviews' },
-    // { name: 'Recently Viewed', href: 'recently-viewed' },
   ];
 
   const isActiveClass = (href: string) => {
@@ -24,8 +24,21 @@ export default function DashboardSideNav() {
       ? 'border-l-4 border-[#B44500] bg-[#F7F7F7] pr-0  transition-colors duration-300'
       : 'hover:text-[#B44500] text-[#585858] transition-colors duration-300';
   };
-  const handleLogOut = () => {
-    router.push('/login');
+  const handleLogOut = async () => {
+    try {
+      setIsLoggingOut(true);
+      const res = await axios.post('/api/auth/logout');
+      if (res.status === 200) {
+        toast.success('Logout successful');
+        Cookies.remove('buyer_token');
+        router.push('/login');
+      }
+    } catch (error) {
+      toast.error('logout failed. pls try again');
+      console.error('Logout failed:', error);
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
   return (
     <div className="flex flex-col w-64 h-fit py-4   bg-white">
@@ -48,7 +61,7 @@ export default function DashboardSideNav() {
             onClick={handleLogOut}
             className="block pl-4 py-2 hover:text-[#B44500] text-[#585858] transition-colors duration-300"
           >
-            Log Out
+            {loggingOut ? 'Logging out...' : 'Logout'}
           </button>
         </ul>
       </nav>

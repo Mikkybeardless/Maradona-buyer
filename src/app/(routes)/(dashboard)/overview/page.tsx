@@ -1,8 +1,8 @@
 'use client';
 import DynamicNav, { StateObject } from '@/app/_components/common/DetailNav';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FaChevronRight, FaRegHeart } from 'react-icons/fa6';
 import { LuWallet } from 'react-icons/lu';
 import AddCardModal from '@/app/_components/modals/addCardModal';
@@ -13,9 +13,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/redux/store';
 import { NoItem } from '@/app/_components/common/no-item';
+import { fetchFn } from '@/app/api/fetchFn';
+import { formatIsoString } from '@/app/Utils/util';
+import { DetailLoadingState } from '@/app/_components/common/detailsLoading';
+import { ErrorComponent } from '@/app/_components/common/error';
+import ProfilePictureUpload from '@/app/_components/ProfilePictureUpload';
 // import { fetchFn } from '@/app/api/fetchFn';
 type DetailState = 'info' | 'payment' | 'security';
 
@@ -23,6 +26,7 @@ export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditPasswordOpen, setIsEditPasswordOpen] = useState(false);
   const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
@@ -40,10 +44,9 @@ export default function Page() {
     { state: 'payment', label: 'Payment', id: 2 },
     { state: 'security', label: 'Security', id: 3 },
   ];
-
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [profile, setProfile] = useState<Profile | null>(null);
-  const { user } = useSelector((state: RootState) => state.auth);
+  const [isUpdatingPic, setIsUpdatingPic] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const handleStateChange = (state: DetailState) => {
     setDetailState(state);
   };
@@ -58,26 +61,25 @@ export default function Page() {
   const handleAddCard = (card: Card) => {
     console.log('New card added:', card);
   };
+  const fetchProfile = useCallback(async () => {
+    try {
+      const response = await fetchFn('/api/auth/profile');
+      console.log('User Profile: ', response.data.data);
+      setProfile(response.data.data);
+      // const active =
+      //   response.data.data.profile.availability === 'available';
+      // setIsActive(active);
+    } catch (error) {
+      console.log('profile fetch error:', error);
+      setError('Failed to load profile. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await fetchFn('/api/auth/profile');
-  //       console.log('User Profile: ', response.data.data);
-  //       setProfile(response.data.data);
-  //       // const active =
-  //       //   response.data.data.profile.availability === 'available';
-  //       // setIsActive(active);
-  //     } catch (error) {
-  //       console.log('profile fetch error:', error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchProfile();
-  // }, []);
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -96,18 +98,39 @@ export default function Page() {
       setIsLoggingOut(false);
     }
   };
-  return (
+  return isLoading ? (
+    <DetailLoadingState />
+  ) : error ? (
+    <ErrorComponent
+      refetchFn={fetchProfile}
+      error={error}
+      message="Error loading user profile"
+    />
+  ) : (
     <div className=" space-y-5 w-full ">
       <div className="bg-white  flex flex-col items-center   py-5 space-y-4">
         <div className="flex flex-col border-b border-gray-200 pb-3 items-center justify-center w-full space-y-1">
-          <Image
+          {/* <Image
             alt="profile photo"
-            src="/no_images/default-profile.png"
+            src={
+              profile.profile.profile_pic_url ||
+              `/no_images/default-profile.png`
+            }
             width={72}
             height={72}
             className="rounded-full object-contain"
-          />
-          <h1>{user.name}</h1>
+          /> */}
+          <div
+            className={`rounded-full  ${
+              isUpdatingPic ? 'animate-pulse' : ''
+            } border-[4px] w-fit`}
+          >
+            <ProfilePictureUpload
+              onUpdating={setIsUpdatingPic}
+              // apiImage={'/no_images/default-profile.png'}
+            />
+          </div>
+          <h1>{profile?.user.name}</h1>
         </div>
 
         <section
@@ -154,14 +177,25 @@ export default function Page() {
             <section className="space-y-5 p-6 ">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className=" bg-[#F7F7F7] px-5 py-2 space-y-2 w-full">
-                  <p className="text-[#5C4D58] text-xs">First Name:</p>
-                  <p className="font-semibold text-[#150A13]">{user.name}</p>
+                  <p className="text-[#5C4D58] text-xs">Name:</p>
+                  <p className="font-semibold text-[#150A13]">
+                    {profile?.user.name}
+                  </p>
                 </div>
               </div>
 
               <div className=" bg-[#F7F7F7] px-5 py-2 space-y-2 w-full">
                 <p className="text-[#5C4D58] text-xs">Email:</p>
-                <p className="font-semibold text-[#150A13]">{user.email}</p>
+                <p className="font-semibold text-[#150A13]">
+                  {profile?.user.email}
+                </p>
+              </div>
+
+              <div className=" bg-[#F7F7F7] px-5 py-2 space-y-2 w-full">
+                <p className="text-[#5C4D58] text-xs">Date Joined:</p>
+                <p className="font-semibold text-[#150A13]">
+                  {formatIsoString(profile?.user.created_at).formattedDate}
+                </p>
               </div>
             </section>
           ) : detailState === 'payment' ? (

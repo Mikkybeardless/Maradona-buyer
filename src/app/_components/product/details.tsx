@@ -18,7 +18,7 @@ import DynamicNav, { StateObject } from '../common/DetailNav';
 import { HiOutlineMegaphone } from 'react-icons/hi2';
 import { SellerInfoModal } from '../modals/sellerInfoModal';
 import { PurchaseEnqModal } from '../modals/purchaseEnqModal';
-import { formatAmount } from '@/app/Utils/util';
+import { formatAmount, formatIsoString } from '@/app/Utils/util';
 import { DetailLoadingState } from '../common/detailsLoading';
 import { RenderDetailedDesc } from './renderDetailedDesc';
 import { ErrorComponent } from '../common/error';
@@ -123,7 +123,7 @@ export default function Details({
                   />
                   <div>
                     <p className="text-sm font-semibold">
-                      {product.seller.name}
+                      {product.seller?.name || 'Distress Sales'}
                     </p>
                     <p className="flex space-x-1 ">
                       {Array.from({ length: 5 }, (_, i) => {
@@ -380,7 +380,7 @@ export default function Details({
                 SE
               </span>
               <div>
-                <h4 className="text-xl font-semibold">Thecarsalesman</h4>
+                <h4 className="text-xl font-semibold">{product.seller.name}</h4>
                 <p>
                   <span className="text-darkBlue">100% positive feedback</span>
                 </p>
@@ -388,8 +388,8 @@ export default function Details({
               </div>
             </div>
             <p className="flex gap-2 font-semibold">
-              <CiCalendar size={24} className="text-[#585858]" /> Joined Sept
-              2003
+              <CiCalendar size={24} className="text-[#585858]" /> Joined{' '}
+              {formatIsoString(product.seller.created_at).formattedDate}
             </p>
             {/* <button
               onClick={() => setContactModal(true)}

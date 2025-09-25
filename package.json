@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -46,10 +47,12 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.4",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "22.7.4",
     "@types/react": "18.3.11",
     "@types/react-autosuggest": "^10.1.11",
+    "cross-env": "^10.0.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.14",
     "eslint-plugin-react": "^7.37.4",

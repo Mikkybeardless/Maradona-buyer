@@ -2,21 +2,31 @@
 import React, { useEffect, useState } from 'react';
 import { DollarSign, ShoppingCart, Calendar } from 'lucide-react';
 import { StatCard } from './statCard';
+import dynamic from 'next/dynamic';
 import {
   buildCleanParams,
   formatCurrency,
   formatNumber,
 } from '@/app/Utils/util';
 
-import { PurchaseChannel } from './PurchaseChannel';
-import { ProductTypeDistribution } from './productTypeDistribution';
 import { ProductTypeDetailsTable } from './productTypeTable';
-
 import { fetchFn } from '@/app/api/fetchFn';
 import CustomPeriodModal from '../modals/customPeriodModal';
-import { MonthlySpending } from './monthlySpending';
 import { PeriodComparism } from './periodComparism';
 import { DetailLoadingState } from '../common/detailsLoading';
+const MonthlySpending = dynamic(() => import('./monthlySpending'), {
+  ssr: false,
+});
+const PurchaseChannel = dynamic(() => import('./PurchaseChannel'), {
+  ssr: false,
+});
+
+const ProductTypeDistribution = dynamic(
+  () => import('./productTypeDistribution'),
+  {
+    ssr: false,
+  }
+);
 
 const Dashboard = () => {
   const initialStats: Stats = {
@@ -106,7 +116,7 @@ const Dashboard = () => {
         setIsLoading(true);
         const params = buildCleanParams(customDate).toString();
         const response = await fetchFn(`/api/stats?${params}`);
-        console.log('Stats Data:', response.data.data);
+        // console.log('Stats Data:', response.data.data);
         setStats(response.data.data);
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -139,11 +149,11 @@ const Dashboard = () => {
           </h1> */}
           <div className="flex items-center text-gray-600">
             <Calendar className="w-5 h-5 mr-2" />
-            <span>
+            <span className="text-xs md:text-base">
               Current Period: {stats.total_purchase_summary.period.description}
             </span>
             <span className="mx-2">•</span>
-            <span>
+            <span className="hidden md:block">
               {stats.total_purchase_summary.period.start} to{' '}
               {stats.total_purchase_summary.period.end}
             </span>
@@ -151,7 +161,7 @@ const Dashboard = () => {
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-primaryOrange text-white px-3 py-2 rounded-md"
+            className="bg-primaryOrange text-white text-xs md:text-base px-1.5 md:px-3 py-1 md:py-2 rounded-sm md:rounded-md"
           >
             Custom period
           </button>

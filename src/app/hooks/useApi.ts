@@ -59,7 +59,7 @@ export function useApi<T>(
       const cleanParams = buildCleanParams(params || {});
       const url = params ? `${endpoint}?${cleanParams.toString()}` : endpoint;
       const response = await fetchFn(url);
-      return response.data.data || response.data;
+      return response.data.data;
     },
     staleTime: options.staleTime ?? 5 * 60 * 1000, // 5 minutes
     gcTime: options.cacheTime ?? 10 * 60 * 1000, // 10 minutes

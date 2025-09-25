@@ -62,17 +62,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         //  Check if we have a redirect URL
         const redirect = searchParams.get('redirect');
         // redirect user
-        if (redirect) {
-          console.log('using redirect');
-          router.push(redirect);
-          return;
-        } else {
-          // fresh user
-          console.log('using default redirect');
-          return setTimeout(() => {
-            router.push('/overview');
-          }, 2000);
-        }
+        router.push(redirect || '/overview');
       }
     } catch (err: unknown) {
       console.error('Login error:', err);

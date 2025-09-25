@@ -13,7 +13,7 @@ import {
   Legend,
 } from 'recharts';
 
-export const MonthlySpending = ({ data }: { data: MonthlySpending[] }) => {
+const MonthlySpending = ({ data }: { data: MonthlySpending[] }) => {
   return (
     <section className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <h2 className="text-xl font-bold text-gray-900 mb-4">
@@ -61,3 +61,5 @@ export const MonthlySpending = ({ data }: { data: MonthlySpending[] }) => {
     </section>
   );
 };
+
+export default MonthlySpending;

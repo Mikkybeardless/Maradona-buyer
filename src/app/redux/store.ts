@@ -3,15 +3,17 @@ import authReducer from './slices/authSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from 'redux';
 import storage from './storage/storage';
+import notificationsReducer from './slices/notificationSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'], // only persist the auth slice
+  whitelist: ['auth', 'notifications'], // only persist the auth slice
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  notifications: notificationsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

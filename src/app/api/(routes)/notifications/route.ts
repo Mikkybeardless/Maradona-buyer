@@ -1,12 +1,16 @@
-import authService from '@/app/api/services/auth.service';
-
-import { AxiosError } from 'axios';
 import { NextResponse } from 'next/server';
-import { appendField } from '../../../../Utils/util';
+import { AxiosError } from 'axios';
+import notificationService from '../../services/notification.service';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const params: Record<string, string> = {};
+  for (const [key, value] of Array.from(searchParams.entries())) {
+    params[key] = value;
+  }
+
   try {
-    const response = await authService.getProfile();
+    const response = await notificationService.getAll(params);
     if (response.status !== 200) {
       return NextResponse.json(
         { message: response.statusText },
@@ -14,12 +18,12 @@ export async function GET() {
       );
     }
     return NextResponse.json(
-      { message: 'profile retrieved successfully', data: response.data },
+      { message: 'notifications retrieved successfully', data: response.data },
       { status: 200 }
     );
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.error('fetch profile error:', error.response?.data);
+      console.error('fetch notifications error:', error.response?.data);
       return NextResponse.json(
         { message: error.response?.statusText || 'Axios request failed' },
         { status: error.response?.status || 500 }
@@ -33,18 +37,12 @@ export async function GET() {
     );
   }
 }
-export async function PUT(req: Request) {
+
+export async function POST() {
   try {
-    const body = await req.json();
-    const formData = new FormData();
-    for (const [key, value] of Object.entries(body)) {
-      appendField(
-        formData,
-        key,
-        value as string | number | boolean | File | null | undefined
-      );
-    }
-    const response = await authService.updateProfile(formData);
+    // const body = await req.json();
+
+    const response = await notificationService.readAll();
     if (response.status !== 200) {
       return NextResponse.json(
         { message: response.statusText },
@@ -52,12 +50,12 @@ export async function PUT(req: Request) {
       );
     }
     return NextResponse.json(
-      { message: 'profile updated successfully', data: response.data },
+      { message: 'read all successfully', data: response.data },
       { status: 200 }
     );
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.error('update profile error:', error.response?.data);
+      console.error('read all error:', error.response?.data);
       return NextResponse.json(
         { message: error.response?.statusText || 'Axios request failed' },
         { status: error.response?.status || 500 }

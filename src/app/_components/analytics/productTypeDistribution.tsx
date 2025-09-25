@@ -3,7 +3,7 @@
 import { formatCurrency } from '@/app/Utils/util';
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
-export const ProductTypeDistribution = ({
+const ProductTypeDistribution = ({
   data,
 }: {
   data: PurchasesByProductType[];
@@ -52,3 +52,5 @@ export const ProductTypeDistribution = ({
     </section>
   );
 };
+
+export default ProductTypeDistribution;

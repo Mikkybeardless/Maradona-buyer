@@ -83,3 +83,38 @@ export function formatDateToYYYYMMDD(date: Date) {
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
+
+export const formatIsoString = (
+  isoString: string
+): { formattedDate: string; formattedTime: string } => {
+  const date = new Date(isoString);
+  const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+  // Format the date and time
+  let formattedDate = date.toLocaleDateString('en-GB');
+  // Format time with AM/PM
+  const formattedTime = date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true, // Ensures AM/PM format
+  });
+  formattedDate = `${dayName}, ${formattedDate}`;
+
+  return { formattedDate, formattedTime };
+};
+
+export function appendField(
+  formData: FormData,
+  key: string,
+  value: string | number | boolean | File | null | undefined
+) {
+  if (value === null || value === undefined) {
+    throw new Error(`The field "${key}" cannot be null or undefined.`);
+  }
+
+  if (value instanceof File) {
+    formData.append(key, value);
+  } else {
+    formData.append(key, String(value));
+  }
+}

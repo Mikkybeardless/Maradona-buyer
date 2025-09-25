@@ -1,13 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { filtersConfig } from '@/app/config';
+import {
+  CarFiltersConfig,
+  HouseFiltersConfig,
+  LandFiltersConfig,
+} from '@/app/config';
 import FilterSection from '@/app/_components/home/FilterSection';
 import { ProductCard } from '@/app/_components/home/cards/product';
 import { FiltersModal } from '@/app/_components/modals/MobileFilters';
 import { useSearchParams } from 'next/navigation';
 import { buildCleanParams } from '@/app/Utils/util';
 import DefaultImage from '../../_assets/images/no-image.png';
-
 import { Spinner } from '@/app/_components/common/spinner';
 
 export default function SearchFilterPage() {
@@ -16,23 +19,21 @@ export default function SearchFilterPage() {
   // Get initial query from URL
   const searchQuery = searchParams.get('query') || '';
   const [filterData, setFilterData] = useState({
-    bedrooms: [],
-    bathrooms: [],
-    priceRange: [],
-    houseType: [],
-    carType: [],
-    landType: [],
-    docType: [],
-    furnishedStatus: [],
+    price_range: [],
+    house_type: [],
+    car_type: [],
+    land_type: [],
+    doc_type: [],
+    furnished_status: [],
     accessibility: [],
     topography: [],
     fencing: '',
     condition: '',
     transmission: [],
-    bodyType: [],
-    propertyType: '',
+    body_type: [],
+    type: '',
   });
-
+  const [productType, setProductType] = useState<'sale' | 'auction'>('sale');
   const [results, setResults] = useState<
     (ProductDetails & {
       id: number;
@@ -45,21 +46,21 @@ export default function SearchFilterPage() {
   const [showFilter, setShowFilter] = useState({
     bedrooms: false,
     bathrooms: false,
-    priceRange: false,
-    houseType: false,
-    carType: false,
-    landType: false,
-    docType: false,
-    furnishedStatus: false,
+    price_range: false,
+    house_type: false,
+    car_type: false,
+    land_type: false,
+    doc_type: false,
+    furnished_status: false,
     accessibility: false,
     topography: false,
     fencing: false,
     condition: false,
     transmission: false,
-    bodyType: false,
+    body_type: false,
     mileage: false,
-    driveType: false,
-    fuelType: false,
+    drive_type: false,
+    fuel_type: false,
   });
 
   // Fetch search results
@@ -74,15 +75,25 @@ export default function SearchFilterPage() {
 
     try {
       const params = buildCleanParams(currentFilters, query);
-      const response = await fetch(`/api/products?${params}`);
 
-      if (!response.ok) {
-        throw new Error('Search failed');
+      if (productType === 'sale') {
+        const response = await fetch(`/api/products?${params}`);
+        if (!response.ok) {
+          throw new Error('Search sale failed');
+        }
+
+        const { data } = await response.json();
+        console.log('Search results:', data.data);
+        setResults(data.data || []);
+      } else if (productType === 'auction') {
+        const response = await fetch(`/api/auctions?${params}`);
+        if (!response.ok) {
+          throw new Error('Search auction failed');
+        }
+        const { data } = await response.json();
+        console.log('Search results:', data.data);
+        setResults(data.data || []);
       }
-
-      const { data } = await response.json();
-      console.log('Search results:', data.data);
-      setResults(data.data || []);
     } catch (err) {
       setError('Failed to fetch search results');
       console.error('Search error:', err);
@@ -148,19 +159,89 @@ export default function SearchFilterPage() {
     <div className="flex px-[5%] md:px-0 flex-col gap-5 md:gap-0 md:flex-row mt-16 md:mt-8">
       {/* desktop filter */}
       <div className="md:flex hidden  flex-col gap-7 md:pl-[4%] md:w-[30%]">
-        {filtersConfig.map(({ key, label, type, options }) => (
-          <FilterSection
-            key={key}
-            keyName={key}
-            label={label}
-            type={type as 'button' | 'checkbox' | 'range'}
-            options={options}
-            show={showFilter[key]}
-            onToggle={() => handleFilterToggle(key)}
-            onChange={handleChange}
-            selected={filterData[key]}
-          />
-        ))}
+        <div className="space-y-4 border-b pb-4">
+          {' '}
+          <div className="w-full flex flex-col gap-2">
+            <select
+              id="productType"
+              onChange={(e) =>
+                setProductType(e.target.value as 'sale' | 'auction')
+              }
+              name="productType"
+              value={productType}
+              className="p-2 outline-none w-full "
+            >
+              <option disabled value="">
+                Select product type
+              </option>
+              <option value="auction">Auction</option>
+              <option value="sale">Sale</option>
+            </select>
+          </div>
+          <div className="w-full flex flex-col gap-2">
+            <select
+              id="type"
+              onChange={(e) =>
+                setFilterData((prev) => ({ ...prev, type: e.target.value }))
+              }
+              name="type"
+              value={filterData.type}
+              className="p-2 outline-none w-full "
+            >
+              <option disabled value="">
+                Select product category
+              </option>
+              <option value="LAND">Land</option>
+              <option value="CAR">Car</option>
+              <option value="HOUSE">House</option>
+            </select>
+          </div>
+        </div>
+
+        {filterData.type === 'LAND' &&
+          LandFiltersConfig.map(({ key, label, type, options }) => (
+            <FilterSection
+              key={key}
+              keyName={key}
+              label={label}
+              type={type as 'button' | 'checkbox' | 'range'}
+              options={options}
+              show={showFilter[key]}
+              onToggle={() => handleFilterToggle(key)}
+              onChange={handleChange}
+              selected={filterData[key]}
+            />
+          ))}
+
+        {filterData.type === 'CAR' &&
+          CarFiltersConfig.map(({ key, label, type, options }) => (
+            <FilterSection
+              key={key}
+              keyName={key}
+              label={label}
+              type={type as 'button' | 'checkbox' | 'range'}
+              options={options}
+              show={showFilter[key]}
+              onToggle={() => handleFilterToggle(key)}
+              onChange={handleChange}
+              selected={filterData[key]}
+            />
+          ))}
+
+        {filterData.type === 'HOUSE' &&
+          HouseFiltersConfig.map(({ key, label, type, options }) => (
+            <FilterSection
+              key={key}
+              keyName={key}
+              label={label}
+              type={type as 'button' | 'checkbox' | 'range'}
+              options={options}
+              show={showFilter[key]}
+              onToggle={() => handleFilterToggle(key)}
+              onChange={handleChange}
+              selected={filterData[key]}
+            />
+          ))}
 
         <div className="flex justify-center items-center">
           <button
@@ -175,6 +256,9 @@ export default function SearchFilterPage() {
       {/* mobile filter */}
       <div>
         <FiltersModal
+          productType={productType}
+          setProductType={setProductType}
+          setFilterData={setFilterData}
           onFilterApply={handleSearchAndFilter}
           handleChange={handleChange}
           filterData={filterData}
@@ -190,18 +274,24 @@ export default function SearchFilterPage() {
         </div>
       ) : (
         <div className="flex flex-col  gap-4 md:w-[70%] md:px-[5%] ">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 ">
-            {results.map((product) => (
-              <ProductCard
-                key={product.id}
-                isAdminProduct={product.belongs_to_admin}
-                seller={product.seller.name}
-                productType="sale"
-                imageUrl={product.media[0] || DefaultImage.src}
-                product={product}
-              />
-            ))}
-          </div>
+          {results.length === 0 ? (
+            <h2 className="text-lg my-20 text-center font-bold">
+              No Product Found
+            </h2>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 ">
+              {results.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  isAdminProduct={product.belongs_to_admin}
+                  seller={product.seller.name}
+                  productType="sale"
+                  imageUrl={product.media[0] || DefaultImage.src}
+                  product={product}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

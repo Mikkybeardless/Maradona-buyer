@@ -13,7 +13,7 @@ import {
   YAxis,
 } from 'recharts';
 
-export const PurchaseChannel = ({ data }: { data: TotalPurchaseSummary }) => {
+const PurchaseChannel = ({ data }: { data: TotalPurchaseSummary }) => {
   return (
     <section className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <h2 className="text-xl font-bold text-gray-900 mb-4">
@@ -64,3 +64,5 @@ export const PurchaseChannel = ({ data }: { data: TotalPurchaseSummary }) => {
     </section>
   );
 };
+
+export default PurchaseChannel;

@@ -3,53 +3,49 @@ import { useState } from 'react';
 import ModalWrapper from './modalWrapper';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { IoFilterOutline } from 'react-icons/io5';
-import { filtersConfig } from '@/app/config';
+import {
+  CarFiltersConfig,
+  HouseFiltersConfig,
+  LandFiltersConfig,
+} from '@/app/config';
 import FilterSection from '../home/FilterSection';
+
+interface MobileFiltersProps {
+  handleChange: (field: string, value: string | number) => () => void;
+  onFilterApply: () => void;
+  productType: 'sale' | 'auction';
+  setProductType: (type: 'sale' | 'auction') => void;
+  filterData: FilterData;
+  setFilterData: React.Dispatch<React.SetStateAction<FilterData>>;
+}
 
 export const FiltersModal = ({
   handleChange,
   onFilterApply,
   filterData,
-}: {
-  handleChange: (field: string, value: string | number) => () => void;
-  filterData: {
-    bedrooms: string[];
-    bathrooms: string[];
-    priceRange: string[];
-    houseType: string[];
-    carType: string[];
-    landType: string[];
-    docType: string[];
-    furnishedStatus: string[];
-    accessibility: string[];
-    topography: string[];
-    fencing: string;
-    condition: string;
-    transmission: string[];
-    bodyType: string[];
-    propertyType: string;
-  };
-  onFilterApply: () => void;
-}) => {
+  productType,
+  setProductType,
+  setFilterData,
+}: MobileFiltersProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showFilter, setShowFilter] = useState({
     bedrooms: false,
     bathrooms: false,
-    priceRange: false,
-    houseType: false,
-    carType: false,
-    landType: false,
-    docType: false,
-    furnishedStatus: false,
+    price_range: false,
+    house_type: false,
+    car_type: false,
+    land_type: false,
+    doc_type: false,
+    furnished_status: false,
     accessibility: false,
     topography: false,
     fencing: false,
     condition: false,
     transmission: false,
-    bodyType: false,
+    body_type: false,
     mileage: false,
-    driveType: false,
-    fuelType: false,
+    drive_type: false,
+    fuel_type: false,
   });
 
   const handleApplyFilter = () => {
@@ -94,19 +90,88 @@ export const FiltersModal = ({
           </h2>
           <hr />
           <div className="flex flex-col gap-7 md:pl-[2%] ">
-            {filtersConfig.map(({ key, label, type, options }) => (
-              <FilterSection
-                key={key}
-                keyName={key}
-                label={label}
-                type={type as 'button' | 'checkbox' | 'range'}
-                options={options}
-                show={showFilter[key]}
-                onToggle={() => handleFilterToggle(key)}
-                onChange={handleChange}
-                selected={filterData[key]}
-              />
-            ))}
+            <div className="space-y-4 border-b pb-4">
+              {' '}
+              <div className="w-full flex flex-col gap-2">
+                <select
+                  id="productType"
+                  onChange={(e) =>
+                    setProductType(e.target.value as 'sale' | 'auction')
+                  }
+                  name="productType"
+                  value={productType}
+                  className="p-2 outline-none w-full "
+                >
+                  <option disabled value="">
+                    Select product type
+                  </option>
+                  <option value="auction">Auction</option>
+                  <option value="sale">Sale</option>
+                </select>
+              </div>
+              <div className="w-full flex flex-col gap-2">
+                <select
+                  id="type"
+                  onChange={(e) =>
+                    setFilterData((prev) => ({ ...prev, type: e.target.value }))
+                  }
+                  name="type"
+                  value={filterData.type}
+                  className="p-2 outline-none w-full "
+                >
+                  <option disabled value="">
+                    Select product category
+                  </option>
+                  <option value="LAND">Land</option>
+                  <option value="CAR">Car</option>
+                  <option value="HOUSE">House</option>
+                </select>
+              </div>
+            </div>
+            {filterData.type === 'LAND' &&
+              LandFiltersConfig.map(({ key, label, type, options }) => (
+                <FilterSection
+                  key={key}
+                  keyName={key}
+                  label={label}
+                  type={type as 'button' | 'checkbox' | 'range'}
+                  options={options}
+                  show={showFilter[key]}
+                  onToggle={() => handleFilterToggle(key)}
+                  onChange={handleChange}
+                  selected={filterData[key]}
+                />
+              ))}
+
+            {filterData.type === 'CAR' &&
+              CarFiltersConfig.map(({ key, label, type, options }) => (
+                <FilterSection
+                  key={key}
+                  keyName={key}
+                  label={label}
+                  type={type as 'button' | 'checkbox' | 'range'}
+                  options={options}
+                  show={showFilter[key]}
+                  onToggle={() => handleFilterToggle(key)}
+                  onChange={handleChange}
+                  selected={filterData[key]}
+                />
+              ))}
+
+            {filterData.type === 'HOUSE' &&
+              HouseFiltersConfig.map(({ key, label, type, options }) => (
+                <FilterSection
+                  key={key}
+                  keyName={key}
+                  label={label}
+                  type={type as 'button' | 'checkbox' | 'range'}
+                  options={options}
+                  show={showFilter[key]}
+                  onToggle={() => handleFilterToggle(key)}
+                  onChange={handleChange}
+                  selected={filterData[key]}
+                />
+              ))}
           </div>
         </div>
 

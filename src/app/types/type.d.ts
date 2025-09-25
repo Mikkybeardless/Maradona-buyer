@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // product types
 declare type ProductType = 'LAND' | 'CAR' | 'HOUSE';
 declare type ProductStatus = 'draft' | 'published';
@@ -125,6 +127,7 @@ declare interface Agent extends User {
 declare interface ApiAgent extends Agent, ApiRes {}
 
 declare interface Seller extends User {
+  created_at: string;
   seller_profile: {
     id: number;
     user_id: string;
@@ -308,6 +311,59 @@ declare interface Profile {
     user_id: number;
     created_at: string;
     updated_at: string;
+    profile_pic_url: null | string;
   };
   user_type: string;
+}
+
+//  Notification Types
+// */
+declare interface NotificationStats {
+  total: number;
+  unread: number;
+  read: number;
+}
+
+declare interface NotificationData {
+  id: string | number;
+  title?: string;
+  message?: string;
+  data?: any;
+  humanized_data?: any;
+  read_at?: string | null;
+  created_at: string;
+}
+
+declare interface PaginationInfo {
+  current_page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+}
+
+declare interface NotificationsState {
+  notifications: NotificationData[];
+  unreadNotifications: NotificationData[];
+  stats: NotificationStats | null;
+  pagination: PaginationInfo;
+  loading: boolean;
+  statsLoading: boolean;
+  error: string | null;
+}
+
+// search and filter types
+declare interface FilterData {
+  price_range: string[];
+  house_type: string[];
+  car_type: string[];
+  land_type: string[];
+  doc_type: string[];
+  furnished_status: string[];
+  accessibility: string[];
+  topography: string[];
+  fencing: string;
+  condition: string;
+  transmission: string[];
+  body_type: string[];
+  type: string;
 }

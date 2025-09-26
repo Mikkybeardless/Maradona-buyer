@@ -24,6 +24,7 @@ interface SearchBoxProps {
   onSearch?: (query: string) => void;
   value?: string;
   onChange?: (value: string) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export default function SearchBox({
@@ -31,6 +32,7 @@ export default function SearchBox({
   onSearch = () => {},
   value: controlledValue,
   onChange: controlledOnChange,
+  onKeyDown,
 }: SearchBoxProps) {
   const [internalValue, setInternalValue] = useState('');
 
@@ -76,6 +78,7 @@ export default function SearchBox({
       <Combobox value={value} onChange={handleSuggestionSelect}>
         <div className="relative">
           <Combobox.Input
+            onKeyDown={onKeyDown}
             className="w-full focus:outline-none focus:ring-2 focus:ring-primaryOrange rounded-lg px-4 py-2 border border-gray-300"
             placeholder="property type, location, price range"
             onChange={handleInputChange} // This will update value on every keystroke

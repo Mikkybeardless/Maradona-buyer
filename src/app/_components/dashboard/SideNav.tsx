@@ -13,7 +13,7 @@ export default function DashboardSideNav() {
   const router = useRouter();
   const NavItems = [
     { name: 'Overview', href: 'overview' },
-    { name: 'Transaction Histrory', href: 'history' },
+    { name: 'Transaction History', href: 'history' },
     { name: 'Help Centre', href: 'help-centre' },
     { name: 'Analytics', href: 'analytics' },
   ];

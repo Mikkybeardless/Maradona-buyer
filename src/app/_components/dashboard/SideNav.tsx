@@ -14,7 +14,7 @@ export default function DashboardSideNav() {
   const NavItems = [
     { name: 'Overview', href: 'overview' },
     { name: 'Transaction Histrory', href: 'history' },
-    { name: 'Help Centre', href: 'help-centre' },
+    // { name: 'Help Centre', href: 'help-centre' },
     { name: 'Analytics', href: 'analytics' },
   ];
 

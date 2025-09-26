@@ -62,7 +62,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         //  Check if we have a redirect URL
         const redirect = searchParams.get('redirect');
         // redirect user
-        router.push(redirect || '/overview');
+        router.push(redirect ? redirect : '/overview');
       }
     } catch (err: unknown) {
       console.error('Login error:', err);

@@ -151,6 +151,7 @@ export default function SearchFilterPage() {
         [field]: value,
       };
     });
+    handleFilterToggle(field);
   };
 
   if (error) return <p className="text-red-500">{error}</p>;
@@ -175,7 +176,7 @@ export default function SearchFilterPage() {
                 Select product type
               </option>
               <option value="auction">Auction</option>
-              <option value="sale">Sale</option>
+              <option value="sale">Direct Purchase</option>
             </select>
           </div>
           <div className="w-full flex flex-col gap-2">
@@ -275,7 +276,7 @@ export default function SearchFilterPage() {
       ) : (
         <div className="flex flex-col  gap-4 md:w-[70%] md:px-[5%] ">
           {results.length === 0 ? (
-            <h2 className="text-lg my-20 text-center font-bold">
+            <h2 className="text-lg my-20 md:my-60 text-center font-bold">
               No Product Found
             </h2>
           ) : (

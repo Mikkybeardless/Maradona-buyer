@@ -30,16 +30,16 @@ export default function ProfilePictureUpload({
       formData.append('profile_pic', file);
       try {
         onUpdating(true); // Call the onUpdate function to notify parent component
-        const response = await axios.put('/profile', formData);
+        setImage(URL.createObjectURL(file));
+        const response = await axios.put('/api/auth/profile', formData);
         if (response.status === 200) {
           toast.success('Profile picture updated successfully');
-          console.log('Profile picture updated successfully:', response.data);
         }
       } catch (error) {
         toast.error('An error occurred. Please try again.');
+        setImage(apiImage || '/no_images/default-profile.png');
         console.error('Error updating profile picture:', error);
       } finally {
-        setImage(URL.createObjectURL(file));
         onUpdating(false); // Call the onUpdating function to notify parent component
       }
     }

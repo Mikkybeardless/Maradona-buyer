@@ -1,43 +1,55 @@
 export const HouseFiltersConfig = [
   {
-    key: 'priceRange',
-    label: 'Price range',
+    key: 'min_price',
+    label: 'Minimum Price',
     type: 'checkbox',
     options: [
-      { id: 1, label: 'Less than ₦4,500,000' },
-      { id: 2, label: '₦4.5 to 10 million' },
-      { id: 3, label: '₦10 to 15 million' },
-      { id: 4, label: '₦15 to 20 million' },
-      { id: 5, label: '₦20 to 25 million' },
+      { id: '1000000', label: 'Less than ₦4,500,000' },
+      { id: '4500000', label: '₦4.5 to 10 million' },
+      { id: '10000000', label: '₦10 to 15 million' },
+      { id: '15000000', label: '₦15 to 20 million' },
+      { id: '20000000', label: '₦20 to 25 million' },
     ],
   },
   {
-    key: 'houseType',
+    key: 'max_price',
+    label: 'Maximum Price',
+    type: 'checkbox',
+    options: [
+      { id: '1000000', label: 'Less than ₦4,500,000' },
+      { id: '4500000', label: '₦4.5 to 10 million' },
+      { id: '10000000', label: '₦10 to 15 million' },
+      { id: '15000000', label: '₦15 to 20 million' },
+      { id: '20000000', label: '₦20 to 25 million' },
+    ],
+  },
+  {
+    key: 'house_type',
     label: 'House Type',
     type: 'checkbox',
     options: [
-      { id: 'Detached', label: 'Detached' },
-      { id: 'Semi detached', label: 'Semi detached' },
-      { id: 'Duplex', label: 'Duplex' },
-      { id: 'Terrace', label: 'Terrace' },
-      { id: 'Bungalow', label: 'Bungalow' },
-      { id: 'Studio appartment', label: 'Studio apartment' },
+      { id: 'detached', label: 'Detached' },
+      { id: 'semi_detached', label: 'Semi detached' },
+      { id: 'duplex', label: 'Duplex' },
+      { id: 'terrace', label: 'Terrace' },
+      { id: 'bungalow', label: 'Bungalow' },
+      { id: 'studio_apartment', label: 'Studio apartment' },
     ],
   },
 
   {
-    key: 'docType',
-    label: 'Documentation Type',
+    key: 'house_size',
+    label: 'House size',
     type: 'checkbox',
     options: [
-      { id: 'Residential', label: 'Residential' },
-      { id: 'Commercial', label: 'Commercial' },
-      { id: 'Agricultural', label: 'Agricultural' },
-      { id: 'Inductrial', label: 'Industrial' },
+      { id: '150', label: '150 x 150' },
+      { id: '200', label: '200 x 200' },
+      { id: '300', label: '300 x 300' },
+      { id: '400', label: '400 x 400' },
     ],
   },
   {
-    key: 'furnishedStatus',
+    key: 'house_furnished',
     label: 'Furnished Status',
     type: 'checkbox',
     options: [
@@ -46,23 +58,23 @@ export const HouseFiltersConfig = [
       { id: 'Unfurnished', label: 'Unfurnished' },
     ],
   },
-  {
-    key: 'accessibility',
-    label: 'Accessibility',
-    type: 'checkbox',
-    options: [
-      { id: 'Main road', label: 'Main road' },
-      { id: 'Inner road', label: 'Inner road' },
-    ],
-  },
+  // {
+  //   key: 'accessibility',
+  //   label: 'Accessibility',
+  //   type: 'checkbox',
+  //   options: [
+  //     { id: 'Main road', label: 'Main road' },
+  //     { id: 'Inner road', label: 'Inner road' },
+  //   ],
+  // },
   {
     key: 'topography',
     label: 'Topography',
     type: 'checkbox',
     options: [
-      { id: 'Dry land', label: 'Dry land' },
-      { id: 'Swampy', label: 'Swampy' },
-      { id: 'Water logged', label: 'Water logged' },
+      { id: 'dry_land', label: 'Dry land' },
+      { id: 'swampy', label: 'Swampy' },
+      { id: 'water_logged', label: 'Water logged' },
     ],
   },
   {
@@ -70,8 +82,8 @@ export const HouseFiltersConfig = [
     label: 'Fencing',
     type: 'checkbox',
     options: [
-      { id: 'Fenced', label: 'Fenced' },
-      { id: 'Not fenced', label: 'Not fenced' },
+      { id: 'fenced', label: 'Fenced' },
+      { id: 'not_fenced', label: 'Not fenced' },
     ],
   },
   {
@@ -81,21 +93,42 @@ export const HouseFiltersConfig = [
     options: [
       { id: 'Used', label: 'Nigerian used' },
       { id: 'New', label: 'Brand new' },
+    ],
+  },
+  {
+    key: 'direction',
+    label: 'Filter Direction',
+    type: 'range',
+    options: [
+      { id: 'asc', label: 'Ascending' },
+      { id: 'desc', label: 'Descending' },
     ],
   },
 ];
 
 export const CarFiltersConfig = [
   {
-    key: 'priceRange',
-    label: 'Price range',
+    key: 'min_price',
+    label: 'Minimum Price',
     type: 'checkbox',
     options: [
-      { id: 1, label: 'Less than ₦4,500,000' },
-      { id: 2, label: '₦4.5 to 10 million' },
-      { id: 3, label: '₦10 to 15 million' },
-      { id: 4, label: '₦15 to 20 million' },
-      { id: 5, label: '₦20 to 25 million' },
+      { id: '1000000', label: 'Less than ₦4,500,000' },
+      { id: '4500000', label: '₦4.5 to 10 million' },
+      { id: '10000000', label: '₦10 to 15 million' },
+      { id: '15000000', label: '₦15 to 20 million' },
+      { id: '20000000', label: '₦20 to 25 million' },
+    ],
+  },
+  {
+    key: 'max_price',
+    label: 'Maximum Price',
+    type: 'checkbox',
+    options: [
+      { id: '1000000', label: 'Less than ₦4,500,000' },
+      { id: '4500000', label: '₦4.5 to 10 million' },
+      { id: '10000000', label: '₦10 to 15 million' },
+      { id: '15000000', label: '₦15 to 20 million' },
+      { id: '20000000', label: '₦20 to 25 million' },
     ],
   },
   {
@@ -107,37 +140,37 @@ export const CarFiltersConfig = [
       { id: 'New', label: 'Brand new' },
     ],
   },
+  // {
+  //   key: 'transmission',
+  //   label: 'Transmission',
+  //   type: 'checkbox',
+  //   options: [
+  //     { id: 1, label: 'Tokunbo' },
+  //     { id: 2, label: 'Nigerian used' },
+  //     { id: 3, label: 'Brand new' },
+  //   ],
+  // },
   {
-    key: 'transmission',
-    label: 'Transmission',
-    type: 'checkbox',
-    options: [
-      { id: 1, label: 'Tokunbo' },
-      { id: 2, label: 'Nigerian used' },
-      { id: 3, label: 'Brand new' },
-    ],
-  },
-  {
-    key: 'fuelType',
+    key: 'fuel_type',
     label: 'Fuel type',
     type: 'checkbox',
     options: [
-      { id: 1, label: 'Gasoline' },
-      { id: 2, label: 'Petrol' },
-      { id: 3, label: 'Diesel' },
+      { id: 'gasoline', label: 'Gasoline' },
+      { id: 'petrol', label: 'Petrol' },
+      { id: 'diesel', label: 'Diesel' },
     ],
   },
 
   {
-    key: 'bodyType',
+    key: 'body_type',
     label: 'Body type',
     type: 'checkbox',
     options: [
-      { id: 'Sedan', label: 'Sedan' },
+      { id: 'sedan', label: 'Sedan' },
       { id: 'SUV', label: 'SUV' },
-      { id: 'Truck', label: 'Truck' },
-      { id: 'Bus', label: 'Bus' },
-      { id: 'Coupe', label: 'Coupe' },
+      { id: 'truck', label: 'Truck' },
+      { id: 'bus', label: 'Bus' },
+      { id: 'coupe', label: 'Coupe' },
     ],
   },
   {
@@ -145,60 +178,68 @@ export const CarFiltersConfig = [
     label: 'Mileage',
     type: 'range',
     options: [
-      { id: 1, label: 'Less than 50,000 km' },
-      { id: 2, label: '50,000 to 100,000 km' },
-      { id: 3, label: '100,000 to 150,000 km' },
-      { id: 4, label: '150,000 to 200,000 km' },
-      { id: 5, label: '200,000 km and above' },
+      { id: '3000', label: 'Less than 50,000 km/L' },
+      { id: '5000', label: '50,000 to 100,000 km/L' },
+      // { id: '10000', label: '100,000 to 150,000 km/L' },
+      // { id: '15000', label: '150,000 to 200,000 km/L' },
+      // { id: '20000', label: '200,000 km/L and above' },
     ],
   },
 
   {
-    key: 'driveType',
-    label: 'Drive type',
+    key: 'gear_type',
+    label: 'Gear type',
     type: 'checkbox',
     options: [
-      { id: 1, label: 'Front-wheel drive' },
-      { id: 2, label: 'Rear-wheel drive' },
-      { id: 3, label: 'All-wheel drive' },
-      { id: 4, label: 'Four-wheel drive' },
+      { id: 'automatic', label: 'Automatic' },
+      { id: 'manual', label: 'Manual' },
+    ],
+  },
+  {
+    key: 'direction',
+    label: 'Filter Direction',
+    type: 'range',
+    options: [
+      { id: 'asc', label: 'Ascending' },
+      { id: 'desc', label: 'Descending' },
     ],
   },
 ];
 
 export const LandFiltersConfig = [
   {
-    key: 'priceRange',
-    label: 'Price range',
+    key: 'min_price',
+    label: 'Minimum Price',
     type: 'checkbox',
     options: [
-      { id: 1, label: 'Less than ₦4,500,000' },
-      { id: 2, label: '₦4.5 to 10 million' },
-      { id: 3, label: '₦10 to 15 million' },
-      { id: 4, label: '₦15 to 20 million' },
-      { id: 5, label: '₦20 to 25 million' },
+      { id: '1000000', label: 'Less than ₦4,500,000' },
+      { id: '4500000', label: '₦4.5 to 10 million' },
+      { id: '10000000', label: '₦10 to 15 million' },
+      { id: '15000000', label: '₦15 to 20 million' },
+      { id: '20000000', label: '₦20 to 25 million' },
     ],
   },
   {
-    key: 'landType',
+    key: 'max_price',
+    label: 'Maximum Price',
+    type: 'checkbox',
+    options: [
+      { id: '1000000', label: 'Less than ₦4,500,000' },
+      { id: '4500000', label: '₦4.5 to 10 million' },
+      { id: '10000000', label: '₦10 to 15 million' },
+      { id: '15000000', label: '₦15 to 20 million' },
+      { id: '20000000', label: '₦20 to 25 million' },
+    ],
+  },
+  {
+    key: 'land_type',
     label: 'Land Type',
     type: 'checkbox',
     options: [
-      { id: 'Residential', label: 'Residential' },
-      { id: 'Commercial', label: 'Commercial' },
-      { id: 'Agricultural', label: 'Agricultural' },
-      { id: 'Inductrial', label: 'Industrial' },
-    ],
-  },
-  {
-    key: 'docType',
-    label: 'Documentation Type',
-    type: 'checkbox',
-    options: [
-      { id: 'Residential', label: 'Residential' },
-      { id: 'Commercial', label: 'Commercial' },
-      { id: 'Agricultural', label: 'Agricultural' },
-      { id: 'Inductrial', label: 'Industrial' },
+      { id: 'residential', label: 'Residential' },
+      { id: 'commercial', label: 'Commercial' },
+      { id: 'agricultural', label: 'Agricultural' },
+      { id: 'industrial', label: 'Industrial' },
     ],
   },
 
@@ -207,8 +248,8 @@ export const LandFiltersConfig = [
     label: 'Accessibility',
     type: 'checkbox',
     options: [
-      { id: 'Main road', label: 'Main road' },
-      { id: 'Inner road', label: 'Inner road' },
+      { id: 'road_access', label: 'Road access' },
+      { id: 'inner_road', label: 'Inner road' },
     ],
   },
   {
@@ -216,9 +257,9 @@ export const LandFiltersConfig = [
     label: 'Topography',
     type: 'checkbox',
     options: [
-      { id: 'Dry land', label: 'Dry land' },
-      { id: 'Swampy', label: 'Swampy' },
-      { id: 'Water logged', label: 'Water logged' },
+      { id: 'dry land', label: 'Dry land' },
+      { id: 'swampy', label: 'Swampy' },
+      { id: 'water logged', label: 'Water logged' },
     ],
   },
   {
@@ -226,8 +267,17 @@ export const LandFiltersConfig = [
     label: 'Fencing',
     type: 'checkbox',
     options: [
-      { id: 'Fenced', label: 'Fenced' },
-      { id: 'Not Fenced', label: 'Not fenced' },
+      { id: 'fenced', label: 'Fenced' },
+      { id: 'not_fenced', label: 'Not fenced' },
+    ],
+  },
+  {
+    key: 'direction',
+    label: 'Filter Direction',
+    type: 'range',
+    options: [
+      { id: 'asc', label: 'Ascending' },
+      { id: 'desc', label: 'Descending' },
     ],
   },
 ];

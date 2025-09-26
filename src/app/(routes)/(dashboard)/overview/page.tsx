@@ -63,14 +63,14 @@ export default function Page() {
   };
   const fetchProfile = useCallback(async () => {
     try {
+      setIsLoading(true);
       const response = await fetchFn('/api/auth/profile');
-      console.log('User Profile: ', response.data.data);
       setProfile(response.data.data);
       // const active =
       //   response.data.data.profile.availability === 'available';
       // setIsActive(active);
     } catch (error) {
-      console.log('profile fetch error:', error);
+      console.error('profile fetch error:', error);
       setError('Failed to load profile. Please try again later.');
     } finally {
       setIsLoading(false);

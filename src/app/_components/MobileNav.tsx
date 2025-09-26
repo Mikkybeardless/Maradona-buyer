@@ -156,12 +156,9 @@ export default function MobileNav({
           </div>
         </div>
 
-        <div
-          onKeyPress={handleKeyPress}
-          className="flex mx-auto px-4 items-center gap-3"
-        >
+        <div className="flex mx-auto px-4 items-center gap-3">
           <div className="w-full bg-white py-1 px-2 rounded-lg">
-            <SearchBox onSearch={setSearchQuery} />
+            <SearchBox onSearch={setSearchQuery} onKeyDown={handleKeyPress} />
           </div>
 
           <button

@@ -20,7 +20,7 @@ export default function MoreForYou() {
     isFetching,
     refetch,
   } = usePaginatedApi<
-    ProductDetails & {
+    ApiProductDetails & {
       id: number;
       belongs_to_admin: boolean;
       seller: { name: string };
@@ -40,9 +40,9 @@ export default function MoreForYou() {
   // Cache management utilities
   const { invalidatePattern } = useApiCache();
 
-  const getImageUrl = (product: ProductDetails) => {
+  const getImageUrl = (product: ApiProductDetails) => {
     if (product.media && product.media.length > 0) {
-      return product.media[0];
+      return product.media[0].file_url;
     }
     switch (product.type) {
       case 'CAR':

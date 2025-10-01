@@ -25,11 +25,22 @@ declare interface ApiRes {
   created_at: string;
   updated_at: string;
 }
-declare interface Product {
+declare interface ApiMedia {
+  id: string | null;
+  file_name: string;
+  file_path: string;
+  file_url: string;
+  file_extension: string;
+  file_size: number;
+  uploaded_on: string | null;
+  details: string | null;
+  readable_name: string;
+}
+declare interface ApiProduct {
   name: string;
   type: ProductType;
   description: string;
-  category_id: Category_id;
+  category_id: string;
   price: number;
   address: string;
   city: string;
@@ -38,8 +49,8 @@ declare interface Product {
   state: string;
   weight_unit: WeightUnit;
   sku: string;
-  media: string[];
-  documents: string[];
+  media: ApiMedia[];
+  documents: ApiMedia[];
   status: ProductStatus;
   tags: number[];
   inventory: number;
@@ -52,7 +63,7 @@ declare interface Product {
 
 declare interface Auction {
   name: string;
-  type: string;
+  type: ProductType;
   description: string;
   category_id: Category_id;
   sku: string;
@@ -81,7 +92,7 @@ declare interface ApiAuction extends Auction, ApiRes {
   time_left: string;
 }
 
-declare interface House extends Product {
+declare interface ApiHouse extends ApiProduct {
   house_type: string;
   house_beds: number;
   house_furnished: ProductFurnishedStatus;
@@ -92,21 +103,23 @@ declare interface House extends Product {
   fencing: ProductFencing;
 }
 
-declare interface Land extends Product {
+declare interface ApiLand extends ApiProduct {
   land_type: ProductLandType;
   land_size: number;
   accessibility: ProductAccessibility;
   topography: ProductTopography;
   fencing: ProductFencing;
 }
-declare interface Car extends Product {
+
+declare interface ApiCar extends ApiProduct {
   body_type: ProductBodyType;
   engine_type: string;
   transmission: string;
   mileage: string;
-  gear_type: ProductGearType;
+  gear_type: ProductGearType | null;
 }
-declare type ProductDetails = House | Land | Car;
+
+declare type ApiProductDetails = ApiHouse | ApiLand | ApiCar;
 
 interface User {
   name: string;

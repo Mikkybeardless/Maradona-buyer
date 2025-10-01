@@ -4,7 +4,7 @@ import { useApi } from '@/app/hooks/useApi';
 import Details from './details';
 
 interface ResponseData {
-  data: ProductDetails & { id: number; seller: Seller };
+  data: ApiProductDetails & { id: number; seller: Seller };
   isPromoted: boolean;
 }
 export function ProductDetailsClient({ id }: { id: number }) {

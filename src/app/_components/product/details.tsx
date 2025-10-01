@@ -1,6 +1,6 @@
 // ProductDetailClient.tsx
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import { BsTruck } from 'react-icons/bs';
 import Image from 'next/image';
@@ -29,7 +29,7 @@ interface Props {
   productId: number;
   isLoading: boolean;
   error?: Error;
-  product: ProductDetails & { id: number; seller: Seller };
+  product: ApiProductDetails & { id: number; seller: Seller };
 }
 
 export default function Details({
@@ -49,6 +49,11 @@ export default function Details({
   const handleStateChange = (state: DetailState) => {
     setDetailState(state);
   };
+  const images = useMemo(() => {
+    if (product?.media && product.media.length > 0) {
+      return product.media.map((item) => (item.file_url ? item.file_url : ''));
+    }
+  }, []);
 
   return isLoading ? (
     <DetailLoadingState />
@@ -66,7 +71,7 @@ export default function Details({
           <div className="flex flex-col md:flex-row  md:justify-between gap-4">
             {/* left */}
             <div className="relative w-full md:basis-[45%] ">
-              <ProductCarousel images={product.media} />
+              <ProductCarousel images={images} />
             </div>
 
             {/* right */}
@@ -84,7 +89,7 @@ export default function Details({
                     <span className="text-darkBlue font-extrabold flex items-center gap-1">
                       {' '}
                       <GoDotFill className="text-primaryOrange" />
-                      {(product as Car).transmission}
+                      {(product as ApiCar).transmission}
                     </span>
                   </p>
                   <RxDividerVertical />
@@ -94,7 +99,7 @@ export default function Details({
                     <span className="text-darkBlue font-extrabold flex items-center gap-1">
                       {' '}
                       <GoDotFill className="text-primaryOrange" />
-                      {(product as Car).body_type}
+                      {(product as ApiCar).body_type}
                     </span>
                   </p>
                   <RxDividerVertical />
@@ -157,7 +162,7 @@ export default function Details({
                     <p>Engine Type</p>
                     <p>
                       <span className="text-darkBlue">
-                        {(product as Car).engine_type}
+                        {(product as ApiCar).engine_type}
                       </span>
                     </p>
                   </div>
@@ -172,7 +177,7 @@ export default function Details({
                     <p>Mileage</p>
                     <p>
                       <span className="text-darkBlue">
-                        {(product as Car).mileage}
+                        {(product as ApiCar).mileage}
                       </span>
                     </p>
                   </div>
@@ -187,7 +192,7 @@ export default function Details({
                     <p>Gear Type</p>
                     <p>
                       <span className="text-darkBlue">
-                        {(product as Car).gear_type}
+                        {(product as ApiCar).gear_type}
                       </span>
                     </p>
                   </div>

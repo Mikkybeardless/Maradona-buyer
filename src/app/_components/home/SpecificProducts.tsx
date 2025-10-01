@@ -19,7 +19,7 @@ const SpecificProducts = ({ homeState }: SpecificProductsProp) => {
     isError,
     refetch,
   } = usePaginatedApi<
-    ProductDetails & {
+    ApiProductDetails & {
       id: number;
       belongs_to_admin: boolean;
       seller: { name: string };
@@ -41,9 +41,9 @@ const SpecificProducts = ({ homeState }: SpecificProductsProp) => {
     setCurrentPage(page);
   };
 
-  const getImageUrl = (product: ProductDetails) => {
+  const getImageUrl = (product: ApiProductDetails) => {
     if (product.media.length > 0) {
-      return product.media[0];
+      return product.media[0].file_url;
     }
     switch (product.type) {
       case 'CAR':

@@ -5,7 +5,7 @@ import { HiOutlineLocationMarker } from 'react-icons/hi';
 import Link from 'next/link';
 
 interface ProductCardProps {
-  product: ProductDetails & { id: number };
+  product: ApiProductDetails & { id: number };
   imageUrl: string;
   productType?: 'auction' | 'sale';
   seller: string;
@@ -63,12 +63,12 @@ export const ProductCard = ({
             <div className="flex md:flex-row flex-col gap-1 md:items-center  font-normal text-sm text-[#454545] mb-[15px]">
               <p className="flex gap-1 text-xs md:text-sm items-center">
                 <GoDotFill className="text-primaryOrange" />
-                <span>{(product as Car).gear_type}</span>
+                <span>{(product as ApiCar).gear_type}</span>
               </p>
 
               <p className="flex gap-1 text-xs md:text-sm items-center">
                 <GoDotFill className="text-primaryOrange" />
-                <span>{(product as Car).mileage} miles</span>
+                <span>{(product as ApiCar).mileage} miles</span>
               </p>
 
               {/* <p className="flex gap-1 text-xs md:text-sm items-center">

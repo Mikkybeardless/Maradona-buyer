@@ -35,7 +35,7 @@ export default function SearchFilterPage() {
   });
   const [productType, setProductType] = useState<'sale' | 'auction'>('sale');
   const [results, setResults] = useState<
-    (ProductDetails & {
+    (ApiProductDetails & {
       id: number;
       belongs_to_admin: boolean;
       seller: { name: string };
@@ -287,7 +287,7 @@ export default function SearchFilterPage() {
                   isAdminProduct={product.belongs_to_admin}
                   seller={product.seller.name}
                   productType="sale"
-                  imageUrl={product.media[0] || DefaultImage.src}
+                  imageUrl={product.media[0].file_url || DefaultImage.src}
                   product={product}
                 />
               ))}

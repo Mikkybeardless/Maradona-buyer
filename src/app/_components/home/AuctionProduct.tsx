@@ -40,7 +40,7 @@ export default function AuctionProduct() {
     setCurrentPage(page);
   };
 
-  const getImageUrl = (product: ProductDetails) => {
+  const getImageUrl = (product: Auction) => {
     if (product.media.length > 0) {
       return product.media[0];
     }
@@ -106,7 +106,7 @@ export default function AuctionProduct() {
               <AuctionCard
                 key={auction.id}
                 seller={'Unknown Seller'}
-                imageUrl={getImageUrl(auction as unknown as ProductDetails)}
+                imageUrl={getImageUrl(auction)}
                 isAdminauction={false}
                 title={auction.name}
                 auction={auction}

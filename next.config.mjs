@@ -21,12 +21,9 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      config.optimization.minimizer[0].options.minimizer.options.compress.drop_console = true;
-    }
-    return config;
-  },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV === 'production',
+  // },
 };
 
 const withBundleAnalyzer = bundleAnalyzer({

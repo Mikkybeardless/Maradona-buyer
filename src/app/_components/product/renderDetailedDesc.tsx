@@ -5,7 +5,7 @@ export const RenderDetailedDesc = ({
   product,
   productId,
 }: {
-  product: ProductDetails;
+  product: ApiProductDetails;
   productId: number;
 }) => {
   return (
@@ -36,7 +36,7 @@ export const RenderDetailedDesc = ({
                     Body Type:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Car).body_type}
+                    {(product as ApiCar).body_type}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -44,7 +44,7 @@ export const RenderDetailedDesc = ({
                     Engine Type:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Car).engine_type}
+                    {(product as ApiCar).engine_type}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -52,7 +52,7 @@ export const RenderDetailedDesc = ({
                     Gear Type:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Car).gear_type}
+                    {(product as ApiCar).gear_type}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -60,13 +60,13 @@ export const RenderDetailedDesc = ({
                     Transmission:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Car).transmission}
+                    {(product as ApiCar).transmission}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
                   <span className="text-secondaryTextColor w-24">Mileage:</span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Car).mileage}
+                    {(product as ApiCar).mileage}
                   </span>
                 </li>
               </ul>
@@ -80,7 +80,7 @@ export const RenderDetailedDesc = ({
 
               <span className="text-darkBlue font-bold">
                 {' '}
-                {(product as Car).transmission}
+                {(product as ApiCar).transmission}
               </span>
             </p>
             <div className="grid grid-cols-3 gap-4 mt-4">
@@ -109,7 +109,7 @@ export const RenderDetailedDesc = ({
                 <p>
                   <span className="text-darkBlue">
                     {' '}
-                    {(product as Car).mileage}
+                    {(product as ApiCar).mileage}
                   </span>
                 </p>
               </div>
@@ -125,7 +125,7 @@ export const RenderDetailedDesc = ({
                 <p>
                   <span className="text-darkBlue">
                     {' '}
-                    {(product as Car).gear_type}
+                    {(product as ApiCar).gear_type}
                   </span>
                 </p>
               </div>
@@ -158,7 +158,7 @@ export const RenderDetailedDesc = ({
                     Land Type:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Land).land_type}
+                    {(product as ApiLand).land_type}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -166,7 +166,7 @@ export const RenderDetailedDesc = ({
                     Land size:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Land).land_size}
+                    {(product as ApiLand).land_size}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -174,7 +174,7 @@ export const RenderDetailedDesc = ({
                     Accesibility:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Land).accessibility}
+                    {(product as ApiLand).accessibility}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -182,13 +182,13 @@ export const RenderDetailedDesc = ({
                     Topography:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Land).topography}
+                    {(product as ApiLand).topography}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
                   <span className="text-secondaryTextColor w-24">Fencing:</span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as Land).fencing}
+                    {(product as ApiLand).fencing}
                   </span>
                 </li>
               </ul>
@@ -224,7 +224,7 @@ export const RenderDetailedDesc = ({
                     House Type:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).house_type}
+                    {(product as ApiHouse).house_type}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -232,7 +232,7 @@ export const RenderDetailedDesc = ({
                     Number of Bedrooms:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).house_beds}
+                    {(product as ApiHouse).house_beds}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -240,7 +240,7 @@ export const RenderDetailedDesc = ({
                     Accesibility:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).accessibility}
+                    {(product as ApiHouse).accessibility}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
@@ -248,13 +248,13 @@ export const RenderDetailedDesc = ({
                     Topography:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).topography}
+                    {(product as ApiHouse).topography}
                   </span>
                 </li>
                 <li className="flex justify-between items-center my-2">
                   <span className="text-secondaryTextColor w-24">Fencing:</span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).fencing}
+                    {(product as ApiHouse).fencing}
                   </span>
                 </li>
 
@@ -263,7 +263,7 @@ export const RenderDetailedDesc = ({
                     House Size:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).house_size}
+                    {(product as ApiHouse).house_size}
                   </span>
                 </li>
 
@@ -272,7 +272,7 @@ export const RenderDetailedDesc = ({
                     Furnishing:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).house_furnished}
+                    {(product as ApiHouse).house_furnished}
                   </span>
                 </li>
 
@@ -281,7 +281,7 @@ export const RenderDetailedDesc = ({
                     House condition:
                   </span>
                   <span className={` font-bold capitalize text-darkBlue`}>
-                    {(product as House).house_condition}
+                    {(product as ApiHouse).house_condition}
                   </span>
                 </li>
               </ul>

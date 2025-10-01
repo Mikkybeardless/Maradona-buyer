@@ -105,7 +105,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          placeholder="Type"
+          placeholder="Email Address"
         />
       </div>
 
@@ -118,7 +118,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
             value={formData.password}
             onChange={handleInputChange}
             type={!togglePasswordShow ? 'password' : 'text'}
-            placeholder="Type"
+            placeholder="Password"
           />
           {!togglePasswordShow ? (
             <FaRegEye

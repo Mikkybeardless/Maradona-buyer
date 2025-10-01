@@ -137,7 +137,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
               value={createAccountFormData.password}
               onChange={handleInputChange}
               type={!togglePasswordShow.signUp1 ? 'password' : 'text'}
-              placeholder="Type"
+              placeholder="Password"
             />
             {!togglePasswordShow.signUp1 ? (
               <FaRegEye
@@ -164,7 +164,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
               value={createAccountFormData.password_confirmation}
               onChange={handleInputChange}
               type={!togglePasswordShow.signUp2 ? 'password' : 'text'}
-              placeholder="Type"
+              placeholder="Confirm Password"
             />
             {!togglePasswordShow.signUp2 ? (
               <FaRegEye
@@ -239,7 +239,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
         <div className="h-[1.6px] w-full bg-[#DED9DD] absolute"></div>
       </div>
 
-     
+
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-8">
         <button
           className="flex justify-center items-center w-full sm:w-auto h-[48px] px-6 sm:px-10 gap-x-3 rounded-lg border border-[#6D6D6D] hover:bg-black/5 transition"

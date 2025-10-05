@@ -9,9 +9,9 @@ import { AuctionDetailsClient } from '@/app/_components/auction';
 export default async function ProductDetail({
   params,
 }: {
-  params: { id: number };
+  params: Promise<{ id: number }>;
 }) {
-  const id = params.id;
+  const id = (await params).id;
   // You can fetch data here if needed, e.g., using a database or API call
 
   return <AuctionDetailsClient id={id} />;

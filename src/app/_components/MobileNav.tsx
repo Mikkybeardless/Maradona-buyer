@@ -24,7 +24,7 @@ export default function MobileNav({
     { name: 'Transaction History', href: '/history', icon: CiWallet },
     { name: 'Help Centre', href: '/help-centre', icon: TbMessage2 },
     { name: 'Analytics', href: '/analytics', icon: IoIosAnalytics },
-    { name: 'Notifications', href: '/notifications', icon: FaRegUser },
+    { name: 'Notifications', href: '/notifications', icon: FaRegBell },
   ],
   className = '',
 }: MobileNavProps) {

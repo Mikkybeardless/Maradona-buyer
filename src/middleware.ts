@@ -1,20 +1,20 @@
-// src/middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Attach the current path to a header so you can read it in the Layout
-  const response = NextResponse.next();
+  const url = request.nextUrl;
+  const token = request.cookies.get('buyer_token')?.value;
 
-  response.headers.set(
-    'x-current-path',
-    request.nextUrl.pathname + request.nextUrl.search
-  );
+  if (!token) {
+    const loginUrl = new URL(
+      `/login?redirect=${encodeURIComponent(url.href)}`,
+      request.url
+    );
+    return NextResponse.redirect(loginUrl);
+  }
 
-  return response;
+  return NextResponse.next();
 }
 
-// Run this middleware on all routes (or narrow it if you want)
 export const config = {
-  matcher: ['/((?!_next|api|static|.*\\..*).*)'],
+  matcher: ['/dashboard/:path*'], // Protects dashboard routes
 };

@@ -9,6 +9,7 @@ import { useSearchState } from '@/app/hooks/useSearchState';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
 import Image from 'next/image';
+import { FaRegBell } from 'react-icons/fa6';
 
 export default function NavSection() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,7 +78,16 @@ export default function NavSection() {
 
         <div className="flex items-center gap-4">
           <div className="flex gap-2 items-center">
-            <Link href={'/overview'} className="flex gap-2 items-center">
+            <Link
+              href={'/dashboard/notifications'}
+              className="flex gap-2 items-center"
+            >
+              <FaRegBell size={30} />
+            </Link>
+            <Link
+              href={'/dashboard/overview'}
+              className="flex gap-2 items-center"
+            >
               <FaRegUser size={30} />
             </Link>
             <div className="flex flex-col">

@@ -52,7 +52,7 @@ export default function DashboardSideNav() {
           {NavItems.map((item) => (
             <li key={item.name}>
               <Link
-                href={`/${item.href}`}
+                href={`/dashboard/${item.href}`}
                 className={`block pl-4 py-2 ${isActiveClass(item.href)}`}
               >
                 {item.name}

@@ -1,5 +1,6 @@
 // next.config.mjs or next.config.js (with "type": "module" in package.json)
 import bundleAnalyzer from '@next/bundle-analyzer';
+import TerserPlugin from 'terser-webpack-plugin';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,9 +22,21 @@ const nextConfig = {
       },
     ],
   },
-  // compiler: {
-  //   removeConsole: process.env.NODE_ENV === 'production',
-  // },
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization.minimizer.push(
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true, // removes ALL console.* calls
+              drop_debugger: true, // removes debugger statements
+            },
+          },
+        })
+      );
+    }
+    return config;
+  },
 };
 
 const withBundleAnalyzer = bundleAnalyzer({

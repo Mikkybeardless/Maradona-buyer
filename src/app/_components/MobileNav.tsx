@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useSearchState } from '../hooks/useSearchState';
 import Image from 'next/image';
+import { FaRegBell } from 'react-icons/fa6';
 
 interface MobileNavProps {
   menuItems?: { name: string; href: string; icon: React.ElementType }[];
@@ -23,6 +24,7 @@ export default function MobileNav({
     { name: 'Transaction History', href: '/history', icon: CiWallet },
     { name: 'Help Centre', href: '/help-centre', icon: TbMessage2 },
     { name: 'Analytics', href: '/analytics', icon: IoIosAnalytics },
+    { name: 'Notifications', href: '/notifications', icon: FaRegUser },
   ],
   className = '',
 }: MobileNavProps) {
@@ -145,7 +147,10 @@ export default function MobileNav({
             </div>
 
             <div className="flex items-center gap-3">
-              <Link href={'/overview'} className="flex gap-2 items-center">
+              <Link
+                href={'/dashboard/overview'}
+                className="flex gap-2 items-center"
+              >
                 <FaRegUser size={30} />
               </Link>
               {/* 
@@ -184,7 +189,7 @@ export default function MobileNav({
                 return (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    href={`/dashboard/${item.href}`}
                     onClick={closeMenu}
                     className={`group flex items-center px-4 py-3 ${isActiveClass(item.href)}  hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150`}
                   >

@@ -17,7 +17,7 @@ apiClient.interceptors.request.use(
   async (config) => {
     let token: string | undefined;
     try {
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       token = cookieStore.get('buyer_token')?.value;
     } catch (err) {
       console.warn('Server-side cookie access failed:', err);

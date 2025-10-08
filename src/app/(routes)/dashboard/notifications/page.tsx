@@ -169,13 +169,17 @@ export default function NotificationsPage() {
             variant="outlined"
             onClick={handleRefresh}
             disabled={loading}
-            startIcon={loading ? <CircularProgress size={16} /> : null}
+            startIcon={
+              loading ? (
+                <CircularProgress className="!text-primaryOrange" size={16} />
+              ) : null
+            }
           >
             Refresh
           </Button>
           <Button
             variant="contained"
-            color="primary"
+            className="!bg-primaryOrange !text-white"
             onClick={handleMarkAllRead}
             disabled={unreadCount === 0}
           >

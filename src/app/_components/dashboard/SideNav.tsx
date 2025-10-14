@@ -1,4 +1,5 @@
 'use client';
+import { persistor } from '@/app/redux/store';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
@@ -33,6 +34,7 @@ export default function DashboardSideNav() {
       if (res.status === 200) {
         toast.success('Logout successful');
         Cookies.remove('buyer_token');
+        await persistor.purge();
         router.push('/login');
       }
     } catch (error) {

@@ -157,7 +157,7 @@ export default function NotificationsPage() {
   ];
 
   return (
-    <main className="p-6 max-w-6xl mx-auto">
+    <main className="p-3 w-full mx-auto">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-3">
@@ -168,18 +168,19 @@ export default function NotificationsPage() {
           <Button
             variant="outlined"
             onClick={handleRefresh}
+            className="!border-primaryOrange !text-primaryOrange "
             disabled={loading}
             startIcon={
               loading ? (
                 <CircularProgress className="!text-primaryOrange" size={16} />
-              ) : null
+              ) : (
+                'Refresh'
+              )
             }
-          >
-            Refresh
-          </Button>
+          ></Button>
           <Button
             variant="contained"
-            className="!bg-primaryOrange !text-white"
+            className="!bg-primaryOrange !text-white !text-xs md:!text-base "
             onClick={handleMarkAllRead}
             disabled={unreadCount === 0}
           >
@@ -189,7 +190,7 @@ export default function NotificationsPage() {
       </div>
 
       {/* Controls Section */}
-      <div className="flex flex-row-reverse justify-between items-center mb-4">
+      <div className=" hidden md:flex flex-row-reverse justify-between items-center mb-4">
         <div className="flex items-center gap-4">
           <FormControl
             variant="outlined"
@@ -230,7 +231,7 @@ export default function NotificationsPage() {
             count={pagination.total_pages}
             page={currentPage}
             onChange={handlePageChange}
-            color="primary"
+            className="!text-primaryOrange"
             size="small"
           />
         )}

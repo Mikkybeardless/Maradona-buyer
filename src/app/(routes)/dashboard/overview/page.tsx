@@ -19,6 +19,7 @@ import { formatIsoString } from '@/app/Utils/util';
 import { DetailLoadingState } from '@/app/_components/common/detailsLoading';
 import { ErrorComponent } from '@/app/_components/common/error';
 import ProfilePictureUpload from '@/app/_components/ProfilePictureUpload';
+import { persistor } from '@/app/redux/store';
 // import { fetchFn } from '@/app/api/fetchFn';
 type DetailState = 'info' | 'payment' | 'security';
 
@@ -41,7 +42,7 @@ export default function Page() {
   ];
   const dynamicStates: StateObject[] = [
     { state: 'info', label: 'Personal Info', id: 1 },
-    { state: 'payment', label: 'Payment', id: 2 },
+    // { state: 'payment', label: 'Payment', id: 2 },
     { state: 'security', label: 'Security', id: 3 },
   ];
   const [isUpdatingPic, setIsUpdatingPic] = useState(false);
@@ -88,6 +89,7 @@ export default function Page() {
       if (res.status === 200) {
         toast.success('Logout successful');
         Cookies.remove('buyer_token');
+        await persistor.purge();
         router.push('/login');
       }
     } catch (error) {

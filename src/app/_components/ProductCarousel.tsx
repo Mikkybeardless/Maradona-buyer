@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import DefaultImage from '../_assets/images/no-image.png';
 
-export default function ProductCarousel({ images }: { images: string[] }) {
+export default function ProductCarousel({
+  images = [],
+}: {
+  images?: string[];
+}) {
   const isEmpty = images.length < 1;
 
   const [currentIndex, setCurrentIndex] = useState(0);

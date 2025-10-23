@@ -1,6 +1,6 @@
 // ProductDetailClient.tsx
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import { BsTruck } from 'react-icons/bs';
 import Image from 'next/image';
@@ -46,14 +46,11 @@ export default function Details({
     { state: 'summary', label: 'Inspection Summary', id: 2 },
   ];
 
+  console.log('product:', product);
+
   const handleStateChange = (state: DetailState) => {
     setDetailState(state);
   };
-  const images = useMemo(() => {
-    if (product?.media && product.media.length > 0) {
-      return product.media.map((item) => (item.file_url ? item.file_url : ''));
-    }
-  }, []);
 
   return isLoading ? (
     <DetailLoadingState />
@@ -71,7 +68,13 @@ export default function Details({
           <div className="flex flex-col md:flex-row  md:justify-between gap-4">
             {/* left */}
             <div className="relative w-full md:basis-[45%] ">
-              <ProductCarousel images={images} />
+              {product.media.length > 0 && (
+                <ProductCarousel
+                  images={product.media.map((item) =>
+                    item.file_url ? item.file_url : ''
+                  )}
+                />
+              )}
             </div>
 
             {/* right */}

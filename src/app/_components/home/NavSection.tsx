@@ -1,9 +1,8 @@
 'use client';
-import { Button, Drawer, MenuItem, Select } from '@mui/material';
+import { Button, Drawer } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
-// import { GrCart } from 'react-icons/gr';
 import SearchBox from '../SearchBox';
 import { useSearchState } from '@/app/hooks/useSearchState';
 import { useSelector } from 'react-redux';
@@ -44,7 +43,7 @@ export default function NavSection() {
           />
         </Link>
         <div className="flex items-center gap-3">
-          <Select
+          {/* <Select
             defaultValue="all"
             variant="standard"
             disableUnderline
@@ -53,7 +52,7 @@ export default function NavSection() {
             <MenuItem value="all">All</MenuItem>
             <MenuItem value="Houses">Houses</MenuItem>
             <MenuItem value="Lands">Lands</MenuItem>
-          </Select>
+          </Select> */}
 
           <div
             className="flex mx-auto px-4 items-center gap-3"

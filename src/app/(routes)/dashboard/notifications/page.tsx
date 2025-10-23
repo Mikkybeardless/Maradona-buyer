@@ -95,7 +95,7 @@ export default function NotificationsPage() {
 
   async function openNotif(n: NotificationData) {
     setActive(n);
-
+    console.log('Opening notification:', n);
     // Only mark as read if it's not already read
     if (!n.read_at) {
       dispatch(optimisticMarkRead(n.id));

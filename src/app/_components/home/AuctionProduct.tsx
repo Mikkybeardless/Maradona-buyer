@@ -97,21 +97,25 @@ export default function AuctionProduct() {
         </div>
       </div>
       <div className="grid md:px-[5%] px-2 grid-cols-2 sm:grid-cols-4 gap-8 mt-8">
-        {isLoading
-          ? // Show skeleton loading state
-            Array.from({ length: 8 }).map((_, index) => (
-              <ProductCardSkeleton key={index} />
-            ))
-          : auctionsResponse?.data?.map((auction) => (
-              <AuctionCard
-                key={auction.id}
-                seller={'Unknown Seller'}
-                imageUrl={getImageUrl(auction)}
-                isAdminauction={false}
-                title={auction.name}
-                auction={auction}
-              />
-            ))}
+        {isLoading ? (
+          // Show skeleton loading state
+          Array.from({ length: 8 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))
+        ) : auctionsResponse?.data.length === 0 ? (
+          <p>No running auction product</p>
+        ) : (
+          auctionsResponse?.data?.map((auction) => (
+            <AuctionCard
+              key={auction.id}
+              seller={'Unknown Seller'}
+              imageUrl={getImageUrl(auction)}
+              isAdminauction={false}
+              title={auction.name}
+              auction={auction}
+            />
+          ))
+        )}
       </div>
       <div className="flex justify-center mt-5">
         <PaginationControl

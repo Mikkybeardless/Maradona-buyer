@@ -1,10 +1,13 @@
 import Image from 'next/image';
 
-import { GoDotFill } from 'react-icons/go';
+import { GoDotFill, GoHeart, GoHeartFill } from 'react-icons/go';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import Link from 'next/link';
 
 import { AuctionTimer } from '../../cards/auctionTimer';
+import { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface AuctionCardProps {
   auction: ApiAuction;
@@ -21,11 +24,23 @@ export const AuctionCard = ({
   seller,
   isAdminauction,
 }: AuctionCardProps) => {
-  //   const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  //   const handleToggleFavorite = () => {
-  //     setIsFavorite(!isFavorite);
-  //   };
+  const handleToggleFavorite = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault(); // prevent Link navigation
+    e.stopPropagation(); // stop the click from reaching the Link
+    setIsFavorite(!isFavorite);
+    try {
+      await axios.post(`/api/toggle-like/auction/${auction.id}`);
+      toast.success('Favorite status updated');
+    } catch (error) {
+      setIsFavorite(isFavorite); // revert state on error
+      console.error('Error toggling favorite:', error);
+      toast.error('Failed to toggle favorite');
+    }
+  };
   return (
     <Link href={`/auction/${auction?.id || 1}`}>
       <div className="w-full flex flex-col ">
@@ -40,7 +55,7 @@ export const AuctionCard = ({
               className="w-full h-48 object-cover rounded-2xl"
             />
             {/* Heart Icon (Fixed Position) */}
-            {/* <button
+            <button
               onClick={handleToggleFavorite}
               className={`absolute z-20 md:top-7 xs:top-2 right-5 bg-white rounded-full h-7 w-7 flex items-center justify-center`}
             >
@@ -49,7 +64,7 @@ export const AuctionCard = ({
               ) : (
                 <GoHeart size={24} />
               )}
-            </button> */}
+            </button>
           </div>
         </div>
 

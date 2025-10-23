@@ -287,7 +287,7 @@ export default function SearchFilterPage() {
                   isAdminProduct={product.belongs_to_admin}
                   seller={product.seller.name}
                   productType="sale"
-                  imageUrl={product.media[0].file_url || DefaultImage.src}
+                  imageUrl={product.media[0]?.file_url || DefaultImage.src}
                   product={product}
                 />
               ))}

@@ -2,22 +2,22 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import DefaultImage from '../_assets/images/no-image.png';
+// import DefaultImage from '../_assets/images/no-image.png';
 
 export default function ProductCarousel({ images }: { images: string[] }) {
-  const isEmpty = images.length < 1;
+  // const isEmpty = images.length === 0;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPrevious = () => {
-    if (isEmpty) return;
+    // if (isEmpty) return;
     const isFirstImage = currentIndex === 0;
     const newIndex = isFirstImage ? images.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
   };
 
   const goToNext = () => {
-    if (isEmpty) return;
+    // if (isEmpty) return;
     const isLastImage = currentIndex === images.length - 1;
     const newIndex = isLastImage ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
@@ -26,18 +26,20 @@ export default function ProductCarousel({ images }: { images: string[] }) {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
-  if (isEmpty) {
-    return (
-      <div className="flex flex-col md:flex-row items-center justify-center h-64">
-        <img
-          src={DefaultImage.src}
-          alt={`Default image`}
-          className="w-full h-full rounded-lg object-contain"
-        />
-        <p className="text-gray-500">No images available for this product</p>
-      </div>
-    );
-  }
+  // if (isEmpty) {
+  //   return (
+  //     <div className="flex flex-col md:flex-row items-center justify-center h-64">
+  //       <Image
+  //         src={DefaultImage.src}
+  //         alt={`Default image`}
+  //         className="w-full h-full rounded-lg object-contain"
+  //         width={256}
+  //         height={256}
+  //       />
+  //       <p className="text-gray-500">No images available for this product</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="max-w-3xl mx-auto p-2">
@@ -79,11 +81,13 @@ export default function ProductCarousel({ images }: { images: string[] }) {
           </div>
 
           {/* Main image container */}
-          <div className="flex-grow w-40 md:w-[317px] h-fit max-h-96  overflow-hidden mb-4">
-            <img
+          <div className=" flex-grow w-40 md:w-[486px] h-60 max-h-96 overflow-hidden mb-4 relative">
+            <Image
               src={images[currentIndex]}
               alt={`Product image ${currentIndex + 1}`}
-              className="w-full h-full object-contain"
+              fill
+              className="object-cover rounded-lg"
+              sizes="(max-width: 768px) 160px, 486px"
             />
           </div>
 

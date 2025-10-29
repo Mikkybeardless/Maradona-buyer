@@ -28,7 +28,7 @@ const ProductTypeDistribution = dynamic(
   }
 );
 
-const Dashboard = () => {
+const Analytics = () => {
   const initialStats: Stats = {
     monthly_spending: {
       data: [],
@@ -258,4 +258,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Analytics;

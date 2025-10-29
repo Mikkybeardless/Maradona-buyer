@@ -118,3 +118,18 @@ export function appendField(
     formData.append(key, String(value));
   }
 }
+
+export function reorderProducts(products) {
+  // Separate promoted and non-promoted
+  const promoted = products.filter((p) => p.is_promoted);
+  const others = products.filter((p) => !p.is_promoted);
+
+  // Shuffle promoted using Fisher–Yates algorithm
+  for (let i = promoted.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [promoted[i], promoted[j]] = [promoted[j], promoted[i]];
+  }
+
+  // Merge them back: promoted first, then others
+  return [...promoted, ...others];
+}

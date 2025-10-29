@@ -5,7 +5,6 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { login } from '@/app/redux/slices/authSlice';
 import { Spinner } from '../common/spinner';
@@ -53,107 +52,115 @@ export default function SignIn({ setSignUp }: SignUpProps) {
     try {
       const response = await axios.post('/api/auth/login', formData);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         const data = response.data.data;
-        toast.success('Login successful');
-        Cookies.set('buyer_token', data.token);
         dispatch(login(data.user));
-
+        toast.success('Login successful');
         //  Check if we have a redirect URL
         const redirect = searchParams.get('redirect');
-        // redirect user
-        router.push(redirect ? redirect : '/');
+        const safeRedirect =
+          redirect && redirect.startsWith('/') ? redirect : '/';
+        router.push(safeRedirect);
       }
     } catch (err: unknown) {
       console.error('Login error:', err);
-      setError(() => {
-        const status =
-          axios.isAxiosError(err) && err.response
-            ? err.response.status
-            : undefined;
+      if (axios.isAxiosError(err) && err.response) {
+        setError(() => {
+          const status =
+            axios.isAxiosError(err) && err.response
+              ? err.response.status
+              : undefined;
 
-        switch (status) {
-          case 401:
-            return 'Invalid credentials';
-          case 403:
-            return 'You are not authorized to access this page';
-          case 404:
-            return 'User not found';
-          default:
-            return 'An unknown error occurred. Please try again.';
-        }
-      });
+          switch (status) {
+            case 401:
+              return 'Invalid credentials';
+            case 403:
+              return 'You are not authorized to access this page';
+            case 404:
+              return 'User not found';
+            default:
+              return 'An unknown error occurred. Please try again.';
+          }
+        });
+      } else {
+        // Network error or other non-Axios error
+        setError('Network error. Please check your connection.');
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-full md:w-[70%] flex flex-col py-10 px-4 md:px-0">
-      <h1 className="text-3xl md:text-4xl font-bold text-center">
+    <div className="w-full md:w-[70%] flex flex-col md:py-10 px-4 md:px-0">
+      <h1 className="text-2xl md:text-4xl font-bold text-center">
         Welcome to Distress Sale
       </h1>
       <p className="text-sm text-[#585858] mt-2.5 text-center">
         Shop the quality and affordable items in the comfort of your home.
       </p>
-
-      <div className="w-full flex flex-col gap-y-1.5 mt-5">
-        <label className="">Email</label>
-        <input
-          className="p-3 px-4 rounded-[8px] border-primaryBorder border-[1px] outline-none bg-white"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          placeholder="Email Address"
-        />
-      </div>
-
-      <div className="w-full flex flex-col gap-y-1.5 mt-4">
-        <label className="">Password</label>
-        <div className="w-full flex gap-x-2 items-center px-4 py-3 rounded-[8px] border-primaryBorder border-[1px] bg-white">
+      <form>
+        <div className="w-full flex flex-col gap-y-1.5 mt-5">
+          <label className="">Email</label>
           <input
-            className="outline-none w-[95%]"
-            name="password"
-            value={formData.password}
+            className="p-3 px-4 rounded-[8px] border-primaryBorder border-[1px] outline-none bg-white"
+            type="email"
+            name="email"
+            autoComplete="on"
+            value={formData.email}
             onChange={handleInputChange}
-            type={!togglePasswordShow ? 'password' : 'text'}
-            placeholder="Password"
+            placeholder="Email Address"
           />
-          {!togglePasswordShow ? (
-            <FaRegEye
-              onClick={handlePasswordShow}
-              size={20}
-              className="cursor-pointer flex-shrink-0"
-            />
-          ) : (
-            <FaRegEyeSlash
-              onClick={handlePasswordShow}
-              className="cursor-pointer flex-shrink-0"
-              size={20}
-            />
-          )}
         </div>
-      </div>
 
-      <Link
-        href="/reset-password"
-        className="text-[#585858] ml-auto mt-4 hover:underline"
-      >
-        Forgot password?
-      </Link>
+        <div className="w-full flex flex-col gap-y-1.5 mt-4">
+          <label className="">Password</label>
+          <div className="w-full flex gap-x-2 items-center px-4 py-3 rounded-[8px] border-primaryBorder border-[1px] bg-white">
+            <input
+              className="outline-none w-[95%]"
+              name="password"
+              value={formData.password}
+              autoComplete="on"
+              onChange={handleInputChange}
+              type={!togglePasswordShow ? 'password' : 'text'}
+              placeholder="Password"
+            />
+            {!togglePasswordShow ? (
+              <FaRegEye
+                onClick={handlePasswordShow}
+                size={20}
+                className="cursor-pointer flex-shrink-0"
+              />
+            ) : (
+              <FaRegEyeSlash
+                onClick={handlePasswordShow}
+                className="cursor-pointer flex-shrink-0"
+                size={20}
+              />
+            )}
+          </div>
+        </div>
 
-      <button
-        onClick={handleLogin}
-        className="w-full py-3 flex items-center justify-center rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover text-sm"
-      >
-        {isLoading ? <Spinner /> : 'Login'}
-      </button>
-      {error && (
-        <>
-          <p className="text-red-500 text-sm text-center mt-2">{error}</p>
-        </>
-      )}
+        <Link
+          href="/reset-password"
+          className="text-[#585858] ml-auto mt-4 hover:underline"
+        >
+          Forgot password?
+        </Link>
+
+        <button
+          type="button"
+          onClick={handleLogin}
+          className="w-full py-3 flex items-center justify-center rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover text-sm"
+        >
+          {isLoading ? <Spinner /> : 'Login'}
+        </button>
+        {error && (
+          <>
+            <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+          </>
+        )}
+      </form>
 
       {/* <div className="mt-8 relative flex items-center justify-center">
         <p className="text-center bg-[#F5F5F5] px-3 z-10">Or Sign up with</p>

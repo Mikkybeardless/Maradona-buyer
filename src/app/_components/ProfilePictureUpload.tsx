@@ -26,12 +26,12 @@ export default function ProfilePictureUpload({
     const file = event.target.files?.[0];
     // send to api
     if (file) {
-      const formData = new FormData();
-      formData.append('profile_pic', file);
       try {
         onUpdating(true); // Call the onUpdate function to notify parent component
         setImage(URL.createObjectURL(file));
-        const response = await axios.put('/api/auth/profile', formData);
+        const response = await axios.put('/api/auth/profile', {
+          profile_pic: file,
+        });
         if (response.status === 200) {
           toast.success('Profile picture updated successfully');
         }

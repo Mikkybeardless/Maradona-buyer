@@ -9,10 +9,11 @@ import { TbMessage2 } from 'react-icons/tb';
 import { usePathname, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
 import { useSearchState } from '../hooks/useSearchState';
 import Image from 'next/image';
 import { FaRegBell } from 'react-icons/fa6';
+import { logout } from '../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 
 interface MobileNavProps {
   menuItems?: { name: string; href: string; icon: React.ElementType }[];
@@ -35,6 +36,7 @@ export default function MobileNav({
   const closeMenu = () => setIsOpen(false);
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -87,8 +89,8 @@ export default function MobileNav({
       setIsLoggingOut(true);
       const res = await axios.post('/api/auth/logout');
       if (res.status === 200) {
+        dispatch(logout());
         toast.success('Logout successful');
-        Cookies.remove('buyer_token');
         router.push('/login');
       }
     } catch (error) {
@@ -96,6 +98,7 @@ export default function MobileNav({
       console.error('Logout failed:', error);
     } finally {
       setIsLoggingOut(false);
+      closeMenu();
     }
   };
 

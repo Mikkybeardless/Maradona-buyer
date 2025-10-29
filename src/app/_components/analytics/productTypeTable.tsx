@@ -30,26 +30,34 @@ export const ProductTypeDetailsTable = ({
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
-              <tr
-                key={index}
-                className="border-b border-gray-100 hover:bg-gray-50"
-              >
-                <td className="py-3 px-2 font-medium text-gray-900 flex items-center">
-                  <Package className="w-4 h-4 mr-2 text-gray-500" />
-                  {item.product_type}
-                </td>
-                <td className="py-3 px-2 text-right text-gray-600">
-                  {formatNumber(parseInt(item.direct_sales_qty))}
-                </td>
-                <td className="py-3 px-2 text-right text-gray-600">
-                  {formatNumber(item.auction_sales_qty)}
-                </td>
-                <td className="py-3 px-2 text-right font-semibold text-gray-900">
-                  {formatCurrency(parseInt(item.total_spending))}
+            {data.length > 0 ? (
+              data.map((item, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-100 hover:bg-gray-50"
+                >
+                  <td className="py-3 px-2 font-medium text-gray-900 flex items-center">
+                    <Package className="w-4 h-4 mr-2 text-gray-500" />
+                    {item.product_type}
+                  </td>
+                  <td className="py-3 px-2 text-right text-gray-600">
+                    {formatNumber(parseInt(item.direct_sales_qty))}
+                  </td>
+                  <td className="py-3 px-2 text-right text-gray-600">
+                    {formatNumber(item.auction_sales_qty)}
+                  </td>
+                  <td className="py-3 px-2 text-right font-semibold text-gray-900">
+                    {formatCurrency(parseInt(item.total_spending))}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="py-4 px-2 text-center text-gray-500">
+                  No activity yet.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

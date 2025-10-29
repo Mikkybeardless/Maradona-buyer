@@ -11,7 +11,6 @@ import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import { LogoutModal } from '@/app/_components/modals/logoutModal';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { NoItem } from '@/app/_components/common/no-item';
 import { fetchFn } from '@/app/api/fetchFn';
@@ -20,7 +19,8 @@ import { DetailLoadingState } from '@/app/_components/common/detailsLoading';
 import { ErrorComponent } from '@/app/_components/common/error';
 import ProfilePictureUpload from '@/app/_components/ProfilePictureUpload';
 import { persistor } from '@/app/redux/store';
-// import { fetchFn } from '@/app/api/fetchFn';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/app/redux/slices/authSlice';
 type DetailState = 'info' | 'payment' | 'security';
 
 export default function Page() {
@@ -31,6 +31,7 @@ export default function Page() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   const [emailNotificationsEnabled, setEmailNotificationsEnabled] =
     useState(true);
   const [detailState, setDetailState] = useState<
@@ -42,7 +43,6 @@ export default function Page() {
   ];
   const dynamicStates: StateObject[] = [
     { state: 'info', label: 'Personal Info', id: 1 },
-    // { state: 'payment', label: 'Payment', id: 2 },
     { state: 'security', label: 'Security', id: 3 },
   ];
   const [isUpdatingPic, setIsUpdatingPic] = useState(false);
@@ -87,9 +87,9 @@ export default function Page() {
       setIsLoggingOut(true);
       const res = await axios.post('/api/auth/logout');
       if (res.status === 200) {
-        toast.success('Logout successful');
-        Cookies.remove('buyer_token');
+        dispatch(logout());
         await persistor.purge();
+        toast.success('Logout successful');
         router.push('/login');
       }
     } catch (error) {

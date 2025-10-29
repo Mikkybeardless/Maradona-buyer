@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const url = request.nextUrl;
+  // const url = request.nextUrl;
   const token = request.cookies.get('buyer_token')?.value;
 
-  if (!token) {
+  const { pathname, href } = request.nextUrl;
+
+  if (!token && pathname.startsWith('/dashboard')) {
     const loginUrl = new URL(
-      `/login?redirect=${encodeURIComponent(url.href)}`,
+      `/login?redirect=${encodeURIComponent(href)}`,
       request.url
     );
     return NextResponse.redirect(loginUrl);

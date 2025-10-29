@@ -119,7 +119,14 @@ export function appendField(
   }
 }
 
-export function reorderProducts(products) {
+export function reorderProducts(
+  products: (ApiProductDetails & {
+    id: number;
+    is_promoted: boolean;
+    belongs_to_admin: boolean;
+    seller: { name: string };
+  })[]
+) {
   // Separate promoted and non-promoted
   const promoted = products.filter((p) => p.is_promoted);
   const others = products.filter((p) => !p.is_promoted);

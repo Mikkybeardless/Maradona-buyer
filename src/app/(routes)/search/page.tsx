@@ -9,7 +9,7 @@ import FilterSection from '@/app/_components/home/FilterSection';
 import { ProductCard } from '@/app/_components/home/cards/product';
 import { FiltersModal } from '@/app/_components/modals/MobileFilters';
 import { useSearchParams } from 'next/navigation';
-import { buildCleanParams } from '@/app/Utils/util';
+import { buildCleanParams, reorderProducts } from '@/app/Utils/util';
 import DefaultImage from '../../_assets/images/no-image.png';
 import { Spinner } from '@/app/_components/common/spinner';
 
@@ -37,6 +37,7 @@ export default function SearchFilterPage() {
   const [results, setResults] = useState<
     (ApiProductDetails & {
       id: number;
+      is_promoted: boolean;
       belongs_to_admin: boolean;
       seller: { name: string };
     })[]
@@ -79,20 +80,20 @@ export default function SearchFilterPage() {
       if (productType === 'sale') {
         const response = await fetch(`/api/products?${params}`);
         if (!response.ok) {
-          throw new Error('Search sale failed');
+          throw new Error('Search sale products failed');
         }
 
         const { data } = await response.json();
-        console.log('Search results:', data.data);
-        setResults(data.data || []);
+        const orderedData = reorderProducts(data.data || []);
+        setResults(orderedData);
       } else if (productType === 'auction') {
         const response = await fetch(`/api/auctions?${params}`);
         if (!response.ok) {
           throw new Error('Search auction failed');
         }
         const { data } = await response.json();
-        console.log('Search results:', data.data);
-        setResults(data.data || []);
+        const orderedData = reorderProducts(data.data || []);
+        setResults(orderedData);
       }
     } catch (err) {
       setError('Failed to fetch search results');

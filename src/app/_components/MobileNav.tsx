@@ -6,7 +6,7 @@ import { FaRegCircle, FaRegUser } from 'react-icons/fa6';
 import { CiWallet } from 'react-icons/ci';
 import { IoIosAnalytics } from 'react-icons/io';
 import { TbMessage2 } from 'react-icons/tb';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSearchState } from '../hooks/useSearchState';
@@ -35,7 +35,6 @@ export default function MobileNav({
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
   const pathname = usePathname();
-  const router = useRouter();
   const dispatch = useDispatch();
 
   // Close menu when clicking outside
@@ -91,7 +90,7 @@ export default function MobileNav({
       if (res.status === 200) {
         dispatch(logout());
         toast.success('Logout successful');
-        router.push('/login');
+        window.location.href = '/login';
       }
     } catch (error) {
       toast.error('logout failed. pls try again');

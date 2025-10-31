@@ -11,7 +11,6 @@ import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import { LogoutModal } from '@/app/_components/modals/logoutModal';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 import { NoItem } from '@/app/_components/common/no-item';
 import { fetchFn } from '@/app/api/fetchFn';
 import { formatIsoString } from '@/app/Utils/util';
@@ -30,7 +29,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const router = useRouter();
+
   const dispatch = useDispatch();
   const [emailNotificationsEnabled, setEmailNotificationsEnabled] =
     useState(true);
@@ -90,7 +89,8 @@ export default function Page() {
         dispatch(logout());
         await persistor.purge();
         toast.success('Logout successful');
-        router.push('/login');
+        // Navigate via full page load to ensure the Redux store is fully reset
+        window.location.href = '/login';
       }
     } catch (error) {
       toast.error('logout failed. pls try again');

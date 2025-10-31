@@ -4,14 +4,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 export default function DashboardSideNav() {
   const pathName = usePathname();
   const [loggingOut, setIsLoggingOut] = useState(false);
-  const router = useRouter();
+
   const NavItems = [
     { name: 'Overview', href: 'overview' },
 
@@ -35,7 +34,7 @@ export default function DashboardSideNav() {
         toast.success('Logout successful');
         Cookies.remove('buyer_token');
         await persistor.purge();
-        router.push('/login');
+        window.location.href = '/login';
       }
     } catch (error) {
       toast.error('logout failed. pls try again');

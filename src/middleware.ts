@@ -2,13 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('buyer_token')?.value;
-  const { pathname, href } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
-  // Redirect to login if unauthenticated on dashboard routes
+  // Only check auth for dashboard routes
   if (!token && pathname.startsWith('/dashboard')) {
+    // Use pathname + search instead of full href
+    const redirectPath = pathname + search;
     const loginUrl = new URL(
-      `/login?redirect=${encodeURIComponent(href)}`,
-      request.nextUrl.origin
+      `/login?redirect=${encodeURIComponent(redirectPath)}`,
+      request.url
     );
     return NextResponse.redirect(loginUrl);
   }
@@ -17,5 +19,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/dashboard/:path*',
+    // Optionally add the root dashboard path explicitly
+    '/dashboard',
+  ],
 };

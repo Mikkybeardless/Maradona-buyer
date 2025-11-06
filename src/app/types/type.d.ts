@@ -81,7 +81,7 @@ declare interface Auction {
   incremental_bid_amount: string;
   minimum_bid_increment: string;
   auto_extend: string;
-  data?: Record<string, string | number>[];
+  data?: { key: string; value: string } | null;
 }
 
 declare interface ApiAuction extends Auction, ApiRes {

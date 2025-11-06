@@ -118,20 +118,7 @@ export const PlaceBidModal = ({
       return toast.warn('please enter a bid amount');
     }
     try {
-      const token = Cookies.get('buyer_token');
-
-      if (!token) {
-        toast.error('You must be logged in to Place a bid.');
-        const actionData = {
-          name: 'postLoginBid',
-          bid,
-        };
-        Cookies.set(`${actionData.name}`, JSON.stringify(actionData));
-        const currentPath = window.location.pathname + window.location.search;
-        router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
-        // handleRestrictedAction(actionData);
-        return;
-      }
+      await axios.get('/api/auth/check-auth');
       const response = await axios.post('/api/auctions/place-bid', {
         productId,
         amount: bid,
@@ -141,8 +128,22 @@ export const PlaceBidModal = ({
         setIsModalOpen(false);
       }
     } catch (error) {
-      toast.error('An unknown error occured, Please try again later');
       console.error('Bid submission error:', error);
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 401) {
+          toast.error('You must be logged in to place a bid.');
+          const actionData = {
+            name: 'postLoginBid',
+            bid,
+          };
+          Cookies.set(`${actionData.name}`, JSON.stringify(actionData));
+          const currentPath = window.location.pathname + window.location.search;
+          router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+        }
+      } else {
+        // Network error or other non-Axios error
+        toast.error('Network error. Please check your connection.');
+      }
     } finally {
       setLoading(false);
       setBid('');

@@ -211,7 +211,7 @@ export default function Details({
                   </button>
                 </div>
 
-                <p className="flex gap-10 text-sm md:text-base items-center">
+                <div className="flex gap-10 text-sm md:text-base items-center">
                   <span className="text-darkBlue font-semibold w-24 md:w-20">
                     Pick up:
                   </span>{' '}
@@ -223,9 +223,9 @@ export default function Details({
                       see details
                     </button>
                   </div>
-                </p>
+                </div>
 
-                <p className="flex gap-10 text-sm md:text-base  items-center">
+                <div className="flex gap-10 text-sm md:text-base  items-center">
                   <span className="text-darkBlue font-semibold w-20">
                     Shipping:
                   </span>{' '}
@@ -235,7 +235,7 @@ export default function Details({
                     </span>
                     <span className="">Located in: Lekki, Lagos, Nigeria</span>
                   </div>
-                </p>
+                </div>
 
                 <p className="flex gap-10 text-sm md:text-base  items-center">
                   <span className="text-darkBlue font-semibold w-20">
@@ -244,7 +244,7 @@ export default function Details({
                   <span className="text-darkBlue">varies</span>
                 </p>
 
-                <p className="flex gap-10 text-sm md:text-base  items-center">
+                <div className="flex gap-10 text-sm md:text-base  items-center">
                   <span className="text-darkBlue font-semibold w-20">
                     Returns:
                   </span>{' '}
@@ -256,7 +256,7 @@ export default function Details({
                       Learn more
                     </button>
                   </div>
-                </p>
+                </div>
 
                 <p className="flex gap-12 md:gap-10 text-sm md:text-base  items-center">
                   <span className="text-darkBlue font-semibold w-24 md:w-20">
@@ -305,17 +305,13 @@ export default function Details({
           />
           {detailState === 'about' ? (
             <div className="flex flex-col md:flex-row w-full gap-10">
-              {product.data?.length !== 0 && (
+              {product.data !== null && (
                 <div className="flex md:flex-row flex-col gap-1 md:items-center  font-normal text-sm text-[#454545] mb-[15px]">
-                  {product.data?.slice(0, 3).map((item, index) => (
-                    <p
-                      key={index}
-                      className="flex gap-1 text-xs md:text-sm items-center"
-                    >
-                      <GoDotFill className="text-primaryOrange" />
-                      <span>{Object.values(item)[0]}</span>
-                    </p>
-                  ))}
+                  <p className="flex gap-1 text-xs md:text-sm items-center">
+                    <GoDotFill className="text-primaryOrange" />
+                    <span>{product.data?.key}: </span>
+                    <span>{product.data?.value}</span>
+                  </p>
                 </div>
               )}
             </div>

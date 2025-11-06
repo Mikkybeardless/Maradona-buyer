@@ -34,20 +34,8 @@ export const PurchaseEnqModal = ({
     e.preventDefault();
     setLoading(true);
     try {
-      const token = Cookies.get('buyer_token');
+      await axios.get('/api/auth/check-auth');
 
-      if (!token) {
-        toast.error('You must be logged in to make an enquiry.');
-        const actionData = {
-          name: 'postLoginEnquiry',
-          message,
-        };
-        Cookies.set(`${actionData.name}`, JSON.stringify(actionData));
-        const currentPath = window.location.pathname + window.location.search;
-        router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
-        // handleRestrictedAction(actionData);
-        return;
-      }
       // Simulate an API call
       const response = await axios.post(`/api/purchase-enq/${productId}`, {
         message,
@@ -58,8 +46,22 @@ export const PurchaseEnqModal = ({
         setIsModalOpen(false);
       }
     } catch (error) {
-      toast.error('An unknown error occured, Please try again later');
       console.error('Error submitting enquiry:', error);
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 401) {
+          toast.error('You must be logged in to make an enquiry.');
+          const actionData = {
+            name: 'postLoginEnquiry',
+            message,
+          };
+          Cookies.set(`${actionData.name}`, JSON.stringify(actionData));
+          const currentPath = window.location.pathname + window.location.search;
+          router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+        }
+      } else {
+        // Network error or other non-Axios error
+        toast.error('Network error. Please check your connection.');
+      }
     } finally {
       setLoading(false);
     }

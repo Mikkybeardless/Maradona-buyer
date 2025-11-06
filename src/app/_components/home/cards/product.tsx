@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 interface ProductCardProps {
   product: ApiProductDetails & { id: number };
@@ -21,7 +22,7 @@ export const ProductCard = ({
   isAdminProduct,
 }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-
+  const router = useRouter();
   const handleToggleFavorite = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -29,12 +30,21 @@ export const ProductCard = ({
     e.stopPropagation(); // stop the click from reaching the Link
     setIsFavorite(!isFavorite);
     try {
+      // check auths
+      await axios.get('/api/auth/check-auth');
       await axios.post(`/api/toggle-like/product/${product.id}`);
       toast.success('Favorite status updated');
     } catch (error) {
       setIsFavorite(isFavorite); // revert state on error
-      console.error('Error toggling favorite:', error);
-      toast.error('Failed to toggle favorite');
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 401) {
+          const currentPath = window.location.pathname + window.location.search;
+          router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+        }
+      } else {
+        // Network error or other non-Axios error
+        toast.error('Network error. Please check your connection.');
+      }
     }
   };
   return (

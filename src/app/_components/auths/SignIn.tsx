@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -24,7 +24,6 @@ export default function SignIn({ setSignUp }: SignUpProps) {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   function handlePasswordShow() {
@@ -60,7 +59,8 @@ export default function SignIn({ setSignUp }: SignUpProps) {
         const redirect = searchParams.get('redirect');
         const safeRedirect =
           redirect && redirect.startsWith('/') ? redirect : '/';
-        router.push(safeRedirect);
+        // ✅ Use full page reload instead of client-side navigation
+        window.location.href = safeRedirect;
       }
     } catch (err: unknown) {
       console.error('Login error:', err);

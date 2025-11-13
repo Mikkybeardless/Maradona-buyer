@@ -49,10 +49,10 @@ export const ProductCard = ({
   };
   return (
     <Link href={`/product/${product?.id || 1}`}>
-      <div className="w-full flex flex-col ">
-        <div className="bg-white flex flex-col w-full rounded-md  mb-4">
+      <div className="w-full flex flex-col justify-between h-full ">
+        <div className=" flex flex-col w-full rounded-md  mb-4">
           {/* img */}
-          <div className="w-full relative">
+          <div className="w-full bg-white relative">
             <Image
               src={`${imageUrl}`}
               alt={product.name}
@@ -72,18 +72,17 @@ export const ProductCard = ({
               )}
             </button>
           </div>
-        </div>
-
-        <div className="w-full space-y-2">
           <p className="text-xs">
             {isAdminProduct
               ? 'Listed by Marathona real estate solutions'
               : `Listed by ${seller}`}
           </p>
-          <h3 className="text-darkBlue font-bold text-sm md:text-2xl">
+          <h3 className="text-darkBlue truncate font-bold text-sm md:text-xl">
             {product.name}
           </h3>
+        </div>
 
+        <div className="w-full space-y-2">
           {product?.type === 'CAR' && (
             <div className="flex md:flex-row flex-col gap-1 md:items-center  font-normal text-sm text-[#454545] mb-[15px]">
               <p className="flex gap-1 text-xs md:text-sm items-center">

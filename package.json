@@ -25,6 +25,7 @@
     "axios": "^1.10.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.18",
+    "dompurify": "^3.3.0",
     "iconsax-react": "^0.0.8",
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.1",

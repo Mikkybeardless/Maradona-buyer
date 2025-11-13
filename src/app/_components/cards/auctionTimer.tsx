@@ -77,11 +77,11 @@ export const AuctionTimer = ({
 
   return (
     <div
-      className={`flex bg-[#F0F0F0] w-full ${closedToEnd ? 'text-[#585858]' : 'text-red-500'} items-center justify-around px-4 py-2 gap-2`}
+      className={`flex bg-[#F0F0F0] w-full ${closedToEnd ? 'text-red-500' : 'text-[#585858]'} items-center justify-around px-2.5 md:px-4 py-2 gap-2`}
     >
-      <PiHourglassLowDuotone size={30} />
+      <PiHourglassLowDuotone className="size-[20px] md:size-[30px]" />
 
-      <div className="flex items-center text-sm md:text-lg flex-col">
+      <div className="flex items-center text-xs md:text-lg flex-col">
         <span className="font-bold">{formatTime(timeLeft.days)}</span>
         <span className="text-xs">Days</span>
       </div>
@@ -90,21 +90,21 @@ export const AuctionTimer = ({
 
       <div className="flex items-center text-sm md:text-lg flex-col">
         <span className="font-bold">{formatTime(timeLeft.hours)}</span>
-        <span className="text-xs">Hours</span>
+        <span className="text-[10px] md:text-xs">Hours</span>
       </div>
 
       <span className="md:text-3xl font-bold">:</span>
 
-      <div className="flex items-center text-sm md:text-lg flex-col">
+      <div className="flex items-center text-xs md:text-lg flex-col">
         <span className="font-bold">{formatTime(timeLeft.minutes)}</span>
-        <span className="text-xs">Mins</span>
+        <span className="text-[10px] md:text-xs">Mins</span>
       </div>
 
       <span className="md:text-3xl font-bold">:</span>
 
-      <div className="flex items-center text-sm md:text-lg flex-col">
+      <div className="flex items-center text-xs md:text-lg flex-col">
         <span className="font-bold">{formatTime(timeLeft.seconds)}</span>
-        <span className="text-xs">Secs</span>
+        <span className="text-[10px] md:text-xs">Secs</span>
       </div>
     </div>
   );

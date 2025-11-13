@@ -140,3 +140,7 @@ export function reorderProducts(
   // Merge them back: promoted first, then others
   return [...promoted, ...others];
 }
+
+export function stripOuterP(html: string): string {
+  return html.replace(/^<p[^>]*>([\s\S]*?)<\/p>$/i, '$1');
+}

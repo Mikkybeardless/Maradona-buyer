@@ -18,10 +18,11 @@ import DynamicNav, { StateObject } from '../common/DetailNav';
 import { HiOutlineMegaphone } from 'react-icons/hi2';
 import { SellerInfoModal } from '../modals/sellerInfoModal';
 import { PurchaseEnqModal } from '../modals/purchaseEnqModal';
-import { formatAmount, formatIsoString } from '@/app/Utils/util';
+import { formatAmount, formatIsoString, stripOuterP } from '@/app/Utils/util';
 import { DetailLoadingState } from '../common/detailsLoading';
 import { RenderDetailedDesc } from './renderDetailedDesc';
 import { ErrorComponent } from '../common/error';
+import DOMPurify from 'dompurify';
 
 type DetailState = 'about' | 'summary';
 
@@ -83,7 +84,12 @@ export default function Details({
                 <h2 className="font-bold text-2xl mb-2">{product.name}</h2>
               </div>
 
-              <p>{product.description}</p>
+              <p
+                className="opacity-70 text-sm"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(stripOuterP(product.description)),
+                }}
+              />
               {product.type === 'CAR' && (
                 <div className="flex items-center text-xs gap-2">
                   <p className="flex items-center gap-1">
@@ -258,19 +264,19 @@ export default function Details({
                   </button>
                 </div>
 
-                <p className="flex gap-10 text-sm md:text-base items-center">
+                <div className="flex gap-10 text-sm md:text-base items-center">
                   <span className="text-darkBlue font-semibold w-24 md:w-20">
                     Pick up:
                   </span>{' '}
                   <div className="flex flex-col items-start">
-                    <span className="text-darkBlue">
+                    <p className="text-darkBlue">
                       Buyer responsible for vehicle pick-up or shipping.
-                    </span>
+                    </p>
                     <button className="text-darkBlue text-xs  underline font-semibold">
                       see details
                     </button>
                   </div>
-                </p>
+                </div>
 
                 <p className="flex gap-10 text-sm md:text-base  items-center">
                   <span className="text-darkBlue font-semibold w-20">
